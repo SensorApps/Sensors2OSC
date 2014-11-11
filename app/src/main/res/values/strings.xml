@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Sensors2OSC</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="host">Host</string>
+    <string name="communication">Communication</string>
+    <string name="port">Port</string>
+    <string name="sensors">Sensors</string>
+    <string name="sensitity">Sensitivity</string>
+    <string name="title_activity_about">About</string>
+    <string name="action_about">About</string>
+    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2014</string>
+    <string name="about_buglinks">Please report bugs on &lt;a href=&quot;https://github.com/SensorApps/SensOSC/issues&quot;>GitHub&lt;/a> or send an email to &lt;a href=&quot;mailto:sensosc-bugs@ix.residuum.org&quot;">sensosc-bugs@ix.residuum.org&lt;/a>.</string>
+    <string name="about_license">License</string>
+    <string name="about_mit_license_1">Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</string>
+    <string name="about_mit_license_2">The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</string>
+    <string name="about_mit_license_3"><![CDATA[THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.]]></string>
+    <string name="about_components">External Components</string>
+    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="sensor_accelerometer">Accelerometer</string>
+    <string name="sensor_magnetic_field">Magnetic Field</string>
+    <string name="sensor_orientation">Orientation</string>
+    <string name="sensor_gyroscope">Gyroscope</string>
+    <string name="sensor_light">Light</string>
+    <string name="sensor_pressure">Pressure</string>
+    <string name="sensor_temperature">Temperature</string>
+    <string name="sensor_proximity">Proximity</string>
+    <string name="sensor_gravity">Gravity</string>
+    <string name="sensor_linear_acceleration">Linear Acceleration</string>
+    <string name="sensor_rotation_vector">Rotation Vector</string>
+    <string name="sensor_relative_humidity">Relative Humidity</string>
+    <string name="sensor_absolute_humidity">Absolute Humidity</string>
+    <string name="sensor_magnetic_field_uncalibrated">Magnetic Field (uncalibrated)</string>
+    <string name="sensor_game_rotation_vector">Rotation Vector (uncalibrated)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroscope (Uncalibrated)</string>
+    <string name="send_data">Send data</string>
+
+</resources>
