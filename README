@@ -1,0 +1,6 @@
+Sensors2OSC
+-----------
+
+Android app for sending sensor data via Open Sound Control (OSC) [0].
+
+[0] http://opensoundcontrol.org/
