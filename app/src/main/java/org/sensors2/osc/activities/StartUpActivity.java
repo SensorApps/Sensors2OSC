@@ -18,10 +18,10 @@ import android.widget.CompoundButton;
 import org.sensors2.common.sensors.DataDispatcher;
 import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
-import org.sensors2.common.sensors.SensorFactory;
+import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.osc.R;
 import org.sensors2.osc.communication.OscConfiguration;
-import org.sensors2.osc.communication.Sender;
+import org.sensors2.osc.communication.OscDispatcher;
 import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.SensorGroupFragment;
 import org.sensors2.osc.sensors.Settings;
@@ -33,8 +33,8 @@ import java.util.List;
 public class StartUpActivity extends FragmentActivity implements SensorEventListener, SensorActivity {
 
 	private Settings settings;
-	private SensorFactory sensorFactory;
-	private Sender dispatcher;
+	private SensorCommunication sensorFactory;
+	private OscDispatcher dispatcher;
 	private SensorManager sensorManager;
 	private CompoundButton activeButton;
 
@@ -46,9 +46,9 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.settings = this.loadSettings();
-		this.dispatcher = new Sender();
+		this.dispatcher = new OscDispatcher();
 		this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		this.sensorFactory = new SensorFactory(this);
+		this.sensorFactory = new SensorCommunication(this);
 
 		setContentView(R.layout.activity_start_up);
 		this.activeButton = (CompoundButton) this.findViewById(R.id.active);

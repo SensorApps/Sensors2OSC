@@ -29,9 +29,9 @@ public class AboutActivity extends Activity {
 		TextView javaOsc = (TextView) findViewById(R.id.javaosc_links);
 		javaOsc.setMovementMethod(LinkMovementMethod.getInstance());
 		javaOsc.setText(Html.fromHtml(getResources().getString(R.string.about_license_javaosc)));
-		TextView buglinks = (TextView) findViewById(R.id.buglinks);
-		buglinks.setMovementMethod(LinkMovementMethod.getInstance());
-		buglinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
+		TextView bugLinks = (TextView) findViewById(R.id.buglinks);
+		bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
+		bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 

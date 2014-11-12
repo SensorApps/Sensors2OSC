@@ -9,11 +9,11 @@ import java.util.List;
 /**
  * Created by thomas on 07.11.14.
  */
-public class Sender implements DataDispatcher {
+public class OscDispatcher implements DataDispatcher {
 
 	private List<SensorConfiguration> sensorConfigurations;
 
-	public Sender() {
+	public OscDispatcher() {
 		this.sensorConfigurations = new ArrayList<SensorConfiguration>();
 	}
 
