@@ -83,7 +83,7 @@ public class Parameters implements org.sensors2.common.sensors.Parameters {
 				break;
 			// 10 int TYPE_LINEAR_ACCELERATION A constant describing a linear acceleration sensor type.
 			case 10:
-				this.dimensions = 5;
+				this.dimensions = 3;
 				this.name = getString(R.string.sensor_linear_acceleration, applicationContext);
 				this.oscPrefix = "linearacceleration/";
 				break;
