@@ -55,25 +55,25 @@ public class Parameters implements org.sensors2.common.sensors.Parameters {
 			case 5:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_light, applicationContext);
-				this.oscPrefix = "light/";
+				this.oscPrefix = "light";
 				break;
 			// 6 int TYPE_PRESSURE A constant describing a pressure sensor type
 			case 6:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_pressure, applicationContext);
-				this.oscPrefix = "pressure/";
+				this.oscPrefix = "pressure";
 				break;
 			// 7 int TYPE_TEMPERATURE This constant was deprecated in API level 14. use Sensor.TYPE_AMBIENT_TEMPERATURE instead.
 			case 7:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_temperature, applicationContext);
-				this.oscPrefix = "temperature/";
+				this.oscPrefix = "temperature";
 				break;
 			// 8 int TYPE_PROXIMITY A constant describing a proximity sensor type.
 			case 8:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_proximity, applicationContext);
-				this.oscPrefix = "proximity/";
+				this.oscPrefix = "proximity";
 				break;
 			// 9 int TYPE_GRAVITY A constant describing a gravity sensor type.
 			case 9:
@@ -97,13 +97,13 @@ public class Parameters implements org.sensors2.common.sensors.Parameters {
 			case 12:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_relative_humidity, applicationContext);
-				this.oscPrefix = "relativehumidity/";
+				this.oscPrefix = "relativehumidity";
 				break;
 			// 13 int TYPE_AMBIENT_TEMPERATURE A constant describing an ambient temperature sensor type
 			case 13:
 				this.dimensions = 1;
 				this.name = getString(R.string.sensor_absolute_humidity, applicationContext);
-				this.oscPrefix = "absolutehumidity/";
+				this.oscPrefix = "absolutehumidity";
 				break;
 			// 14 int TYPE_MAGNETIC_FIELD_UNCALIBRATED A constant describing an uncalibrated magnetic field sensor type.
 			case 14:
