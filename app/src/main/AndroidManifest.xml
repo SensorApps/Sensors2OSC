@@ -4,7 +4,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/sensors2osc"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
@@ -35,10 +35,4 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-feature android:name="android.hardware.sensor.accelerometer"/>
-    <uses-feature android:name="android.hardware.sensor.barometer"/>
-    <uses-feature android:name="android.hardware.sensor.compass"/>
-    <uses-feature android:name="android.hardware.sensor.gyroscope"/>
-    <uses-feature android:name="android.hardware.sensor.light"/>
-    <uses-feature android:name="android.hardware.sensor.proximity"/>
 </manifest>
