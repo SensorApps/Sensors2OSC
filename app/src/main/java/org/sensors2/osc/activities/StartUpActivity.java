@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -30,13 +31,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StartUpActivity extends FragmentActivity implements SensorEventListener, SensorActivity {
+public class StartUpActivity extends FragmentActivity implements SensorEventListener, SensorActivity, CompoundButton.OnCheckedChangeListener {
 
 	private Settings settings;
 	private SensorCommunication sensorFactory;
 	private OscDispatcher dispatcher;
 	private SensorManager sensorManager;
 	private CompoundButton activeButton;
+	private PowerManager.WakeLock wakeLock;
 
 	public Settings getSettings() {
 		return this.settings;
@@ -45,13 +47,16 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_start_up);
+
 		this.settings = this.loadSettings();
 		this.dispatcher = new OscDispatcher();
 		this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 		this.sensorFactory = new SensorCommunication(this);
+		this.wakeLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, this.getLocalClassName());
 
-		setContentView(R.layout.activity_start_up);
 		this.activeButton = (CompoundButton) this.findViewById(R.id.active);
+		this.activeButton.setOnCheckedChangeListener(this);
 		for (Parameters parameters : this.sensorFactory.getSensors()) {
 			this.CreateSensorFragments((org.sensors2.osc.sensors.Parameters) parameters);
 		}
@@ -111,6 +116,9 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	protected void onPause() {
 		super.onPause();
 		this.sensorFactory.onPause();
+		if (this.wakeLock.isHeld()) {
+			this.wakeLock.release();
+		}
 	}
 
 	@Override
@@ -119,6 +127,9 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 		this.loadSettings();
 		this.dispatcher.setSensitivity(this.settings.getSensitivity());
 		this.sensorFactory.onResume();
+		if (this.activeButton.isChecked() && !this.wakeLock.isHeld()) {
+			this.wakeLock.acquire();
+		}
 	}
 
 	public void CreateSensorFragments(org.sensors2.osc.sensors.Parameters parameters) {
@@ -148,14 +159,25 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 
 	@Override
 	public void onSensorChanged(SensorEvent sensorEvent) {
-		if (!activeButton.isChecked()) {
-			return;
+		if (activeButton.isChecked()) {
+			this.sensorFactory.dispatch(sensorEvent);
 		}
-		this.sensorFactory.dispatch(sensorEvent);
 	}
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// We do not care about that
+	}
+
+	@Override
+	public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+		if (isChecked) {
+			if (!this.wakeLock.isHeld()) {
+				this.wakeLock.acquire();
+			}
+		} else {
+			this.wakeLock.release();
+		}
+
 	}
 }
