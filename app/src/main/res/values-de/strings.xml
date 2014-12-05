@@ -27,8 +27,8 @@
     <string name="sensor_relative_humidity">Relative Feuchte</string>
     <string name="sensor_absolute_humidity">Absolute Feuchte</string>
     <string name="sensor_magnetic_field_uncalibrated">Magnetfeld (unkalibriert)</string>
-    <string name="sensor_game_rotation_vector">Drehvektor (uncalibriert)</string>
-    <string name="sensor_gyroscope_uncalibrated">Gyroskop (uncalibriert)</string>
+    <string name="sensor_game_rotation_vector">Drehvektor (unkalibriert)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroskop (unkalibriert)</string>
     <string name="send_data">Daten senden</string>
 
 </resources>
