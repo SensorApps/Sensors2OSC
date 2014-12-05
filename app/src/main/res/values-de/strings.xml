@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Einstellungen</string>
+    <string name="host">Host</string>
+    <string name="communication">Kommunikation</string>
+    <string name="port">Port</string>
+    <string name="sensors">Sensoren</string>
+    <string name="sensitity">Empfindlichkeit</string>
+    <string name="title_activity_about">Über die App</string>
+    <string name="action_about">Über die App</string>
+    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2014</string>
+    <string name="about_buglinks">Bugs bitte über &lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> oder per Email an &lt;a href=&quot;mailto:sensosc-bugs@ix.residuum.org&quot;">osc-bugs@sensors2.org&lt;/a> berichten. Wir kümmern uns dann darum.</string>
+    <string name="about_license">Lizenz</string>
+    <string name="about_components">Verwendete Komponenten</string>
+    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>. Die Lizenz der Komponente findet sich unter &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="sensor_accelerometer">Accelerometer</string>
+    <string name="sensor_magnetic_field">Magnetfeld</string>
+    <string name="sensor_orientation">Ausrichtung</string>
+    <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="sensor_light">Licht</string>
+    <string name="sensor_pressure">Druck</string>
+    <string name="sensor_temperature">Temperatur</string>
+    <string name="sensor_proximity">Näherung</string>
+    <string name="sensor_gravity">Schwerkraft</string>
+    <string name="sensor_linear_acceleration">Lineare Beschleunigung</string>
+    <string name="sensor_rotation_vector">Drehvektor</string>
+    <string name="sensor_relative_humidity">Relative Feuchte</string>
+    <string name="sensor_absolute_humidity">Absolute Feuchte</string>
+    <string name="sensor_magnetic_field_uncalibrated">Magnetfeld (unkalibriert)</string>
+    <string name="sensor_game_rotation_vector">Drehvektor (uncalibriert)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroskop (uncalibriert)</string>
+    <string name="send_data">Daten senden</string>
+
+</resources>
