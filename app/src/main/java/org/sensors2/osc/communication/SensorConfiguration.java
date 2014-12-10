@@ -9,16 +9,15 @@ public class SensorConfiguration {
 	private int sensorType;
 	private String oscParam;
 	private float currentValue;
-	private float sensitivity;
 
 	public SensorConfiguration() {
 	}
 
 	public boolean sendingNeeded(float value) {
-		if (!send) {
+		if (!this.send) {
 			return false;
 		}
-		if (Math.abs(value - this.currentValue) < sensitivity){
+		if (Math.abs(value - this.currentValue) != 0){
 			return  false;
 		}
 		this.currentValue = value;
@@ -30,19 +29,15 @@ public class SensorConfiguration {
 	}
 
 	public int getIndex() {
-		return index;
+		return this.index;
 	}
 
 	public int getSensorType() {
-		return sensorType;
+		return this.sensorType;
 	}
 
 	public String getOscParam() {
-		return oscParam;
-	}
-
-	public void setSensitivity(float sensitivity) {
-		this.sensitivity = sensitivity;
+		return this.oscParam;
 	}
 
 	public void setOscParam(String oscParam) {

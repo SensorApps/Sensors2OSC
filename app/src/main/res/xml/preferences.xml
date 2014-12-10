@@ -14,12 +14,12 @@
             android:persistent="true"
             android:title="@string/port"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/sensors">
+   <!-- <PreferenceCategory android:title="@string/sensors">
         <org.sensors2.common.preferences.ExtendedEditTextPreference
             android:defaultValue="0"
             android:key="pref_general_sensitivity"
             android:numeric="decimal"
             android:persistent="true"
             android:title="@string/sensitity"/>
-    </PreferenceCategory>
+    </PreferenceCategory>-->
 </PreferenceScreen>

@@ -21,12 +21,6 @@ public class OscDispatcher implements DataDispatcher {
 		this.sensorConfigurations.add(sensorConfiguration);
 	}
 
-	public void setSensitivity(float sensitivity){
-		for(SensorConfiguration config : this.sensorConfigurations){
-			config.setSensitivity(sensitivity);
-		}
-	}
-
 	@Override
 	public void dispatch(Measurement sensorData) {
 		int length = sensorData.getValues().length;

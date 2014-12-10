@@ -125,7 +125,6 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	protected void onResume() {
 		super.onResume();
 		this.loadSettings();
-		this.dispatcher.setSensitivity(this.settings.getSensitivity());
 		this.sensorFactory.onResume();
 		if (this.activeButton.isChecked() && !this.wakeLock.isHeld()) {
 			this.wakeLock.acquire();
