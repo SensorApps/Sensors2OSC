@@ -26,6 +26,9 @@ public class AboutActivity extends Activity {
 		}
 		TextView nameAndVersion = (TextView) findViewById(R.id.name_and_version);
 		nameAndVersion.setText(versionString);
+		TextView copyright = (TextView) findViewById(R.id.copyright_links);
+		copyright.setMovementMethod(LinkMovementMethod.getInstance());
+		copyright.setText(Html.fromHtml(getResources().getString(R.string.about_copyright)));
 		TextView javaOsc = (TextView) findViewById(R.id.javaosc_links);
 		javaOsc.setMovementMethod(LinkMovementMethod.getInstance());
 		javaOsc.setText(Html.fromHtml(getResources().getString(R.string.about_license_javaosc)));
