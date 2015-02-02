@@ -27,6 +27,7 @@ public class SensorGroupFragment extends Fragment {
 		View v = inflater.inflate(R.layout.sensor_group, null);
 		TextView groupName = (TextView) v.findViewById(R.id.group_name);
 		groupName.setText(name);
+		((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString("oscPrefix"));
 
 		switch (dimensions) {
 			case 1:

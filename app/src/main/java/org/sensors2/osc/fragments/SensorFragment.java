@@ -16,13 +16,13 @@ public class SensorFragment extends Fragment {
 	private CompoundButton activeButton;
 	private SensorConfiguration sensorConfiguration;
 
-	public SensorFragment(){
+	public SensorFragment() {
 		super();
 		this.sensorConfiguration = new SensorConfiguration();
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.single_sensor, null);
 		Bundle args = this.getArguments();
 		this.sensorConfiguration.setIndex(args.getInt("index", 0));
