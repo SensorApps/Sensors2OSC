@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.CompoundButton;
 
 import org.sensors2.common.sensors.DataDispatcher;
@@ -174,8 +175,10 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 			if (!this.wakeLock.isHeld()) {
 				this.wakeLock.acquire();
 			}
+			getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		} else {
 			this.wakeLock.release();
+			getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		}
 
 	}
