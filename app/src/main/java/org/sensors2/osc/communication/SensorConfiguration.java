@@ -17,7 +17,7 @@ public class SensorConfiguration {
 		if (!this.send) {
 			return false;
 		}
-		if (Math.abs(value - this.currentValue) != 0){
+		if (Math.abs(value - this.currentValue) == 0){
 			return  false;
 		}
 		this.currentValue = value;
