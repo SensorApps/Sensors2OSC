@@ -12,9 +12,9 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 	private final String oscPrefix;
 	private final String name;
 
-	public Parameters(int sensorType, Context applicationContext){
+	public Parameters(int sensorType, Context applicationContext) {
 		super(sensorType);
-		switch (sensorType){
+		switch (sensorType) {
 			// 1 int TYPE_ACCELEROMETER A constant describing an accelerometer sensor type.
 			case 1:
 				this.name = getString(R.string.sensor_accelerometer, applicationContext);

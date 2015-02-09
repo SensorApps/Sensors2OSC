@@ -12,9 +12,11 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-			addPreferencesFromResource(org.sensors2.osc.R.xml.preferences);
-			addPreferencesFromResource(org.sensors2.common.R.xml.common_preferences);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		addPreferencesFromResource(org.sensors2.osc.R.xml.preferences);
+		addPreferencesFromResource(org.sensors2.common.R.xml.common_preferences);
+		if (android.os.Build.VERSION.SDK_INT >= 11) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override

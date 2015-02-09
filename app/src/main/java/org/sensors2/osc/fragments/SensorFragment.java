@@ -28,7 +28,7 @@ public class SensorFragment extends Fragment {
 		this.sensorConfiguration.setIndex(args.getInt("index", 0));
 		this.sensorConfiguration.setSensorType(args.getInt("sensorType"));
 		this.sensorConfiguration.setOscParam(args.getString("oscPrefix"));
-		String name = args.getString("name", null);
+		String name = args.getString("name");
 
 		if (name != null) {
 			view.findViewById(R.id.name).setVisibility(View.VISIBLE);

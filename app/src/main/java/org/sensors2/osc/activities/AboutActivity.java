@@ -35,7 +35,9 @@ public class AboutActivity extends Activity {
 		TextView bugLinks = (TextView) findViewById(R.id.buglinks);
 		bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
 		bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		if (android.os.Build.VERSION.SDK_INT >= 11) {
+			getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
 	}
 
 	@Override
