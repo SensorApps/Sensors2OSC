@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 14
+    compileSdkVersion 19
     buildToolsVersion "20.0.0"
 
     defaultConfig {
         applicationId "org.sensors2.osc"
-        minSdkVersion 14
-        targetSdkVersion 14
+        minSdkVersion 8
+        targetSdkVersion 19
         versionCode 1
         versionName "0.1.0"
     }
