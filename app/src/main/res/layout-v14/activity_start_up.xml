@@ -9,7 +9,7 @@
               android:paddingTop="@dimen/activity_vertical_margin"
               tools:context=".activities.StartUpActivity">
 
-    <ToggleButton
+    <Switch
         android:id="@+id/active"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
