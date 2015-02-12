@@ -2,6 +2,7 @@ package org.sensors2.osc.sensors;
 
 import java.util.Hashtable;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by thomas on 12.02.15.
@@ -29,7 +30,7 @@ public class SensorDimensions {
 		table.put(3, "dX");
 		table.put(4, "dY");
 		table.put(5, "dZ");
-		return table;
+		return new TreeMap<Integer, String>(table);
 	}
 
 	private static Map<Integer, String> Create4D() {
@@ -38,7 +39,7 @@ public class SensorDimensions {
 		table.put(1, "Y");
 		table.put(2, "Z");
 		table.put(3, "cos");
-		return table;
+		return new TreeMap<Integer, String>(table);
 	}
 
 	private static Map<Integer, String> Create3D() {
@@ -46,12 +47,12 @@ public class SensorDimensions {
 		table.put(0, "X");
 		table.put(1, "Y");
 		table.put(2, "Z");
-		return table;
+		return new TreeMap<Integer, String>(table);
 	}
 
 	private static Map<Integer, String> Create1D() {
 		Hashtable<Integer, String> table = new Hashtable<Integer, String>();
 		table.put(0, "");
-		return table;
+		return new TreeMap<Integer, String>(table);
 	}
 }
