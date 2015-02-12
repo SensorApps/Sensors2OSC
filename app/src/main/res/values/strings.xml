@@ -46,5 +46,9 @@ THE SOFTWARE.]]></string>
     <string name="sensor_game_rotation_vector">Rotation Vector (uncalibrated)</string>
     <string name="sensor_gyroscope_uncalibrated">Gyroscope (uncalibrated)</string>
     <string name="send_data">Send data</string>
+    <string name="action_guide">Help</string>
+    <string name="text_guide_headline">Help</string>
+    <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
+    <string name="text_available_sensors">Available Sensors</string>
 
 </resources>

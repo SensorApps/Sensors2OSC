@@ -66,7 +66,7 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	public List<Parameters> GetSensors(SensorManager sensorManager) {
 		List<Parameters> parameters = new ArrayList<Parameters>();
 		for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-			parameters.add(new org.sensors2.osc.sensors.Parameters(sensor.getType(), this.getApplicationContext()));
+			parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, this.getApplicationContext()));
 		}
 		return parameters;
 	}
@@ -100,15 +100,22 @@ public class StartUpActivity extends FragmentActivity implements SensorEventList
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int id = item.getItemId();
-		if (id == R.id.action_settings) {
-			Intent intent = new Intent(this, SettingsActivity.class);
-			startActivity(intent);
-			return true;
-		}
-		if (id == R.id.action_about) {
-			Intent intent = new Intent(this, AboutActivity.class);
-			startActivity(intent);
-			return true;
+		switch (id) {
+			case R.id.action_settings: {
+				Intent intent = new Intent(this, SettingsActivity.class);
+				startActivity(intent);
+				return true;
+			}
+			case R.id.action_guide: {
+				Intent intent = new Intent(this, GuideActivity.class);
+				startActivity(intent);
+				return true;
+			}
+			case R.id.action_about: {
+				Intent intent = new Intent(this, AboutActivity.class);
+				startActivity(intent);
+				return true;
+			}
 		}
 		return super.onOptionsItemSelected(item);
 	}

@@ -21,8 +21,6 @@ public class SettingsActivity extends PreferenceActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		int home = android.R.id.home;
-		int itemId = item.getItemId();
 		switch (item.getItemId()) {
 			// Respond to the action bar's Up/Home button
 			case android.R.id.home:

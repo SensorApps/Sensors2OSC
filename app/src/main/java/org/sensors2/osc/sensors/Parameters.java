@@ -2,6 +2,7 @@ package org.sensors2.osc.sensors;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.hardware.Sensor;
 
 import org.sensors2.osc.R;
 
@@ -12,9 +13,9 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 	private final String oscPrefix;
 	private final String name;
 
-	public Parameters(int sensorType, Context applicationContext) {
-		super(sensorType);
-		switch (sensorType) {
+	public Parameters(Sensor sensor, Context applicationContext) {
+		super(sensor);
+		switch (sensor.getType()) {
 			// 1 int TYPE_ACCELEROMETER A constant describing an accelerometer sensor type.
 			case 1:
 				this.name = getString(R.string.sensor_accelerometer, applicationContext);

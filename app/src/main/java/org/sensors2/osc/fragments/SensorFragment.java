@@ -30,7 +30,7 @@ public class SensorFragment extends Fragment {
 		this.sensorConfiguration.setOscParam(args.getString("oscPrefix"));
 		String name = args.getString("name");
 
-		if (name != null) {
+		if (name != "") {
 			view.findViewById(R.id.name).setVisibility(View.VISIBLE);
 			((TextView) view.findViewById(R.id.name)).setText(name);
 		}

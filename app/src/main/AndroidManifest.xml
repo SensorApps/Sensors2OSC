@@ -28,6 +28,14 @@
                 android:value=".activities.StartUpActivity"/>
         </activity>
         <activity
+            android:name=".activities.GuideActivity"
+            android:label="@string/action_guide"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.StartUpActivity"/>
+        </activity>
+        <activity
             android:name=".activities.AboutActivity"
             android:label="@string/action_about"
             android:screenOrientation="portrait">
