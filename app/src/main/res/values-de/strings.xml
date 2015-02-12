@@ -31,5 +31,11 @@
     <string name="sensor_gyroscope_uncalibrated">Gyroskop (unkalibriert)</string>
     <string name="send_data">Daten senden</string>
     <string name="action_guide">Hilfe</string>
+    <string name="text_available_sensors">verfügbare Sensoren</string>
+    <string name="text_guide">Abhängig von Ihrem Telefon stehen eine Reihe von Sensoren zur Verfügung</string>
+    <string name="text_guide_headline">Hilfe</string>
+    <string name="guide_max_range">Wertumfang</string>
+    <string name="guide_resolution">Auflösung</string>
+    <string name="guide_osc_address">OSC-Adressen:</string>
 
 </resources>

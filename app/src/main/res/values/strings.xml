@@ -50,5 +50,8 @@ THE SOFTWARE.]]></string>
     <string name="text_guide_headline">Help</string>
     <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
     <string name="text_available_sensors">Available Sensors</string>
+    <string name="guide_max_range">Max range</string>
+    <string name="guide_resolution">Resolution</string>
+    <string name="guide_osc_address">OSC addresses:</string>
 
 </resources>

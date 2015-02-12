@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/text_guide"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:visibility="visible"/>
+                android:visibility="visible"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
             <TextView
                 android:id="@+id/availSensorsHeadline"
@@ -44,12 +45,16 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="visible"/>
 
-            <TextView
-                android:id="@+id/textViewAvailableSensors"
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/sensor_group"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:visibility="visible"/>
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:padding="0dp"/>
 
         </LinearLayout>
     </ScrollView>
