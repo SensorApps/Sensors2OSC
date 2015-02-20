@@ -96,8 +96,28 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 				this.name = getString(R.string.sensor_gyroscope_uncalibrated, applicationContext);
 				this.oscPrefix = "gyroscopeuncalibrated/";
 				break;
-			default:
-				throw new IllegalArgumentException();
+
+            // TODO: fix the values for these sensors above
+            // TYPE_SIGNIFICANT_MOTION A constant describing a significant motion trigger sensor.
+            case 17:
+
+                // TYPE_STEP_DETECTOR A constant describing a step detector sensor.
+            case 18:
+
+                // TYPE_STEP_DETECTOR A constant describing a step detector sensor.
+            case 19:
+
+                // TYPE_GEOMAGNETIC_ROTATION_VECTOR A constant describing a geo-magnetic rotation vector.
+            case 20:
+
+                // TYPE_HEART_RATE A constant describing a heart rate monitor.
+            case 21:
+
+            default:
+                this.name = "Unavailable";
+                this.oscPrefix = "unavailable/";
+                break;
+            //throw new IllegalArgumentException();
 		}
 	}
 
