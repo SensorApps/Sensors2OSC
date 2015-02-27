@@ -96,23 +96,31 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 				this.name = getString(R.string.sensor_gyroscope_uncalibrated, applicationContext);
 				this.oscPrefix = "gyroscopeuncalibrated/";
 				break;
-
-            // TODO: fix the values for these sensors above
             // TYPE_SIGNIFICANT_MOTION A constant describing a significant motion trigger sensor.
             case 17:
-
-                // TYPE_STEP_DETECTOR A constant describing a step detector sensor.
+				this.name = getString(R.string.sensor_significant_motion, applicationContext);
+				this.oscPrefix = "significantmotion";
+				break;
+                // TYPE_STEP_COUNTER A constant describing a step detector sensor.
             case 18:
-
+				this.name = getString(R.string.sensor_step_counter, applicationContext);
+				this.oscPrefix = "stepdetector";
+				break;
                 // TYPE_STEP_DETECTOR A constant describing a step detector sensor.
             case 19:
-
+				this.name = getString(R.string.sensor_step_detector, applicationContext);
+				this.oscPrefix = "stepcounter";
+				break;
                 // TYPE_GEOMAGNETIC_ROTATION_VECTOR A constant describing a geo-magnetic rotation vector.
             case 20:
-
+				this.name = getString(R.string.sensor_geomagnetic_rotation_vector, applicationContext);
+				this.oscPrefix = "georotationvector/";
+				break;
                 // TYPE_HEART_RATE A constant describing a heart rate monitor.
             case 21:
-
+				this.name = getString(R.string.sensor_heartrate, applicationContext);
+				this.oscPrefix = "heartrate";
+				break;
             default:
                 this.name = "Unavailable";
                 this.oscPrefix = "unavailable/";

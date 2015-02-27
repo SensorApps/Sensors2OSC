@@ -37,5 +37,10 @@
     <string name="guide_max_range">Wertumfang</string>
     <string name="guide_resolution">Auflösung</string>
     <string name="guide_osc_address">OSC-Adressen:</string>
+    <string name="sensor_geomagnetic_rotation_vector">Drehvektor (geomagnetisch)</string>
+    <string name="sensor_heartrate">Puls</string>
+    <string name="sensor_significant_motion">Bedeutende Bewegung</string>
+    <string name="sensor_step_counter">Schrittzähler</string>
+    <string name="sensor_step_detector">Schrittdetektor</string>
 
 </resources>
