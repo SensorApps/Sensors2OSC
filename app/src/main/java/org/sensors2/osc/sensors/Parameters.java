@@ -122,8 +122,8 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 				this.oscPrefix = "heartrate";
 				break;
             default:
-                this.name = "Unavailable";
-                this.oscPrefix = "unavailable/";
+                this.name = getString(R.string.sensor_unknown, applicationContext);
+                this.oscPrefix = sensor.getType()+ "/";
                 break;
             //throw new IllegalArgumentException();
 		}

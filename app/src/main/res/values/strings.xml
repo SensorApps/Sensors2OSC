@@ -58,5 +58,6 @@ THE SOFTWARE.]]></string>
     <string name="sensor_step_detector">Step Detector</string>
     <string name="sensor_geomagnetic_rotation_vector">Geomagnetic Rotation Vector</string>
     <string name="sensor_heartrate">Heartrate</string>
+    <string name="sensor_unknown">Unknown Sensor</string>
 
 </resources>

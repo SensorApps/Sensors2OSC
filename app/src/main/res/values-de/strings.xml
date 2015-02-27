@@ -42,5 +42,6 @@
     <string name="sensor_significant_motion">Bedeutende Bewegung</string>
     <string name="sensor_step_counter">Schrittzähler</string>
     <string name="sensor_step_detector">Schrittdetektor</string>
+    <string name="sensor_unknown">Unbekannter Sensor</string>
 
 </resources>
