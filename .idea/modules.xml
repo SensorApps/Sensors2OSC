@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OSC.iml" filepath="$PROJECT_DIR$/OSC.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Sensors2OSC.iml" filepath="$PROJECT_DIR$/Sensors2OSC.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/../Common/common/common.iml" filepath="$PROJECT_DIR$/../Common/common/common.iml" />
     </modules>
