@@ -1,7 +1,7 @@
 package org.sensors2.osc.communication;
 
+import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.sensors.DataDispatcher;
-import org.sensors2.common.sensors.Measurement;
 
 import java.util.ArrayList;
 import java.util.List;
