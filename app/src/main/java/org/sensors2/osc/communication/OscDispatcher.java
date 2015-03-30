@@ -1,5 +1,8 @@
 package org.sensors2.osc.communication;
 
+import android.os.Bundle;
+import android.os.Message;
+
 import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.sensors.DataDispatcher;
 
@@ -10,11 +13,12 @@ import java.util.List;
  * Created by thomas on 07.11.14.
  */
 public class OscDispatcher implements DataDispatcher {
-
-	private List<SensorConfiguration> sensorConfigurations;
+	private List<SensorConfiguration> sensorConfigurations = new ArrayList<SensorConfiguration>();
+	private OscCommunication communication;
 
 	public OscDispatcher() {
-		this.sensorConfigurations = new ArrayList<SensorConfiguration>();
+		communication = new OscCommunication("OscDispatch", Thread.MIN_PRIORITY);
+		communication.start();
 	}
 
 	public void addSensorConfiguration(SensorConfiguration sensorConfiguration) {
@@ -37,6 +41,12 @@ public class OscDispatcher implements DataDispatcher {
 		if (!sensorConfiguration.sendingNeeded(value)) {
 			return;
 		}
-		new OscCommunication(OscConfiguration.getInstance()).execute(sensorConfiguration.getOscParam(), Float.toString(value));
+		Message message = new Message();
+		Bundle data = new Bundle();
+		data.putFloat("value", value);
+		data.putString("oscParameter", sensorConfiguration.getOscParam());
+		message.setData(data);
+		OscHandler handler = communication.getOscHandler();
+		handler.sendMessage(message);
 	}
 }

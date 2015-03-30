@@ -43,7 +43,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.StartUpActivity"/>
         </activity>
-
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

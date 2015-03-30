@@ -1,38 +1,36 @@
 package org.sensors2.osc.communication;
 
-/**
- * Created by thomas on 10.11.14.
- */import android.os.AsyncTask;
-
-import com.illposed.osc.OSCMessage;
-
-import java.util.ArrayList;
-import java.util.List;
+import android.os.HandlerThread;
 
 /**
- * Created by thomas on 19.09.14.
+ * Created by thomas on 31.03.15.
  */
-public class OscCommunication extends AsyncTask<String, Void, Boolean> {
+public class OscCommunication extends HandlerThread {
+	private OscHandler handler;
 
-	private final OscConfiguration operation;
+	public OscCommunication(String name) {
+		super(name);
+	}
 
-	public OscCommunication(OscConfiguration operation) {
-		this.operation = operation;
+	public OscCommunication(String name, int priority) {
+		super(name, priority);
 	}
 
 	@Override
-	protected Boolean doInBackground(String... strings) {
-		if (this.operation.getOscPort() == null) {
-			return false;
-		}
-		List<Object> changes = new ArrayList<Object>();
-		changes.add(strings[1]);
-		try {
-			OSCMessage message = new OSCMessage("/" + strings[0], changes);
-			this.operation.getOscPort().send(message);
-		} catch (Exception e) {
-			return false;
-		}
-		return true;
+	 public void run()
+	{
+		super.run();
+		handler = null;
+	}
+
+	@Override
+	protected void onLooperPrepared()
+	{
+		handler = new OscHandler(this.getLooper());
+	}
+
+	public OscHandler getOscHandler()
+	{
+		return handler;
 	}
 }
