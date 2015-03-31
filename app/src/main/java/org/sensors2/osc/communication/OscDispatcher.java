@@ -17,7 +17,7 @@ public class OscDispatcher implements DataDispatcher {
 	private OscCommunication communication;
 
 	public OscDispatcher() {
-		communication = new OscCommunication("OscDispatch", Thread.MIN_PRIORITY);
+		communication = new OscCommunication("OSC dispatcher thread", Thread.MIN_PRIORITY);
 		communication.start();
 	}
 
@@ -43,8 +43,8 @@ public class OscDispatcher implements DataDispatcher {
 		}
 		Message message = new Message();
 		Bundle data = new Bundle();
-		data.putFloat("value", value);
-		data.putString("oscParameter", sensorConfiguration.getOscParam());
+		data.putFloat(Bundling.VALUE, value);
+		data.putString(Bundling.OSC_PARAMETER, sensorConfiguration.getOscParam());
 		message.setData(data);
 		OscHandler handler = communication.getOscHandler();
 		handler.sendMessage(message);

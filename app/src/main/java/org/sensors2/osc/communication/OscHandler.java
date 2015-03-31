@@ -15,14 +15,15 @@ import java.util.List;
  * Created by thomas on 31.03.15.
  */
 public class OscHandler extends Handler {
+
 	public OscHandler(Looper myLooper) {
 		super(myLooper);
 	}
 	@Override
 	public void handleMessage(Message message) {
 		Bundle data = message.getData();
-		float value = data.getFloat("value");
-		String oscParameter = data.getString("oscParameter");
+		float value = data.getFloat(Bundling.VALUE);
+		String oscParameter = data.getString(Bundling.OSC_PARAMETER);
 		OscConfiguration configuration = OscConfiguration.getInstance();
 
 		if (configuration == null || configuration.getOscPort() == null) {

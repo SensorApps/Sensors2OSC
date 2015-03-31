@@ -10,6 +10,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
+import org.sensors2.osc.communication.Bundling;
 import org.sensors2.osc.communication.SensorConfiguration;
 
 public class SensorFragment extends Fragment {
@@ -25,10 +26,10 @@ public class SensorFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.single_sensor, null);
 		Bundle args = this.getArguments();
-		this.sensorConfiguration.setIndex(args.getInt("index", 0));
-		this.sensorConfiguration.setSensorType(args.getInt("sensorType"));
-		this.sensorConfiguration.setOscParam(args.getString("oscPrefix"));
-		String name = args.getString("name");
+		this.sensorConfiguration.setIndex(args.getInt(Bundling.INDEX, 0));
+		this.sensorConfiguration.setSensorType(args.getInt(Bundling.SENSOR_TYPE));
+		this.sensorConfiguration.setOscParam(args.getString(Bundling.OSC_PREFIX));
+		String name = args.getString(Bundling.NAME);
 
 		if (name != "") {
 			view.findViewById(R.id.name).setVisibility(View.VISIBLE);

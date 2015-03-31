@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
+import org.sensors2.osc.communication.Bundling;
 
 public class HelpSensorFragment extends Fragment {
 
@@ -20,7 +21,7 @@ public class HelpSensorFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.help_single_sensor, null);
 		Bundle args = this.getArguments();
-		((TextView) view.findViewById(R.id.name)).setText("/" + args.getString("oscPrefix"));
+		((TextView) view.findViewById(R.id.name)).setText("/" + args.getString(Bundling.OSC_PREFIX));
 		return view;
 	}
 }

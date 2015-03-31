@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
+import org.sensors2.osc.communication.Bundling;
 import org.sensors2.osc.fragments.HelpSensorGroupFragment;
 import org.sensors2.osc.sensors.Parameters;
 
@@ -52,13 +53,13 @@ public class GuideActivity extends FragmentActivity {
 		FragmentTransaction transaction = manager.beginTransaction();
 		HelpSensorGroupFragment groupFragment = new HelpSensorGroupFragment();
 		Bundle args = new Bundle();
-		args.putInt("dimensions", parameters.getDimensions());
-		args.putInt("sensorType", parameters.getSensorType());
-		args.putString("oscPrefix", parameters.getOscPrefix());
-		args.putString("name", parameters.getName());
-		args.putString("sensorName", parameters.getSensorName());
-		args.putFloat("range", parameters.getRange());
-		args.putFloat("resolution", parameters.getResolution());
+		args.putInt(Bundling.DIMENSIONS, parameters.getDimensions());
+		args.putInt(Bundling.SENSOR_TYPE, parameters.getSensorType());
+		args.putString(Bundling.OSC_PREFIX, parameters.getOscPrefix());
+		args.putString(Bundling.NAME, parameters.getName());
+		args.putString(Bundling.SENSOR_NAME, parameters.getSensorName());
+		args.putFloat(Bundling.SENSOR_RANGE, parameters.getRange());
+		args.putFloat(Bundling.RESOLUTION, parameters.getResolution());
 		groupFragment.setArguments(args);
 		transaction.add(R.id.sensor_group, groupFragment, parameters.getName());
 		transaction.commit();
