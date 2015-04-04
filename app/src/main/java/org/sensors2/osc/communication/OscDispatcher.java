@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 
 import org.sensors2.common.dispatch.Measurement;
-import org.sensors2.common.sensors.DataDispatcher;
+import org.sensors2.common.dispatch.DataDispatcher;
 
 import java.util.ArrayList;
 import java.util.List;

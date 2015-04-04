@@ -17,14 +17,14 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
 
-import org.sensors2.common.sensors.DataDispatcher;
+import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.osc.R;
+import org.sensors2.osc.communication.Bundling;
 import org.sensors2.osc.communication.OscConfiguration;
 import org.sensors2.osc.communication.OscDispatcher;
-import org.sensors2.osc.communication.Bundling;
 import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.SensorGroupFragment;
 import org.sensors2.osc.sensors.Settings;
