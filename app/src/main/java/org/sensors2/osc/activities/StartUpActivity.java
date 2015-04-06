@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -22,9 +21,9 @@ import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.osc.R;
-import org.sensors2.osc.communication.Bundling;
-import org.sensors2.osc.communication.OscConfiguration;
-import org.sensors2.osc.communication.OscDispatcher;
+import org.sensors2.osc.dispatch.Bundling;
+import org.sensors2.osc.dispatch.OscConfiguration;
+import org.sensors2.osc.dispatch.OscDispatcher;
 import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.SensorGroupFragment;
 import org.sensors2.osc.sensors.Settings;
@@ -33,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class StartUpActivity extends FragmentActivity implements SensorEventListener, SensorActivity, CompoundButton.OnCheckedChangeListener {
+public class StartUpActivity extends FragmentActivity implements SensorActivity, CompoundButton.OnCheckedChangeListener {
 
 	private Settings settings;
 	private SensorCommunication sensorFactory;

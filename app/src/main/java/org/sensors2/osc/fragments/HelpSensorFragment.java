@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
-import org.sensors2.osc.communication.Bundling;
+import org.sensors2.osc.dispatch.Bundling;
 
 public class HelpSensorFragment extends Fragment {
 

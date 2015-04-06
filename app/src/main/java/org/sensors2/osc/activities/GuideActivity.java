@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
-import org.sensors2.osc.communication.Bundling;
+import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.fragments.HelpSensorGroupFragment;
 import org.sensors2.osc.sensors.Parameters;
 

@@ -1,4 +1,4 @@
-package org.sensors2.osc.communication;
+package org.sensors2.osc.dispatch;
 
 import android.os.Bundle;
 import android.os.Message;

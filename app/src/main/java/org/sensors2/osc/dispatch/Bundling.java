@@ -1,4 +1,4 @@
-package org.sensors2.osc.communication;
+package org.sensors2.osc.dispatch;
 
 /**
  * Created by thomas on 31.03.15.

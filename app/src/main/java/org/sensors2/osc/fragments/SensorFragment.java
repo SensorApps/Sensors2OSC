@@ -10,8 +10,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
-import org.sensors2.osc.communication.Bundling;
-import org.sensors2.osc.communication.SensorConfiguration;
+import org.sensors2.osc.dispatch.Bundling;
+import org.sensors2.osc.dispatch.SensorConfiguration;
 
 public class SensorFragment extends Fragment {
 	private CompoundButton activeButton;
