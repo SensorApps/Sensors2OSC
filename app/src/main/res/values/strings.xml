@@ -29,6 +29,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.]]></string>
     <string name="about_components">Used Components</string>
     <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="send_data">Send data</string>
+    <string name="action_guide">Help</string>
+    <string name="text_guide_headline">Help</string>
+    <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
+    <string name="text_available_sensors">Available Sensors</string>
+    <string name="guide_max_range">Max range</string>
+    <string name="guide_resolution">Resolution</string>
+    <string name="guide_osc_address">OSC addresses:</string>
     <string name="sensor_accelerometer">Accelerometer</string>
     <string name="sensor_magnetic_field">Magnetic Field</string>
     <string name="sensor_orientation">Orientation</string>
@@ -41,23 +49,19 @@ THE SOFTWARE.]]></string>
     <string name="sensor_linear_acceleration">Linear Acceleration</string>
     <string name="sensor_rotation_vector">Rotation Vector</string>
     <string name="sensor_relative_humidity">Relative Humidity</string>
-    <string name="sensor_absolute_humidity">Absolute Humidity</string>
+    <string name="sensor_ambient_temperature">Ambient Temperature</string>
     <string name="sensor_magnetic_field_uncalibrated">Magnetic Field (uncalibrated)</string>
     <string name="sensor_game_rotation_vector">Rotation Vector (uncalibrated)</string>
     <string name="sensor_gyroscope_uncalibrated">Gyroscope (uncalibrated)</string>
-    <string name="send_data">Send data</string>
-    <string name="action_guide">Help</string>
-    <string name="text_guide_headline">Help</string>
-    <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
-    <string name="text_available_sensors">Available Sensors</string>
-    <string name="guide_max_range">Max range</string>
-    <string name="guide_resolution">Resolution</string>
-    <string name="guide_osc_address">OSC addresses:</string>
     <string name="sensor_significant_motion">Significant Motion</string>
     <string name="sensor_step_counter">Step Counter</string>
     <string name="sensor_step_detector">Step Detector</string>
     <string name="sensor_geomagnetic_rotation_vector">Geomagnetic Rotation Vector</string>
     <string name="sensor_heartrate">Heartrate</string>
+    <string name="sensor_tilt_detector">Tilt Detector</string>
+    <string name="sensor_wake_gesture">Wake Gesture</string>
+    <string name="sensor_glance_gesture">Glance Gesture</string>
+    <string name="sensor_pick_up_gesture">Pick Up Gesture</string>
     <string name="sensor_unknown">Unknown Sensor</string>
 
 </resources>

@@ -13,6 +13,14 @@
     <string name="about_license">Lizenz</string>
     <string name="about_components">Verwendete Komponenten</string>
     <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>. Die Lizenz der Komponente findet sich unter &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="send_data">Daten senden</string>
+    <string name="action_guide">Hilfe</string>
+    <string name="text_available_sensors">verfügbare Sensoren</string>
+    <string name="text_guide">Abhängig von Ihrem Telefon stehen eine Reihe von Sensoren zur Verfügung</string>
+    <string name="text_guide_headline">Hilfe</string>
+    <string name="guide_max_range">Wertumfang</string>
+    <string name="guide_resolution">Auflösung</string>
+    <string name="guide_osc_address">OSC-Adressen:</string>
     <string name="sensor_accelerometer">Beschleunigung</string>
     <string name="sensor_magnetic_field">Magnetfeld</string>
     <string name="sensor_orientation">Ausrichtung</string>
@@ -25,18 +33,9 @@
     <string name="sensor_linear_acceleration">Lineare Beschleunigung</string>
     <string name="sensor_rotation_vector">Drehvektor</string>
     <string name="sensor_relative_humidity">Relative Feuchte</string>
-    <string name="sensor_absolute_humidity">Absolute Feuchte</string>
     <string name="sensor_magnetic_field_uncalibrated">Magnetfeld (unkalibriert)</string>
     <string name="sensor_game_rotation_vector">Drehvektor (unkalibriert)</string>
     <string name="sensor_gyroscope_uncalibrated">Gyroskop (unkalibriert)</string>
-    <string name="send_data">Daten senden</string>
-    <string name="action_guide">Hilfe</string>
-    <string name="text_available_sensors">verfügbare Sensoren</string>
-    <string name="text_guide">Abhängig von Ihrem Telefon stehen eine Reihe von Sensoren zur Verfügung</string>
-    <string name="text_guide_headline">Hilfe</string>
-    <string name="guide_max_range">Wertumfang</string>
-    <string name="guide_resolution">Auflösung</string>
-    <string name="guide_osc_address">OSC-Adressen:</string>
     <string name="sensor_geomagnetic_rotation_vector">Drehvektor (geomagnetisch)</string>
     <string name="sensor_heartrate">Puls</string>
     <string name="sensor_significant_motion">Bedeutende Bewegung</string>

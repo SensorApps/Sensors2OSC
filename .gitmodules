@@ -1,3 +1,3 @@
 [submodule "Common"]
 	path = Common
-	url = git@github.com:SensorApps/Common.git
+	url = https://github.com/SensorApps/Common.git

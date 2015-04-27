@@ -1,19 +1,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context=".activities.StartUpActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activities.StartUpActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+        android:showAsAction="ifRoom"
+        android:title="@string/action_settings" />
     <item
         android:id="@+id/action_guide"
         android:orderInCategory="150"
-        android:showAsAction="never"
-        android:title="@string/action_guide"/>
+        android:showAsAction="ifRoom"
+        android:title="@string/action_guide" />
     <item
         android:id="@+id/action_about"
         android:orderInCategory="200"
-        android:showAsAction="never"
-        android:title="@string/action_about"/>
+        android:showAsAction="ifRoom"
+        android:title="@string/action_about" />
 </menu>
