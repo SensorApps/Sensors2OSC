@@ -51,7 +51,7 @@ THE SOFTWARE.]]></string>
     <string name="sensor_relative_humidity">Relative Humidity</string>
     <string name="sensor_ambient_temperature">Ambient Temperature</string>
     <string name="sensor_magnetic_field_uncalibrated">Magnetic Field (uncalibrated)</string>
-    <string name="sensor_game_rotation_vector">Rotation Vector (uncalibrated)</string>
+    <string name="sensor_game_rotation_vector">Game Rotation Vector (uncalibrated)</string>
     <string name="sensor_gyroscope_uncalibrated">Gyroscope (uncalibrated)</string>
     <string name="sensor_significant_motion">Significant Motion</string>
     <string name="sensor_step_counter">Step Counter</string>

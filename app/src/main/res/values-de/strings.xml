@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="action_settings">Einstellungen</string>
-    <string name="host">Host</string>
     <string name="communication">Kommunikation</string>
-    <string name="port">Port</string>
     <string name="sensors">Sensoren</string>
     <string name="sensitity">Empfindlichkeit</string>
     <string name="title_activity_about">Über die App</string>
