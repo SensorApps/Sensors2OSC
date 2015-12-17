@@ -62,6 +62,7 @@ THE SOFTWARE.]]></string>
     <string name="sensor_wake_gesture">Wake Gesture</string>
     <string name="sensor_glance_gesture">Glance Gesture</string>
     <string name="sensor_pick_up_gesture">Pick Up Gesture</string>
+    <string name="sensor_wrist_tilt_gesture">Wrist Tilt Gesture</string>
     <string name="sensor_unknown">Unknown Sensor</string>
 
 </resources>

@@ -141,6 +141,11 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
                 this.name = getString(R.string.sensor_pick_up_gesture, applicationContext);
                 this.oscPrefix = "pickupgesture";
                 break;
+            // SENSOR_TYPE_WRIST_TILT_GESTURE
+            case 26:
+                this.name = getString(R.string.sensor_wrist_tilt_gesture, applicationContext);
+                this.oscPrefix = "wristtiltgesture";
+                break;
             default:
                 this.name = sensor.getName();
                 this.oscPrefix = sensor.getType() + "/";
