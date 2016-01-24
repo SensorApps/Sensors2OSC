@@ -28,5 +28,5 @@ dependencies {
     compile 'com.illposed.osc:javaosc-core:0.3'
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.android.support:support-v4:23.1.1'
-    compile 'com.github.SensorApps:Common:d3e779becb'
+    compile 'com.github.tkirshboim:Common:28842b89ed'
 }
