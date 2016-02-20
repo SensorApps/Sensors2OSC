@@ -3,6 +3,7 @@ package org.sensors2.osc.sensors;
 import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Sensor;
+import android.nfc.NfcAdapter;
 
 import org.sensors2.osc.R;
 
@@ -152,6 +153,12 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
                 break;
             //throw new IllegalArgumentException();
         }
+    }
+
+    public Parameters(NfcAdapter nfcAdapter, Context applicationContext) {
+        super(nfcAdapter);
+        this.name = getString(R.string.sensor_nfc, applicationContext);
+        this.oscPrefix = "nfc";
     }
 
     private String getString(int stringId, Context context) {

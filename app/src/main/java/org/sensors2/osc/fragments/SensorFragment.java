@@ -31,7 +31,14 @@ public class SensorFragment extends Fragment {
 		this.sensorConfiguration.setOscParam(args.getString(Bundling.OSC_PREFIX));
 		String name = args.getString(Bundling.NAME);
 
-		if (name != "") {
+		//TODO: think about a better verification method
+		if (sensorConfiguration.getOscParam().equals("nfc")) {
+			this.sensorConfiguration.setSendDuplicates(true);
+		} else {
+			this.sensorConfiguration.setSendDuplicates(true);
+		}
+
+		if (!name.equals("")) {
 			view.findViewById(R.id.name).setVisibility(View.VISIBLE);
 			((TextView) view.findViewById(R.id.name)).setText(name);
 		}

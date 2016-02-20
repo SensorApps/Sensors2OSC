@@ -41,7 +41,7 @@
     <string name="sensor_temperature">Temperatura</string>
     <string name="sensor_tilt_detector">Detector de inclinação</string>
     <string name="sensor_unknown">Sensor desconhecido</string>
-    <string name="sensor_wake_gesture">Gesto de acordar</string>
+    <string name="sensor_wake_gesture">Gesto de acordar dispositivo</string>
     <string name="sensors">Sensores</string>
     <string name="text_available_sensors">Sensores disponíveis</string>
     <string name="text_guide">Dependendo do seu dispositivo, você terá vários sensores e coordenadas disponíveis.</string>

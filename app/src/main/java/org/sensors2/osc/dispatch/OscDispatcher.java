@@ -38,6 +38,7 @@ public class OscDispatcher implements DataDispatcher {
 	}
 
 	private void trySend(SensorConfiguration sensorConfiguration, float value) {
+
 		if (!sensorConfiguration.sendingNeeded(value)) {
 			return;
 		}

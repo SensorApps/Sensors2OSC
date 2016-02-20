@@ -37,6 +37,7 @@ THE SOFTWARE.]]></string>
     <string name="guide_max_range">Max range</string>
     <string name="guide_resolution">Resolution</string>
     <string name="guide_osc_address">OSC addresses:</string>
+    <string name="sensor_nfc">Near Field Communication</string>
     <string name="sensor_accelerometer">Accelerometer</string>
     <string name="sensor_magnetic_field">Magnetic Field</string>
     <string name="sensor_orientation">Orientation</string>

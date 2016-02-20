@@ -9,6 +9,7 @@ public class SensorConfiguration {
 	private int sensorType;
 	private String oscParam;
 	private float currentValue;
+	private boolean sendDuplicates;
 
 	public SensorConfiguration() {
 	}
@@ -16,6 +17,9 @@ public class SensorConfiguration {
 	public boolean sendingNeeded(float value) {
 		if (!this.send) {
 			return false;
+		}
+		if (sendDuplicates) {
+			return true;
 		}
 		if (Math.abs(value - this.currentValue) == 0){
 			return  false;
@@ -26,6 +30,10 @@ public class SensorConfiguration {
 
 	public void setSend(boolean send) {
 		this.send = send;
+	}
+
+	public void setSendDuplicates(boolean sendDuplicates) {
+		this.sendDuplicates = sendDuplicates;
 	}
 
 	public int getIndex() {
