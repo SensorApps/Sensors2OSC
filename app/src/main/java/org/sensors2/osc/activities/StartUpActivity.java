@@ -137,10 +137,16 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
             Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
             NdefMessage[] msgs;
             if (rawMsgs != null) {
-                msgs = new NdefMessage[rawMsgs.length];
-                for (int i = 0; i < rawMsgs.length; i++) {
-                    msgs[i] = (NdefMessage) rawMsgs[i];
-                }
+                byte[] empty = new byte[0];
+                byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
+                byte[] payload = new byte[0];
+                NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, id, payload);
+                NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
+                msgs = new NdefMessage[] { msg };
+//                msgs = new NdefMessage[rawMsgs.length];
+//                for (int i = 1; i <= rawMsgs.length; i++) {
+//                    msgs[i] = (NdefMessage) rawMsgs[i-1];
+//                }
             } else {
                 // Unknown tag type
                 byte[] empty = new byte[0];
