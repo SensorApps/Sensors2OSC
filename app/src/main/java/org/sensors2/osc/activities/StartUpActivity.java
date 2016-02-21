@@ -2,10 +2,8 @@ package org.sensors2.osc.activities;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -16,8 +14,6 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
-import android.nfc.tech.Ndef;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PowerManager;
@@ -31,7 +27,6 @@ import android.view.WindowManager;
 import android.widget.CompoundButton;
 
 import org.sensors2.common.dispatch.DataDispatcher;
-//import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.nfc.NfcActivity;
@@ -44,13 +39,10 @@ import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.SensorGroupFragment;
 import org.sensors2.osc.sensors.Settings;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
-
 
 import android.os.Parcelable;
 
@@ -161,7 +153,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
             }
             // Setup the views
             for(NdefMessage msg: msgs) {
-                if (activeButton.isChecked()) {
+                if (activeButton != null && activeButton.isChecked()) {
                     this.sensorFactory.dispatch(msg);
                 }
             }
