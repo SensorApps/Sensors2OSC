@@ -423,7 +423,6 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
             for(Measurement measurement : Measurement.measurements(event, width, height)) {
                 dispatcher.dispatch(measurement);
             }
-            return true;
         }
 
         return false;

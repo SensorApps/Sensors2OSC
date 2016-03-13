@@ -17,8 +17,9 @@ import org.sensors2.osc.dispatch.SensorConfiguration;
 
 public class MultiTouchFragment extends Fragment {
 
-    // this is an arbitrary limit - if a device supports more than a 10 finger multi touch this could simply be increased
-    private static final int MAX_POINTER_COUNT = 10;
+    // this is an arbitrary limit - if a device supports more than a 8 finger multi touch this could simply be increased
+    // alternatively, this could be added as a variable to the settings activity
+    public static final int MAX_POINTER_COUNT = 8;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
