@@ -34,8 +34,6 @@ public class SensorFragment extends Fragment {
 		//TODO: think about a better verification method
 		if (sensorConfiguration.getOscParam().equals("nfc")) {
 			this.sensorConfiguration.setSendDuplicates(true);
-		} else {
-			this.sensorConfiguration.setSendDuplicates(true);
 		}
 
 		if (!name.equals("")) {
