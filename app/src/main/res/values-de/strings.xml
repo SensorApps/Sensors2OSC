@@ -40,5 +40,14 @@
     <string name="sensor_step_counter">Schrittzähler</string>
     <string name="sensor_step_detector">Schrittdetektor</string>
     <string name="sensor_unknown">Unbekannter Sensor</string>
+    <string name="host">Host</string>
+    <string name="port">Port</string>
+    <string name="sensor_ambient_temperature">Umgebungstemperatur</string>
+    <string name="sensor_glance_gesture">Blickgeste</string>
+    <string name="sensor_nfc">Nahfeldkommunikation (NFC)</string>
+    <string name="sensor_pick_up_gesture">Aufhebegeste</string>
+    <string name="sensor_tilt_detector">Neigungssensor</string>
+    <string name="sensor_wake_gesture">Aufweckgeste</string>
+    <string name="sensor_wrist_tilt_gesture">Handgelenk-Neigungsgeste</string>
 
 </resources>
