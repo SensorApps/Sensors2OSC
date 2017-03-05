@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sensors2OSC</string>
+    <string name="action_settings">設定</string>
+    <string name="host">ホスト</string>
+    <string name="communication">コミュニケーション</string>
+    <string name="port">ポート</string>
+    <string name="sensors">センサー</string>
+    <string name="sensitity">感度</string>
+    <string name="title_activity_about">アプリについて</string>
+    <string name="action_about">アプリについて</string>
+    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2015, &lt;a href=&quot;http://sensors2.org/osc/&quot;>sensors2.org/osc&lt;/a></string>
+    <string name="about_buglinks">&lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> でバグを報告するか、&lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a> にメールをお送りください。 対応します。</string>
+    <string name="about_license">ライセンス</string>
+    <string name="about_mit_license_1">本ソフトウェアおよび関連するドキュメントファイル
+（以下「本ソフトウェア」といいます）のコピーを入手した者は、これにより、無料で、
+本ソフトウェアを制限なく使用することができます（制限のない本ソフトウェアの使用、コピー、変更、
+マージ、パブリッシュ、配布、サブライセンス、および/または販売を含みます）。
+また、本ソフトウェアが提供されている者に対して、以下の条件のもとで許可すること:</string>
+    <string name="about_mit_license_2">上記の著作権表示およびこの許可表示は、
+本ソフトウェアのすべてのコピーまたは実質部分に含まれる必要があります。</string>
+    <string name="about_mit_license_3"><![CDATA[ソフトウェアは「現状のまま」で、
+明示であるか暗黙であるかを問わず、何らの保証もなく提供されます。ここでいう保証とは、
+商品性、特定の目的への適合性、および権利非侵害についての保証も含みますが、
+それに限定されるものではありません。作者または著作権者は、契約行為、不法行為、
+またはそれ以外であろうと、ソフトウェアに起因または関連し、
+あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、
+その他の義務について何らの責任も負わないものとします。 ]]></string>
+    <string name="about_components">使用コンポーネント</string>
+    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, ライセンスは &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a> をご覧ください。</string>
+    <string name="send_data">データを送信</string>
+    <string name="action_guide">ヘルプ</string>
+    <string name="text_guide_headline">ヘルプ</string>
+    <string name="text_guide">お使いの携帯電話に応じて、いくつかのセンサーと値が使用できます。</string>
+    <string name="text_available_sensors">使用可能なセンサー</string>
+    <string name="text_guide_multitouch">マルチタッチを有効にすると、各タッチポイントは OSC 経由で座標を送信します。 アドレスは /touch&lt;index&gt;/X と /touch&lt;index&gt;/Y の形式で、インデックスは 1 から始まります。</string>
+    <string name="text_guide_multitouch_headline">マルチタッチ</string>
+    <string name="text_guide_nfc">携帯電話が NFC トークンを読み取ることができる場合、これらのトークンの値は OSC アドレス /nfc に送信されます。</string>
+    <string name="text_guide_nfc_headline">近接通信 (NFC)</string>
+    <string name="guide_max_range">最大レンジ</string>
+    <string name="guide_resolution">解像度</string>
+    <string name="guide_osc_address">OSC アドレス:</string>
+    <string name="sensor_nfc">近接通信</string>
+    <string name="sensor_accelerometer">加速度</string>
+    <string name="sensor_magnetic_field">地磁気</string>
+    <string name="sensor_orientation">方向 (傾き)</string>
+    <string name="sensor_gyroscope">ジャイロスコープ</string>
+    <string name="sensor_light">ライト</string>
+    <string name="sensor_pressure">気圧</string>
+    <string name="sensor_temperature">気温</string>
+    <string name="sensor_proximity">近接</string>
+    <string name="sensor_gravity">重力</string>
+    <string name="sensor_linear_acceleration">線形加速度 (重力を除外)</string>
+    <string name="sensor_rotation_vector">回転ベクトル</string>
+    <string name="sensor_relative_humidity">相対湿度</string>
+    <string name="sensor_ambient_temperature">周囲温度</string>
+    <string name="sensor_magnetic_field_uncalibrated">地磁気 (未較正)</string>
+    <string name="sensor_game_rotation_vector">ゲーム回転ベクトル (未較正)</string>
+    <string name="sensor_gyroscope_uncalibrated">ジャイロスコープ (未較正)</string>
+    <string name="sensor_significant_motion">動き</string>
+    <string name="sensor_step_counter">歩数計</string>
+    <string name="sensor_step_detector">歩行検知</string>
+    <string name="sensor_geomagnetic_rotation_vector">地磁気回転ベクトル</string>
+    <string name="sensor_heartrate">心拍数</string>
+    <string name="sensor_tilt_detector">傾き検知</string>
+    <string name="sensor_wake_gesture">ウェイクジェスチャー</string>
+    <string name="sensor_glance_gesture">視線ジェスチャー</string>
+    <string name="sensor_pick_up_gesture">ピックアップジェスチャー</string>
+    <string name="sensor_wrist_tilt_gesture">手首傾きジェスチャー</string>
+    <string name="sensor_unknown">不明なセンサー</string>
+</resources>
