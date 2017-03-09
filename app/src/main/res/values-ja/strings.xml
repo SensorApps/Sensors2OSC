@@ -9,7 +9,6 @@
     <string name="sensitity">感度</string>
     <string name="title_activity_about">アプリについて</string>
     <string name="action_about">アプリについて</string>
-    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2015, &lt;a href=&quot;http://sensors2.org/osc/&quot;>sensors2.org/osc&lt;/a></string>
     <string name="about_buglinks">&lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> でバグを報告するか、&lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a> にメールをお送りください。 対応します。</string>
     <string name="about_license">ライセンス</string>
     <string name="about_mit_license_1">本ソフトウェアおよび関連するドキュメントファイル

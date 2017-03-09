@@ -6,7 +6,6 @@
     <string name="sensitity">Empfindlichkeit</string>
     <string name="title_activity_about">Über die App</string>
     <string name="action_about">Über die App</string>
-    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2015, &lt;a href=&quot;http://sensors2.org/osc/&quot;>sensors2.org/osc&lt;/a></string>
     <string name="about_buglinks">Bugs bitte über &lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> oder per Email an &lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a> berichten. Wir kümmern uns dann darum.</string>
     <string name="about_license">Lizenz</string>
     <string name="about_components">Verwendete Komponenten</string>

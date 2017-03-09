@@ -3,7 +3,6 @@
     <string name="title_activity_about">Sobre</string>
     <string name="about_buglinks">Por favor nos informe sobre bugs em &lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> ou envie um email para &lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a>. Assim nós teremos como resolver o problema.</string>
     <string name="about_components">Sobre componentes </string>
-    <string name="about_copyright">© Thomas Mayer, Antonio Deusany de Carvalho Junior 2015, &lt;a href=&quot;http://sensors2.org/osc/&quot;>sensors2.org/osc&lt;/a></string>
     <string name="about_license">Licença</string>
     <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, licensça pode ser encontrada em &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
     <string name="action_about">Sobre</string>
