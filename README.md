@@ -11,3 +11,11 @@ Downloads are available from [F-Droid](https://f-droid.org/repository/browse/?fd
 To build the app yourself, install the [Android SDK](https://developer.android.com/studio/index.html) and [Gradle](https://gradle.org/). 
 
 After installation run `gradle.bat` on Windows or `./gradlew` on Mac OS X and Linux.
+
+## Contributing
+
+If you want to contribute to this project, send a pull request.
+
+## Translation
+
+If you want to add a new language or update translations, please see the [Common](https://github.com/SensorApps/Common) library for the sensor apps. It contains additional strings.
