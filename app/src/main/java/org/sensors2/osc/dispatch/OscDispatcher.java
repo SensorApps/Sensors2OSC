@@ -28,23 +28,18 @@ public class OscDispatcher implements DataDispatcher {
 	@Override
 	public void dispatch(Measurement sensorData) {
 		int length = sensorData.getValues().length;
-		for (int i = 0; i < length; i++) {
-			for (SensorConfiguration sensorConfiguration : this.sensorConfigurations) {
-				if (sensorConfiguration.getIndex() == i && sensorConfiguration.getSensorType() == sensorData.getSensorType()) {
-					this.trySend(sensorConfiguration, sensorData.getValues()[i]);
-				}
+		for (SensorConfiguration sensorConfiguration : this.sensorConfigurations) {
+			if (sensorConfiguration.getSensorType() == sensorData.getSensorType()) {
+				trySend(sensorConfiguration, sensorData.getValues());
+
 			}
 		}
 	}
 
-	private void trySend(SensorConfiguration sensorConfiguration, float value) {
-
-		if (!sensorConfiguration.sendingNeeded(value)) {
-			return;
-		}
+	private void trySend(SensorConfiguration sensorConfiguration, float[] values) {
 		Message message = new Message();
 		Bundle data = new Bundle();
-		data.putFloat(Bundling.VALUE, value);
+		data.putFloatArray(Bundling.VALUE, values);
 		data.putString(Bundling.OSC_PARAMETER, sensorConfiguration.getOscParam());
 		message.setData(data);
 		OscHandler handler = communication.getOscHandler();

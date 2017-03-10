@@ -35,14 +35,14 @@ public class MultiTouchFragment extends Fragment {
             sensorConfiguration.setIndex(0);
             sensorConfiguration.setSend(true);
             sensorConfiguration.setSensorType(Measurement.pointerIdToSensorType(i));
-            sensorConfiguration.setOscParam("touch" + (i + 1) + "/X");
+            sensorConfiguration.setOscParam("touch" + (i + 1));
             dispatcher.addSensorConfiguration(sensorConfiguration);
 
             sensorConfiguration = new SensorConfiguration();
             sensorConfiguration.setIndex(1);
             sensorConfiguration.setSend(true);
             sensorConfiguration.setSensorType(Measurement.pointerIdToSensorType(i));
-            sensorConfiguration.setOscParam("touch" + (i + 1) + "/Y");
+            sensorConfiguration.setOscParam("touch" + (i + 1));
             dispatcher.addSensorConfiguration(sensorConfiguration);
         }
 
