@@ -54,6 +54,8 @@ public class StartupFragment extends Fragment {
         args.putString(Bundling.OSC_PREFIX, parameters.getOscPrefix());
         args.putString(Bundling.NAME, parameters.getName());
         groupFragment.setArguments(args);
+        StartUpActivity activity = (StartUpActivity) this.getActivity();
+        activity.addSensorFragment(groupFragment);
 
         return groupFragment;
     }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.Bundling;
-import org.sensors2.osc.sensors.SensorDimensions;
 
 import java.util.Map;
 
@@ -33,32 +32,10 @@ public class HelpSensorGroupFragment extends Fragment {
 		groupName.setText(name + " (" + sensorName + ")");
 		AddText((TextView) v.findViewById(R.id.range), args.getFloat(Bundling.SENSOR_RANGE));
 		AddText((TextView) v.findViewById(R.id.resolution), args.getFloat(Bundling.RESOLUTION));
-		CreateSensors(sensorType, oscPrefix, dimensions);
 		return v;
 	}
 
 	private void AddText(TextView view, float val) {
 		view.setText(view.getText() + ": " + val);
-	}
-
-	private void CreateSensors(int sensorType, String oscPrefix, int dimensions) {
-		for (Map.Entry<Integer, String> oscSuffix : SensorDimensions.GetOscSuffixes(dimensions).entrySet()) {
-			FragmentManager manager = getChildFragmentManager();
-			String fragmentTag = oscPrefix + oscSuffix.getValue();
-			HelpSensorFragment sensorFragment = (HelpSensorFragment) manager.findFragmentByTag(fragmentTag);
-			if (sensorFragment == null) {
-				CreateSensorFragment(manager, fragmentTag);
-			}
-		}
-	}
-
-	private void CreateSensorFragment(FragmentManager manager, String fragmentTag) {
-		FragmentTransaction transaction = manager.beginTransaction();
-		HelpSensorFragment sensorFragment = new HelpSensorFragment();
-		Bundle args = new Bundle();
-		args.putString(Bundling.OSC_PREFIX, fragmentTag);
-		sensorFragment.setArguments(args);
-		transaction.add(R.id.sensor_list, sensorFragment, fragmentTag);
-		transaction.commit();
 	}
 }

@@ -22,7 +22,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -40,7 +39,7 @@ import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
 import org.sensors2.osc.fragments.MultiTouchFragment;
-import org.sensors2.osc.fragments.SensorFragment;
+import org.sensors2.osc.fragments.SensorGroupFragment;
 import org.sensors2.osc.fragments.StartupFragment;
 import org.sensors2.osc.sensors.Settings;
 
@@ -373,7 +372,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
         }
     }
 
-    public void addSensorFragment(SensorFragment sensorFragment) {
+    public void addSensorFragment(SensorGroupFragment sensorFragment) {
         this.dispatcher.addSensorConfiguration(sensorFragment.getSensorConfiguration());
     }
 

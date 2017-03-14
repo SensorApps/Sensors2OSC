@@ -27,16 +27,17 @@ public class OscDispatcher implements DataDispatcher {
 
 	@Override
 	public void dispatch(Measurement sensorData) {
-		int length = sensorData.getValues().length;
 		for (SensorConfiguration sensorConfiguration : this.sensorConfigurations) {
 			if (sensorConfiguration.getSensorType() == sensorData.getSensorType()) {
 				trySend(sensorConfiguration, sensorData.getValues());
-
 			}
 		}
 	}
 
 	private void trySend(SensorConfiguration sensorConfiguration, float[] values) {
+		if (!sensorConfiguration.sendingNeeded(values)) {
+			return;
+		}
 		Message message = new Message();
 		Bundle data = new Bundle();
 		data.putFloatArray(Bundling.VALUE, values);

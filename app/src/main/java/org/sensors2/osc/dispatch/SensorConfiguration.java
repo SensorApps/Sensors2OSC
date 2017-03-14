@@ -1,31 +1,35 @@
 package org.sensors2.osc.dispatch;
 
+import org.sensors2.osc.sensors.Parameters;
+
 /**
  * Created by thomas on 11.11.14.
  */
 public class SensorConfiguration {
 	private boolean send;
-	private int index;
 	private int sensorType;
 	private String oscParam;
-	private float currentValue;
+	private float[] currentValues = new float[Parameters.MAX_DIMENSIONS];
 	private boolean sendDuplicates;
 
 	public SensorConfiguration() {
 	}
 
-	public boolean sendingNeeded(float value) {
+	public boolean sendingNeeded(float[] values) {
 		if (!this.send) {
 			return false;
 		}
 		if (sendDuplicates) {
 			return true;
 		}
-		if (Math.abs(value - this.currentValue) == 0){
-			return  false;
+		boolean differenceDetected = false;
+		for (int i = 0; i < values.length && i < Parameters.MAX_DIMENSIONS; i++) {
+			if (Math.abs(values[i] - this.currentValues[i]) != 0){
+				differenceDetected = true;
+			}
+			this.currentValues[i] = values[i];
 		}
-		this.currentValue = value;
-		return true;
+		return differenceDetected;
 	}
 
 	public void setSend(boolean send) {
@@ -34,10 +38,6 @@ public class SensorConfiguration {
 
 	public void setSendDuplicates(boolean sendDuplicates) {
 		this.sendDuplicates = sendDuplicates;
-	}
-
-	public int getIndex() {
-		return this.index;
 	}
 
 	public int getSensorType() {
@@ -54,9 +54,5 @@ public class SensorConfiguration {
 
 	public void setSensorType(int sensorType) {
 		this.sensorType = sensorType;
-	}
-
-	public void setIndex(int index) {
-		this.index = index;
 	}
 }
