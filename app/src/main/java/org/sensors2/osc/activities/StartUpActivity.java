@@ -39,7 +39,7 @@ import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
 import org.sensors2.osc.fragments.MultiTouchFragment;
-import org.sensors2.osc.fragments.SensorGroupFragment;
+import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.StartupFragment;
 import org.sensors2.osc.sensors.Settings;
 
@@ -51,14 +51,14 @@ import java.util.Locale;
 public class StartUpActivity extends FragmentActivity implements SensorActivity, NfcActivity, CompoundButton.OnCheckedChangeListener, View.OnTouchListener {
 
     private Settings settings;
-    private SensorCommunication sensorFactory;
+    private SensorCommunication sensorCommunication;
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
     private PowerManager.WakeLock wakeLock;
     private boolean active;
     private StartupFragment startupFragment;
 
-    private NfcAdapter mAdapter;
+    private NfcAdapter nfcAdapter;
     private PendingIntent mPendingIntent;
     private NdefMessage mNdefPushMessage;
 
@@ -75,22 +75,25 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
         this.settings = this.loadSettings();
         this.dispatcher = new OscDispatcher();
         this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        this.sensorFactory = new SensorCommunication(this);
+        this.sensorCommunication = new SensorCommunication(this);
         this.wakeLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, this.getLocalClassName());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
             resolveIntent(getIntent());
-            mAdapter = NfcAdapter.getDefaultAdapter(this);
+            nfcAdapter = NfcAdapter.getDefaultAdapter(this);
             mPendingIntent = PendingIntent.getActivity(this, 0,
                     new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-            mNdefPushMessage = new NdefMessage(new NdefRecord[] { newTextRecord(
-                    "Message from NFC Reader :-)", Locale.ENGLISH, true) });
+            mNdefPushMessage = new NdefMessage(new NdefRecord[]{newTextRecord(
+                    "Message from NFC Reader :-)", Locale.ENGLISH, true)});
         }
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        startupFragment = new StartupFragment();
-        transaction.add(R.id.container, startupFragment);
-        transaction.commit();
+        startupFragment = (StartupFragment) fm.findFragmentByTag("sensorlist");
+        if (startupFragment == null) {
+            startupFragment = new StartupFragment();
+            transaction.add(R.id.container, startupFragment, "sensorlist");
+            transaction.commit();
+        }
     }
 
     public List<Parameters> GetSensors(SensorManager sensorManager) {
@@ -98,9 +101,9 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
 
         // add Nfc sensor
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
-            mAdapter = NfcAdapter.getDefaultAdapter(this);
-            if (mAdapter != null && mAdapter.isEnabled()) {
-                parameters.add(new org.sensors2.osc.sensors.Parameters(mAdapter, this.getApplicationContext()));
+            nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+            if (nfcAdapter != null && nfcAdapter.isEnabled()) {
+                parameters.add(new org.sensors2.osc.sensors.Parameters(nfcAdapter, this.getApplicationContext()));
             }
         }
 
@@ -112,7 +115,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     }
 
     public NfcAdapter getNfcAdapter() {
-        return this.mAdapter;
+        return this.nfcAdapter;
     }
 
     @TargetApi(10)
@@ -146,8 +149,8 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                 byte[] id = intent.getByteArrayExtra(NfcAdapter.EXTRA_ID);
                 byte[] payload = new byte[0];
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, id, payload);
-                NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
-                msgs = new NdefMessage[] { msg };
+                NdefMessage msg = new NdefMessage(new NdefRecord[]{record});
+                msgs = new NdefMessage[]{msg};
 //                msgs = new NdefMessage[rawMsgs.length];
 //                for (int i = 1; i <= rawMsgs.length; i++) {
 //                    msgs[i] = (NdefMessage) rawMsgs[i-1];
@@ -159,13 +162,13 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                 Parcelable tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
                 byte[] payload = dumpTagData(tag).getBytes();
                 NdefRecord record = new NdefRecord(NdefRecord.TNF_UNKNOWN, empty, id, payload);
-                NdefMessage msg = new NdefMessage(new NdefRecord[] { record });
-                msgs = new NdefMessage[] { msg };
+                NdefMessage msg = new NdefMessage(new NdefRecord[]{record});
+                msgs = new NdefMessage[]{msg};
             }
             // Setup the views
-            for(NdefMessage msg: msgs) {
+            for (NdefMessage msg : msgs) {
                 if (active) {
-                    this.sensorFactory.dispatch(msg);
+                    this.sensorCommunication.dispatch(msg);
                 }
             }
         }
@@ -337,18 +340,15 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     protected void onResume() {
         super.onResume();
         this.loadSettings();
-        this.sensorFactory.onResume();
+        this.sensorCommunication.onResume();
         if (active && !this.wakeLock.isHeld()) {
             this.wakeLock.acquire();
         }
 
-        /**
-         * NFC
-         */
-        if (mAdapter != null) {
-            if (mAdapter.isEnabled()) {
-                mAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
-                mAdapter.enableForegroundNdefPush(this, mNdefPushMessage);
+        if (nfcAdapter != null) {
+            if (nfcAdapter.isEnabled()) {
+                nfcAdapter.enableForegroundDispatch(this, mPendingIntent, null, null);
+                nfcAdapter.enableForegroundNdefPush(this, mNdefPushMessage);
             }
 
         }
@@ -358,28 +358,25 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     @SuppressLint("NewApi")
     protected void onPause() {
         super.onPause();
-        this.sensorFactory.onPause();
+        this.sensorCommunication.onPause();
         if (this.wakeLock.isHeld()) {
             this.wakeLock.release();
         }
 
-        /**
-         * NFC
-         */
-        if (mAdapter != null) {
-            mAdapter.disableForegroundDispatch(this);
-            mAdapter.disableForegroundNdefPush(this);
+        if (nfcAdapter != null) {
+            nfcAdapter.disableForegroundDispatch(this);
+            nfcAdapter.disableForegroundNdefPush(this);
         }
     }
 
-    public void addSensorFragment(SensorGroupFragment sensorFragment) {
+    public void addSensorFragment(SensorFragment sensorFragment) {
         this.dispatcher.addSensorConfiguration(sensorFragment.getSensorConfiguration());
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         if (active) {
-            this.sensorFactory.dispatch(sensorEvent);
+            this.sensorCommunication.dispatch(sensorEvent);
         }
     }
 
@@ -403,7 +400,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     }
 
     public List<Parameters> getSensors() {
-        return sensorFactory.getSensors();
+        return sensorCommunication.getSensors();
     }
 
     public void onStartMultiTouch(View view) {
@@ -416,10 +413,10 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(active) {
+        if (active) {
             int width = v.getWidth();
             int height = v.getHeight();
-            for(Measurement measurement : Measurement.measurements(event, width, height)) {
+            for (Measurement measurement : Measurement.measurements(event, width, height)) {
                 dispatcher.dispatch(measurement);
             }
         }

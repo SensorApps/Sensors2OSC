@@ -1,7 +1,6 @@
 package org.sensors2.osc.views;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -14,7 +13,7 @@ import org.sensors2.osc.fragments.MultiTouchFragment;
 public class MultiTouchView extends View {
 
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    
+
     private int[] touching = new int[MultiTouchFragment.MAX_POINTER_COUNT];
     private float[] x = new float[MultiTouchFragment.MAX_POINTER_COUNT];
     private float[] y = new float[MultiTouchFragment.MAX_POINTER_COUNT];

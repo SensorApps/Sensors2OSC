@@ -2,8 +2,6 @@ package org.sensors2.osc.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,10 @@ import android.widget.TextView;
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.Bundling;
 
-import java.util.Map;
-
 /**
  * Created by thomas on 09.11.14.
  */
-public class HelpSensorGroupFragment extends Fragment {
+public class HelpSensorFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		Bundle args = this.getArguments();
@@ -27,7 +23,7 @@ public class HelpSensorGroupFragment extends Fragment {
 
 		String name = args.getString(Bundling.NAME);
 		String sensorName = args.getString(Bundling.SENSOR_NAME);
-		View v = inflater.inflate(R.layout.help_sensor_group, null);
+		View v = inflater.inflate(R.layout.help_sensor, null);
 		TextView groupName = (TextView) v.findViewById(R.id.group_name);
 		groupName.setText(name + " (" + sensorName + ")");
 		AddText((TextView) v.findViewById(R.id.range), args.getFloat(Bundling.SENSOR_RANGE));

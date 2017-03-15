@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.Bundling;
-import org.sensors2.osc.fragments.HelpSensorGroupFragment;
+import org.sensors2.osc.fragments.HelpSensorFragment;
 import org.sensors2.osc.sensors.Parameters;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class GuideActivity extends FragmentActivity {
 
 	public void CreateSensorFragments(Parameters parameters) {
 		FragmentManager manager = getSupportFragmentManager();
-		HelpSensorGroupFragment groupFragment = (HelpSensorGroupFragment) manager.findFragmentByTag(parameters.getName());
+		HelpSensorFragment groupFragment = (HelpSensorFragment) manager.findFragmentByTag(parameters.getName());
 		if (groupFragment == null) {
 			this.CreateFragment(parameters, manager);
 		}
@@ -51,7 +51,7 @@ public class GuideActivity extends FragmentActivity {
 
 	public void CreateFragment(Parameters parameters, FragmentManager manager) {
 		FragmentTransaction transaction = manager.beginTransaction();
-		HelpSensorGroupFragment groupFragment = new HelpSensorGroupFragment();
+		HelpSensorFragment groupFragment = new HelpSensorFragment();
 		Bundle args = new Bundle();
 		args.putInt(Bundling.DIMENSIONS, parameters.getDimensions());
 		args.putInt(Bundling.SENSOR_TYPE, parameters.getSensorType());

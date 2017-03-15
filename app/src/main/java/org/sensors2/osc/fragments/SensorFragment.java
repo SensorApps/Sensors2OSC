@@ -2,8 +2,6 @@ package org.sensors2.osc.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,21 +9,18 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
-import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.dispatch.SensorConfiguration;
-
-import java.util.Map;
 
 /**
  * Created by thomas on 09.11.14.
  */
-public class SensorGroupFragment extends Fragment {
+public class SensorFragment extends Fragment {
 
 	private final SensorConfiguration sensorConfiguration;
 	private CompoundButton activeButton;
 
-	public SensorGroupFragment() {
+	public SensorFragment() {
 		super();
 		this.sensorConfiguration = new SensorConfiguration();
 	}
@@ -41,7 +36,7 @@ public class SensorGroupFragment extends Fragment {
 		if (sensorConfiguration.getOscParam().equals("nfc")) {
 			this.sensorConfiguration.setSendDuplicates(true);
 		}
-		View v = inflater.inflate(R.layout.sensor_group, null);
+		View v = inflater.inflate(R.layout.sensor, null);
 		TextView groupName = (TextView) v.findViewById(R.id.group_name);
 		groupName.setText(name);
 		((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString(Bundling.OSC_PREFIX));
@@ -54,6 +49,12 @@ public class SensorGroupFragment extends Fragment {
 			}
 		});
 		return v;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
 	}
 
 	public SensorConfiguration getSensorConfiguration() {
