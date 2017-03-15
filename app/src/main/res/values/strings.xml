@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sensors2OSC</string>
+    <string name="app_name" translatable="false">Sensors2OSC</string>
     <string name="action_settings">Settings</string>
     <string name="host">Host</string>
     <string name="communication">Communication</string>
@@ -34,7 +34,7 @@ THE SOFTWARE.]]></string>
     <string name="text_guide_headline">Help</string>
     <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
     <string name="text_available_sensors">Available Sensors</string>
-    <string name="text_guide_multitouch">If you enable multitouch, each touchpoint will send its coordinates via OSC. The address is in the format /touch&lt;index&gt;/X and /touch&lt;index&gt;/Y, where index is a 1-based.</string>
+    <string name="text_guide_multitouch">If you enable multitouch, each touchpoint will send its coordinates via OSC. The address is in the format /touch&lt;index&gt;, where index is a 1-based. The coordinates are sent as a list of 2 float values, X and Y and range from 0 to 1.</string>
     <string name="text_guide_multitouch_headline">Multitouch</string>
     <string name="text_guide_nfc">If your phone can read NFC tokens, then the value of these tokens will be sent to the OSC address /nfc.</string>
     <string name="text_guide_nfc_headline">Near Field Communication (NFC)</string>
@@ -69,4 +69,5 @@ THE SOFTWARE.]]></string>
     <string name="sensor_pick_up_gesture">Pick Up Gesture</string>
     <string name="sensor_wrist_tilt_gesture">Wrist Tilt Gesture</string>
     <string name="sensor_unknown">Unknown Sensor</string>
+    <string name="text_guide_floatlist" >Sensor values are sent as a list of float values. Depending on the sensor, this can range from 1 to 16 values.</string>
 </resources>
