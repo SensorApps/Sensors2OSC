@@ -43,9 +43,4 @@
         android:layout_marginRight="0dp"
         android:text="@string/guide_resolution"
         android:paddingBottom="@dimen/activity_vertical_halfmargin"/>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"/>
 </LinearLayout>

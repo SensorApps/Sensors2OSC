@@ -1,6 +1,5 @@
 package org.sensors2.osc.fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,9 +12,13 @@ import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.dispatch.SensorConfiguration;
 
+/**
+ * Created by thomas on 09.11.14.
+ */
 public class SensorFragment extends Fragment {
+
+	private final SensorConfiguration sensorConfiguration;
 	private CompoundButton activeButton;
-	private SensorConfiguration sensorConfiguration;
 
 	public SensorFragment() {
 		super();
@@ -24,9 +27,7 @@ public class SensorFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.single_sensor, null);
 		Bundle args = this.getArguments();
-		this.sensorConfiguration.setIndex(args.getInt(Bundling.INDEX, 0));
 		this.sensorConfiguration.setSensorType(args.getInt(Bundling.SENSOR_TYPE));
 		this.sensorConfiguration.setOscParam(args.getString(Bundling.OSC_PREFIX));
 		String name = args.getString(Bundling.NAME);
@@ -35,20 +36,25 @@ public class SensorFragment extends Fragment {
 		if (sensorConfiguration.getOscParam().equals("nfc")) {
 			this.sensorConfiguration.setSendDuplicates(true);
 		}
+		View v = inflater.inflate(R.layout.sensor, null);
+		TextView groupName = (TextView) v.findViewById(R.id.group_name);
+		groupName.setText(name);
+		((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString(Bundling.OSC_PREFIX));
 
-		if (!name.equals("")) {
-			view.findViewById(R.id.name).setVisibility(View.VISIBLE);
-			((TextView) view.findViewById(R.id.name)).setText(name);
-		}
-
-		this.activeButton = (CompoundButton) view.findViewById(R.id.active);
+		this.activeButton = (CompoundButton) v.findViewById(R.id.active);
 		this.activeButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
 				sensorConfiguration.setSend(checked);
 			}
 		});
-		return view;
+		return v;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+
 	}
 
 	public SensorConfiguration getSensorConfiguration() {

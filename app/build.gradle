@@ -25,7 +25,7 @@ android {
 }
 
 dependencies {
-    compile 'com.illposed.osc:javaosc-core:0.3'
+    compile "com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4"
     compile 'org.apmem.tools:layouts:1.9@aar'
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.github.SensorApps:Common:d269321319'

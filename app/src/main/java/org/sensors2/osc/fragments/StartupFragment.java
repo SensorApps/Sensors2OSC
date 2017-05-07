@@ -34,7 +34,7 @@ public class StartupFragment extends Fragment {
 
     public void createSensorFragments(org.sensors2.osc.sensors.Parameters parameters) {
         FragmentManager manager = getActivity().getSupportFragmentManager();
-        SensorGroupFragment groupFragment = (SensorGroupFragment) manager.findFragmentByTag(parameters.getName());
+        SensorFragment groupFragment = (SensorFragment) manager.findFragmentByTag(parameters.getName());
 
         if (groupFragment == null) {
             groupFragment = createFragment(parameters, manager);
@@ -43,11 +43,16 @@ public class StartupFragment extends Fragment {
             transaction.add(R.id.sensor_group, groupFragment, parameters.getName());
             transaction.commit();
         }
-
+        addSensorToDispatcher(groupFragment);
     }
 
-    public SensorGroupFragment createFragment(org.sensors2.osc.sensors.Parameters parameters, FragmentManager manager) {
-        SensorGroupFragment groupFragment = new SensorGroupFragment();
+    private void addSensorToDispatcher(SensorFragment groupFragment) {
+        StartUpActivity activity = (StartUpActivity) this.getActivity();
+        activity.addSensorFragment(groupFragment);
+    }
+
+    public SensorFragment createFragment(org.sensors2.osc.sensors.Parameters parameters, FragmentManager manager) {
+        SensorFragment groupFragment = new SensorFragment();
         Bundle args = new Bundle();
         args.putInt(Bundling.DIMENSIONS, parameters.getDimensions());
         args.putInt(Bundling.SENSOR_TYPE, parameters.getSensorType());
