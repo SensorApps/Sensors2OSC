@@ -6,7 +6,8 @@ Typical use case is controlling a music application from your phone or tablet.
 
 ## Download
 
-Downloads are available from [F-Droid](https://f-droid.org/repository/browse/?fdid=org.sensors2.osc).
+<a href="https://f-droid.org/repository/browse/?fdid=org.sensors2.osc" target="_blank">
+<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="80"/></a>
 
 To build the app yourself, install the [Android SDK](https://developer.android.com/studio/index.html) and [Gradle](https://gradle.org/). 
 
