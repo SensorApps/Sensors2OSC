@@ -3,7 +3,9 @@ package org.sensors2.osc.activities;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
@@ -19,6 +21,7 @@ import android.nfc.tech.MifareClassic;
 import android.nfc.tech.MifareUltralight;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
@@ -44,6 +47,7 @@ import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
 import org.sensors2.osc.dispatch.SensorConfiguration;
+import org.sensors2.osc.dispatch.OscService;
 import org.sensors2.osc.fragments.MultiTouchFragment;
 import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.StartupFragment;
@@ -61,12 +65,29 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
     private PowerManager.WakeLock wakeLock;
+    private final Object lock = new Object();
     private boolean active;
     private StartupFragment startupFragment;
 
     private NfcAdapter nfcAdapter;
     private PendingIntent mPendingIntent;
     private NdefMessage mNdefPushMessage;
+
+    private OscService oscService;
+
+    private final ServiceConnection oscConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            synchronized (lock){
+                oscService = ((OscService.OscBinder)service).getService();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     public Settings getSettings() {
         return this.settings;
@@ -101,6 +122,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
             transaction.add(R.id.container, startupFragment, "sensorlist");
             transaction.commit();
         }
+        bindService(new Intent(this, OscService.class), oscConnection, BIND_AUTO_CREATE);
     }
 
     public List<Parameters> GetSensors(SensorManager sensorManager) {
@@ -395,11 +417,13 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
             if (!this.wakeLock.isHeld()) {
                 this.wakeLock.acquire();
             }
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             this.setRequestedOrientation(this.getCurrentOrientation());
+            Intent intent = new Intent(this, StartUpActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            oscService.start(intent, R.drawable.sensors2osc, getString(R.string.app_name), getString(R.string.return_to_app));
         } else {
             this.wakeLock.release();
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            oscService.stop();
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
         active = isChecked;
@@ -474,5 +498,9 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                     return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                 }
         }
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        unbindService(oscConnection);
     }
 }

@@ -72,4 +72,5 @@ THE SOFTWARE.]]></string>
     <string name="text_guide_floatlist">Sensor values are sent as a list of float values. Depending on the sensor, this can range from 1 to 16 values.</string>
     <string name="guide_dimensions">Number of values</string>
     <string name="sensor_inclination">Inclination</string>
+    <string name="return_to_app">Return to Sensors2OSC</string>
 </resources>

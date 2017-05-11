@@ -43,6 +43,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.StartUpActivity"/>
         </activity>
+
+        <service
+            android:name=".dispatch.OscService"
+            android:exported="false"/>
+
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
