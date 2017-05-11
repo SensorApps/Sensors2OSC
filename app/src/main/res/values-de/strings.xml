@@ -55,5 +55,5 @@
     <string name="text_guide_floatlist">Die Messwerte von Sensoren werde als Liste von Fließkommazahlen gesendet. Abhängig vom Sensor kann die Liste 1 bis 16 Werte umfassen.</string>
     <string name="guide_dimensions">Anzahl der Werte</string>
     <string name="sensor_inclination">Inklination</string>
-
+    <string name="return_to_app">Zurück zu Sensors2OSC</string>
 </resources>

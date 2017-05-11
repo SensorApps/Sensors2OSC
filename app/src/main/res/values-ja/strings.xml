@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Sensors2OSC</string>
     <string name="action_settings">設定</string>
     <string name="host">ホスト</string>
     <string name="communication">コミュニケーション</string>
