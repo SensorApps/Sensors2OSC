@@ -108,7 +108,14 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
         }
 
         // add device sensors
+        List<Integer> addedSensors = new ArrayList<>();
         for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
+            int sensorType = sensor.getType();
+            if (addedSensors.contains(sensorType)){
+                continue;
+            }
+            addedSensors.add(sensorType);
             parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, this.getApplicationContext()));
         }
         return parameters;

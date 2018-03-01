@@ -78,7 +78,14 @@ public class GuideActivity extends FragmentActivity {
 
 	public List<Parameters> GetSensors(SensorManager manager) {
 		List<Parameters> parameters = new ArrayList<Parameters>();
+		List<Integer> addedSensors = new ArrayList<>();
 		for (Sensor sensor : manager.getSensorList(Sensor.TYPE_ALL)) {
+			// Sensors may be listed twice: wake up and non wake up
+			int sensorType = sensor.getType();
+			if (addedSensors.contains(sensorType)){
+				continue;
+			}
+			addedSensors.add(sensorType);
 			parameters.add(new Parameters(sensor, this));
 		}
 		return parameters;
