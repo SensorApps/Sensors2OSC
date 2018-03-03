@@ -1,6 +1,5 @@
 package org.sensors2.osc.activities;
 
-import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -15,7 +14,6 @@ import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.fragments.HelpSensorFragment;
 import org.sensors2.osc.sensors.Parameters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +29,7 @@ public class GuideActivity extends FragmentActivity {
 
 		TextView availableSensorsHeadline = (TextView) findViewById(R.id.availSensorsHeadline);
 		this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-		List<Parameters> sensors = GetSensors(sensorManager);
+		List<Parameters> sensors = Parameters.GetSensors(sensorManager, this.getApplicationContext());
 		availableSensorsHeadline.setText(sensors.size() + " " + availableSensorsHeadline.getText());
 		for (Parameters parameters : sensors) {
 			this.CreateSensorFragments(parameters);
@@ -76,18 +74,4 @@ public class GuideActivity extends FragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	public List<Parameters> GetSensors(SensorManager manager) {
-		List<Parameters> parameters = new ArrayList<Parameters>();
-		List<Integer> addedSensors = new ArrayList<>();
-		for (Sensor sensor : manager.getSensorList(Sensor.TYPE_ALL)) {
-			// Sensors may be listed twice: wake up and non wake up
-			int sensorType = sensor.getType();
-			if (addedSensors.contains(sensorType)){
-				continue;
-			}
-			addedSensors.add(sensorType);
-			parameters.add(new Parameters(sensor, this));
-		}
-		return parameters;
-	}
 }

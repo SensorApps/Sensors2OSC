@@ -1,10 +1,13 @@
 package org.sensors2.osc.dispatch;
 
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Message;
 
 import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.dispatch.DataDispatcher;
+import org.sensors2.osc.sensors.Parameters;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,9 @@ import java.util.List;
 public class OscDispatcher implements DataDispatcher {
 	private List<SensorConfiguration> sensorConfigurations = new ArrayList<SensorConfiguration>();
 	private OscCommunication communication;
+	private float[] gravity;
+	private float[] geomagnetic;
+	private SensorManager sensorManager;
 
 	public OscDispatcher() {
 		communication = new OscCommunication("OSC dispatcher thread", Thread.MIN_PRIORITY);
@@ -31,6 +37,30 @@ public class OscDispatcher implements DataDispatcher {
 			if (sensorConfiguration.getSensorType() == sensorData.getSensorType()) {
 				trySend(sensorConfiguration, sensorData.getValues());
 			}
+			if (sensorConfiguration.getSensorType() == Parameters.FAKE_ORIENTATION){
+				// Fake orientation
+				if (sensorData.getSensorType() != Sensor.TYPE_ACCELEROMETER && sensorData.getSensorType() != Sensor.TYPE_MAGNETIC_FIELD){
+					continue;
+				}
+				if (sensorData.getSensorType() == Sensor.TYPE_ACCELEROMETER){
+					this.gravity = sensorData.getValues();
+				}
+
+				if (sensorData.getSensorType() == Sensor.TYPE_MAGNETIC_FIELD){
+					this.geomagnetic = sensorData.getValues();
+				}
+				if (this.gravity != null && this.geomagnetic != null){
+					float rotation[] = new float[9];
+					float inclination[] = new float[9];
+
+					boolean success = this.sensorManager.getRotationMatrix(rotation, inclination, this.gravity, this.geomagnetic);
+					if (success) {
+						float orientation[] = new float[3];
+						this.sensorManager.getOrientation(rotation, orientation);
+						this.trySend(sensorConfiguration, orientation);
+					}
+				}
+			}
 		}
 	}
 
@@ -45,5 +75,9 @@ public class OscDispatcher implements DataDispatcher {
 		message.setData(data);
 		OscHandler handler = communication.getOscHandler();
 		handler.sendMessage(message);
+	}
+
+	public void setSensorManager(SensorManager sensorManager) {
+		this.sensorManager = sensorManager;
 	}
 }

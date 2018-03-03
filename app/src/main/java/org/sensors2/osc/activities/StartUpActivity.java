@@ -38,6 +38,7 @@ import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
+import org.sensors2.osc.dispatch.SensorConfiguration;
 import org.sensors2.osc.fragments.MultiTouchFragment;
 import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.StartupFragment;
@@ -75,6 +76,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
         this.settings = this.loadSettings();
         this.dispatcher = new OscDispatcher();
         this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        this.dispatcher.setSensorManager(this.sensorManager);
         this.sensorCommunication = new SensorCommunication(this);
         this.wakeLock = ((PowerManager) getSystemService(POWER_SERVICE)).newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, this.getLocalClassName());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD_MR1) {
@@ -106,18 +108,8 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                 parameters.add(new org.sensors2.osc.sensors.Parameters(nfcAdapter, this.getApplicationContext()));
             }
         }
-
         // add device sensors
-        List<Integer> addedSensors = new ArrayList<>();
-        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
-            int sensorType = sensor.getType();
-            if (addedSensors.contains(sensorType)){
-                continue;
-            }
-            addedSensors.add(sensorType);
-            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, this.getApplicationContext()));
-        }
+        parameters.addAll(org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, this.getApplicationContext()));
         return parameters;
     }
 

@@ -3,9 +3,13 @@ package org.sensors2.osc.sensors;
 import android.content.Context;
 import android.content.res.Resources;
 import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.nfc.NfcAdapter;
 
 import org.sensors2.osc.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by thomas on 05.11.14.
@@ -13,7 +17,37 @@ import org.sensors2.osc.R;
 public class Parameters extends org.sensors2.common.sensors.Parameters {
     private final String oscPrefix;
     private final String name;
-    public static final int MAX_DIMENSIONS = 15;
+
+    public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
+        List<Parameters> parameters = new ArrayList<>();
+        // add device sensors
+        List<Integer> addedSensors = new ArrayList<>();
+        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
+            int sensorType = sensor.getType();
+            if (addedSensors.contains(sensorType)) {
+                continue;
+            }
+            addedSensors.add(sensorType);
+            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
+        }
+        // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
+        // We need 1 (accelerometer) and 2 (magnetic field) to use it.
+        if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(org.sensors2.osc.sensors.Parameters.createFakeOrientationSensor(applicationContext));
+        }
+        return parameters;
+    }
+
+    private static Parameters createFakeOrientationSensor(Context applicationContext) {
+        return new Parameters("orientation_f", getString(R.string.sensor_orientation, applicationContext));
+    }
+
+    private Parameters(String oscPrefix, String name) {
+        super();
+        this.name = name;
+        this.oscPrefix = oscPrefix;
+    }
 
     public Parameters(Sensor sensor, Context applicationContext) {
         super(sensor);
@@ -162,7 +196,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         this.oscPrefix = "nfc";
     }
 
-    private String getString(int stringId, Context context) {
+    private static String getString(int stringId, Context context) {
         Resources res = context.getResources();
         return res.getString(stringId);
     }

@@ -16,18 +16,18 @@
         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <TextView
+        android:id="@+id/osc_prefix"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="0dp"
         android:text="@string/guide_osc_address"/>
 
-    <LinearLayout
-        android:id="@+id/sensor_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingLeft="0dp"
-        android:paddingRight="0dp"/>
+    <TextView
+        android:id="@+id/dimensions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="0dp"
+        android:text="@string/guide_dimensions"/>
 
     <TextView
         android:id="@+id/range"
