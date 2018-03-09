@@ -34,17 +34,24 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
         // We need 1 (accelerometer) and 2 (magnetic field) to use it.
         if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
-            parameters.add(org.sensors2.osc.sensors.Parameters.createFakeOrientationSensor(applicationContext));
+            parameters.add(createFakeOrientationSensor(applicationContext));
+        }
+        if (addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(createInclinationSensor(applicationContext));
         }
         return parameters;
     }
 
     private static Parameters createFakeOrientationSensor(Context applicationContext) {
-        return new Parameters("orientation_f", getString(R.string.sensor_orientation, applicationContext));
+        return new Parameters("orientation", getString(R.string.sensor_orientation, applicationContext), FAKE_ORIENTATION);
     }
 
-    private Parameters(String oscPrefix, String name) {
-        super();
+    private static Parameters createInclinationSensor(Context applicationContext) {
+        return new Parameters("inclination", getString(R.string.sensor_inclination, applicationContext), INCLINATION);
+    }
+
+    private Parameters(String oscPrefix, String name, int sensorType) {
+        super(sensorType);
         this.name = name;
         this.oscPrefix = oscPrefix;
     }

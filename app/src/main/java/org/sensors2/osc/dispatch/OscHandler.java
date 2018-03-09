@@ -16,28 +16,35 @@ import java.util.List;
  */
 public class OscHandler extends Handler {
 
-	public OscHandler(Looper myLooper) {
-		super(myLooper);
-	}
-	@Override
-	public void handleMessage(Message message) {
-		Bundle data = message.getData();
-		float[] value = data.getFloatArray(Bundling.VALUE);
-		String oscParameter = data.getString(Bundling.OSC_PARAMETER);
-		OscConfiguration configuration = OscConfiguration.getInstance();
+    public OscHandler(Looper myLooper) {
+        super(myLooper);
+    }
 
-		if (configuration == null || configuration.getOscPort() == null) {
-			return;
-		}
-		List<Object> changes = new ArrayList<Object>();
-		for (float singleValue : value){
-			changes.add(singleValue);
-		}
-		OSCMessage oscMessage = new OSCMessage("/" + oscParameter, changes);
-		try {
-			configuration.getOscPort().send(oscMessage);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    @Override
+    public void handleMessage(Message message) {
+        Bundle data = message.getData();
+        float[] values = data.getFloatArray(Bundling.VALUES);
+        String stringValue = data.getString(Bundling.STRING_VALUE);
+        String oscParameter = data.getString(Bundling.OSC_PARAMETER);
+        OscConfiguration configuration = OscConfiguration.getInstance();
+
+        if (configuration == null || configuration.getOscPort() == null) {
+            return;
+        }
+        List<Object> changes = new ArrayList<Object>();
+        if (values != null) {
+            for (float value : values) {
+                changes.add(value);
+            }
+        }
+        if (stringValue != null) {
+            changes.add(stringValue);
+        }
+        OSCMessage oscMessage = new OSCMessage("/" + oscParameter, changes);
+        try {
+            configuration.getOscPort().send(oscMessage);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
