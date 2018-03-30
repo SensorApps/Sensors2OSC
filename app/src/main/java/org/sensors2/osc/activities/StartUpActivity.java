@@ -5,6 +5,9 @@ import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.graphics.Point;
+import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -22,9 +25,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CompoundButton;
@@ -391,9 +396,11 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                 this.wakeLock.acquire();
             }
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            this.setRequestedOrientation(this.getCurrentOrientation());
         } else {
             this.wakeLock.release();
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         }
         active = isChecked;
     }
@@ -421,5 +428,51 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
         }
 
         return false;
+    }
+
+    public int getCurrentOrientation() {
+
+        final Display display = this.getWindowManager().getDefaultDisplay();
+        final int width, height;
+        if (Build.VERSION.SDK_INT >= 13) {
+            Point size = new Point();
+            display.getSize(size);
+            width = size.x;
+            height = size.y;
+        }
+        else {
+            width = display.getWidth();
+            height = display.getHeight();
+        }
+        switch(display.getRotation()){
+            case Surface.ROTATION_90:
+                if (width > height) {
+                    return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                }
+                else {
+                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+                }
+            case Surface.ROTATION_180:
+                if (height > width) {
+                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
+                }
+                else {
+                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+                }
+            case Surface.ROTATION_270:
+                if (width > height) {
+                    return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
+                }
+                else {
+                    return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                }
+            default:
+                if (height > width) {
+                    return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+                }
+                else {
+                    return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
+                }
+        }
     }
 }
