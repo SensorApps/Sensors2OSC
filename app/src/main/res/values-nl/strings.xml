@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Instellingen</string>
+    <string name="communication">Communicatie</string>
+    <string name="sensors">Sensoren</string>
+    <string name="sensitity">Gevoeligheid</string>
+    <string name="title_activity_about">Over de app</string>
+    <string name="action_about">Over de app</string>
+    <string name="about_buglinks">Meld bugs a.u.b. bij &lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> of per e-mail aan &lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a>. We zullen er naar kijken.</string>
+    <string name="about_license">Licentie</string>
+    <string name="about_components">Gebruikte componenten</string>
+    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>. De licentie kan gevonden worden op &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="send_data">Verstuur data</string>
+    <string name="action_guide">Help</string>
+    <string name="text_available_sensors">Beschikbare sensoren</string>
+    <string name="text_guide">Afhankelijk van het apparaat zijn er verschillende sensoren en waarden beschikbaar.</string>
+    <string name="text_guide_headline">Help</string>
+    <string name="guide_max_range">Max. bereik</string>
+    <string name="guide_resolution">Resolutie</string>
+    <string name="guide_osc_address">OSC-adres</string>
+    <string name="sensor_accelerometer">Versnelling</string>
+    <string name="sensor_magnetic_field">Magnetisch veld</string>
+    <string name="sensor_orientation">Oriëntatie</string>
+    <string name="sensor_gyroscope">Gyroscoop</string>
+    <string name="sensor_light">Licht</string>
+    <string name="sensor_pressure">Druk</string>
+    <string name="sensor_temperature">Temperatuur</string>
+    <string name="sensor_proximity">Nabijheid</string>
+    <string name="sensor_gravity">Zwaartekracht</string>
+    <string name="sensor_linear_acceleration">Lineaire versnelling</string>
+    <string name="sensor_rotation_vector">Rotatievector</string>
+    <string name="sensor_relative_humidity">Relatieve vochtigheid</string>
+    <string name="sensor_magnetic_field_uncalibrated">Magnetisch veld (ongekalibreerd)</string>
+    <string name="sensor_game_rotation_vector">Rotatievector (ongekalibreerd)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroscoop (ongekalibreerd)</string>
+    <string name="sensor_geomagnetic_rotation_vector">Rotatievector (geomagnetisch)</string>
+    <string name="sensor_heartrate">Hartslag</string>
+    <string name="sensor_significant_motion">Significante beweging</string>
+    <string name="sensor_step_counter">Stappenteller</string>
+    <string name="sensor_step_detector">Stappendetector</string>
+    <string name="sensor_unknown">Onbekende sensor</string>
+    <string name="host">Host</string>
+    <string name="port">Poort</string>
+    <string name="sensor_ambient_temperature">Omgevingstemperatuur</string>
+    <string name="sensor_glance_gesture">Blikgebaar</string>
+    <string name="sensor_nfc">Near-field communication (NFC)</string>
+    <string name="sensor_pick_up_gesture">Opneemgebaar</string>
+    <string name="sensor_tilt_detector">Tiltdetectie</string>
+    <string name="sensor_wake_gesture">Wekgebaar</string>
+    <string name="sensor_wrist_tilt_gesture">Pols-tiltgebaar</string>
+    <string name="text_guide_multitouch_headline">Multitouch</string>
+    <string name="text_guide_nfc_headline">Near-field communication (NFC)</string>
+    <string name="text_guide_nfc">Als het apparaat NFC-tokens kan lezen, worden deze waarden van de deze tokens verstuurd aan het OSC-adres /nfc.</string>
+    <string name="text_guide_multitouch">Als multitouch is ingeschakeld, verstuurt het apparaat de coördinaten van elk aanrakingspunt via OSC. Het OSC-adres dat daarbij hoort heeft het formaat /touch&lt;index&gt;, waar de index bij 1 begint. De coördinaten worden verstuurd als een lijst van twee floating points die een waarde van 0 tot 1 kunnen hebben.</string>
+    <string name="text_guide_floatlist">Sensorwaarden worden als een lijst van floating points verstuurd. Afhankelijk van de sensor kan kunnen dit 1 tot en met 16 waarden zijn.</string>
+    <string name="guide_dimensions">Aantal waarden</string>
+    <string name="sensor_inclination">Helling</string>
+
+</resources>

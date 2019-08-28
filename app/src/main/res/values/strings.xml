@@ -69,7 +69,7 @@ THE SOFTWARE.]]></string>
     <string name="sensor_pick_up_gesture">Pick Up Gesture</string>
     <string name="sensor_wrist_tilt_gesture">Wrist Tilt Gesture</string>
     <string name="sensor_unknown">Unknown Sensor</string>
-    <string name="text_guide_floatlist" >Sensor values are sent as a list of float values. Depending on the sensor, this can range from 1 to 16 values.</string>
-    <string name="guide_dimensions" >Number of values</string>
-    <string name="sensor_inclination" >Inclination</string>
+    <string name="text_guide_floatlist">Sensor values are sent as a list of float values. Depending on the sensor, this can range from 1 to 16 values.</string>
+    <string name="guide_dimensions">Number of values</string>
+    <string name="sensor_inclination">Inclination</string>
 </resources>
