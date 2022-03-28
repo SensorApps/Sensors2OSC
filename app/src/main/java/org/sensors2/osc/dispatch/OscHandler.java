@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.os.Message;
 
 import com.illposed.osc.OSCMessage;
+import com.illposed.osc.OSCSerializeException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +45,8 @@ public class OscHandler extends Handler {
         try {
             configuration.getOscPort().send(oscMessage);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (OSCSerializeException e) {
             e.printStackTrace();
         }
     }

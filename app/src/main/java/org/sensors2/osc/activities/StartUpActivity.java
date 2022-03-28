@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
-import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorManager;
@@ -25,16 +24,15 @@ import android.os.IBinder;
 import android.os.Parcelable;
 import android.os.PowerManager;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.CompoundButton;
 
 import org.sensors2.common.dispatch.DataDispatcher;
@@ -46,7 +44,6 @@ import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
-import org.sensors2.osc.dispatch.SensorConfiguration;
 import org.sensors2.osc.dispatch.OscService;
 import org.sensors2.osc.fragments.MultiTouchFragment;
 import org.sensors2.osc.fragments.SensorFragment;
@@ -307,6 +304,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
 
     @Override
     public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         setIntent(intent);
         resolveIntent(intent);
     }
@@ -498,6 +496,7 @@ public class StartUpActivity extends FragmentActivity implements SensorActivity,
                     return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                 }
         }
+    }
     @Override
     public void onDestroy(){
         super.onDestroy();
