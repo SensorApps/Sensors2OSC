@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -110,7 +111,8 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         return new NotificationCompat.Builder(SensorService.this, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(getText(R.string.app_name))
                 .setContentText(getText(R.string.return_to_app))
-                .setSmallIcon(R.drawable.sensors2osc)
+                .setSmallIcon(R.drawable.sensors2osc_notification)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.sensors2osc))
                 .setContentIntent(pendingIntent)
                 .setTicker(getText(R.string.app_name))
                 .build();
