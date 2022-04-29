@@ -4,6 +4,8 @@ Android app for sending sensor data, multitouch and NFC tags via [Open Sound Con
 
 Typical use case is controlling a music application from your phone or tablet.
 
+<a href="https://sensors2.org/osc" target="_blank">Homepage</a>
+
 ## Download
 
 <a href="https://f-droid.org/repository/browse/?fdid=org.sensors2.osc" target="_blank">
