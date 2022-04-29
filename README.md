@@ -22,3 +22,6 @@ If you want to contribute to this project, send a pull request.
 ## Translation
 
 If you want to add a new language or update translations, please see the [Common](https://github.com/SensorApps/Common) library for the sensor apps. It contains additional strings.
+
+## Example usage
+There are two examples included for receiving data from Sensors2OSC, that reside in `examples`, Puredata and Python3. Both listen to port 9000.
