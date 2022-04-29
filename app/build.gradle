@@ -17,17 +17,17 @@ android {
         }
     }
 
-    lintOptions {
-        checkReleaseBuilds true
-        abortOnError false
-    }
     dependenciesInfo {
         includeInApk false
+    }
+    lint {
+        abortOnError false
+        checkReleaseBuilds true
     }
 }
 
 dependencies {
-    implementation 'com.illposed.osc:javaosc-core:0.8'
+    implementation 'com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4'
     implementation 'org.apmem.tools:layouts:1.9@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.SensorApps:Common:9494ac1590'

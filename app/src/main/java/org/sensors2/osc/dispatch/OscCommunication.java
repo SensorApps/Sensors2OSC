@@ -1,30 +1,23 @@
 package org.sensors2.osc.dispatch;
 
 import android.os.HandlerThread;
+import android.os.Looper;
 
 /**
  * Created by thomas on 31.03.15.
  */
-public class OscCommunication extends HandlerThread {
+public class OscCommunication extends Thread {
     private OscHandler handler;
 
     public OscCommunication(String name) {
         super(name);
     }
 
-    public OscCommunication(String name, int priority) {
-        super(name, priority);
-    }
-
     @Override
     public void run() {
-        super.run();
-        handler = null;
-    }
-
-    @Override
-    protected void onLooperPrepared() {
-        handler = new OscHandler(this.getLooper());
+        Looper.prepare();
+        handler = new OscHandler();
+        Looper.loop();
     }
 
     public OscHandler getOscHandler() {

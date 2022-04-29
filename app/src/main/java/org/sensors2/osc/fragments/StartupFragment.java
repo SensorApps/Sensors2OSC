@@ -1,5 +1,7 @@
 package org.sensors2.osc.fragments;
 
+import android.content.Context;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -25,7 +27,8 @@ public class StartupFragment extends Fragment {
         activeButton = (CompoundButton) v.findViewById(R.id.active);
         StartUpActivity activity = (StartUpActivity) getActivity();
         activeButton.setOnCheckedChangeListener(activity);
-        for (Parameters parameters : activity.getSensors()) {
+        SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+        for (Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, activity.getApplicationContext())){
             createSensorFragments((org.sensors2.osc.sensors.Parameters) parameters);
         }
 
@@ -43,13 +46,8 @@ public class StartupFragment extends Fragment {
             transaction.add(R.id.sensor_group, groupFragment, parameters.getName());
             transaction.commit();
         }
-        addSensorToDispatcher(groupFragment);
     }
 
-    private void addSensorToDispatcher(SensorFragment groupFragment) {
-        StartUpActivity activity = (StartUpActivity) this.getActivity();
-        activity.addSensorFragment(groupFragment);
-    }
 
     public SensorFragment createFragment(org.sensors2.osc.sensors.Parameters parameters, FragmentManager manager) {
         SensorFragment groupFragment = new SensorFragment();
@@ -59,7 +57,6 @@ public class StartupFragment extends Fragment {
         args.putString(Bundling.OSC_PREFIX, parameters.getOscPrefix());
         args.putString(Bundling.NAME, parameters.getName());
         groupFragment.setArguments(args);
-
         return groupFragment;
     }
 

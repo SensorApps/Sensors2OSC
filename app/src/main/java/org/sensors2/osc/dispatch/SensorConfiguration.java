@@ -1,5 +1,7 @@
 package org.sensors2.osc.dispatch;
 
+import android.util.Log;
+
 import org.sensors2.osc.sensors.Parameters;
 
 /**
@@ -34,6 +36,10 @@ public class SensorConfiguration {
 
     public void setSend(boolean send) {
         this.send = send;
+    }
+
+    public boolean getSend() {
+        return this.send;
     }
 
     public void setSendDuplicates(boolean sendDuplicates) {

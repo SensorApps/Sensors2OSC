@@ -4,6 +4,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 
 import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.dispatch.DataDispatcher;
@@ -23,8 +24,9 @@ public class OscDispatcher implements DataDispatcher {
     private SensorManager sensorManager;
 
     public OscDispatcher() {
-        communication = new OscCommunication("OSC dispatcher thread", Thread.MIN_PRIORITY);
-        communication.start();
+        this.communication = new OscCommunication("OSC dispatcher thread");
+        this.communication.setPriority(Thread.NORM_PRIORITY-1);
+        this.communication.start();
     }
 
     public void addSensorConfiguration(SensorConfiguration sensorConfiguration) {
@@ -103,5 +105,9 @@ public class OscDispatcher implements DataDispatcher {
 
     public void setSensorManager(SensorManager sensorManager) {
         this.sensorManager = sensorManager;
+    }
+
+    public List<SensorConfiguration> getSensorConfigurations() {
+        return this.sensorConfigurations;
     }
 }
