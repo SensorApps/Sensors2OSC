@@ -56,4 +56,19 @@
     <string name="guide_dimensions">Anzahl der Werte</string>
     <string name="sensor_inclination">Inklination</string>
     <string name="return_to_app">Zurück zu Sensors2OSC</string>
+    <string name="sensor_type_hinge_angle">Drehwinkel</string>
+    <string name="sensor_type_accelorometer_uncalibrated">Beschleunigung (unkalibriert)</string>
+    <string name="sensor_type_dynamic_sensor_meta">Dynamischer Sensor (Meta-Event)</string>
+    <string name="sensor_type_heart_beat">Herzschlag</string>
+    <string name="sensor_type_stationary_detect">Bewegungslosigkeit erkannt</string>
+    <string name="sensor_type_pose_6dof">Position (6 Freiheitsgrade)</string>
+    <string name="sensor_type_motion_detect">Bewegung erkannt</string>
+    <string name="sensor_type_device_orientation">Geräte-Ausrichtung</string>
+    <string name="sensor_type_low_latency_offbody_detect">Erkennung am / nicht am Körper</string>
+    <string name="sensor_type_heading">Ausrichtung relativ zu Nord</string>
+    <string name="sensor_type_gyroscope_limited_axes_uncalibrated">Gyroskop (begrenzte Anzahl an Achsen, unkalibriert)</string>
+    <string name="sensor_type_gyroscope_limited_axes">Gyroskop (begrenzte Anzahl an Achsen)</string>
+    <string name="sensor_type_accelerometer_limited_axes_uncalibrated">Beschleunigung (begrenzte Anzahl an Achsen, unkalibriert)</string>
+    <string name="sensor_type_accelerometer_limited_axes">Beschleunigung (begrenzte Anzahl an Achsen)</string>
+    <string name="sensor_type_head_tracker">Kopf-Position</string>
 </resources>
