@@ -91,6 +91,8 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
             transaction.add(R.id.container, startupFragment, "sensorlist");
             transaction.commit();
         }
+        startService(new Intent(this, SensorService.class));
+        bindService(new Intent(this, SensorService.class), this.sensorServiceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -144,8 +146,6 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
     protected void onResume() {
         super.onResume();
         this.settings = this.loadSettings();
-        startService(new Intent(this, SensorService.class));
-        bindService(new Intent(this, SensorService.class), this.sensorServiceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
