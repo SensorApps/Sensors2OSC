@@ -29,7 +29,6 @@ import org.sensors2.osc.fragments.SensorFragment;
 import org.sensors2.osc.fragments.StartupFragment;
 import org.sensors2.osc.sensors.Settings;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,29 +40,31 @@ import static org.sensors2.osc.fragments.MultiTouchFragment.MAX_POINTER_COUNT;
 
 public class StartUpActivity extends FragmentActivity implements CompoundButton.OnCheckedChangeListener, View.OnTouchListener {
 
+    private final List<SensorFragment> sensorFragments = new ArrayList<>();
     private Settings settings;
     private boolean active;
     private SensorService sensorService;
-    private List<SensorFragment> sensorFragments = new ArrayList<>();
-
     private final ServiceConnection sensorServiceConnection = new ServiceConnection() {
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             SensorService.OscBinder binder = (SensorService.OscBinder) service;
             StartUpActivity.this.sensorService = binder.getService();
             StartUpActivity.this.sensorService.setSettings(settings);
-            StartUpActivity.this.active =StartUpActivity.this. sensorService.getIsSending();
-            ((CompoundButton)findViewById(R.id.active)).setChecked(StartUpActivity.this.active);
+            StartUpActivity.this.active = StartUpActivity.this.sensorService.getIsSending();
+            ((CompoundButton) findViewById(R.id.active)).setChecked(StartUpActivity.this.active);
             OscDispatcher dispatcher = (OscDispatcher) StartUpActivity.this.sensorService.getDispatcher();
 
-            for(int i = 0; i < MAX_POINTER_COUNT; i++) {
+            // Setup multitouch
+            for (int i = 0; i < MAX_POINTER_COUNT; i++) {
                 SensorConfiguration sensorConfiguration = new SensorConfiguration();
                 sensorConfiguration.setSend(true);
                 sensorConfiguration.setSensorType(Measurement.pointerIdToSensorType(i));
                 sensorConfiguration.setOscParam("touch" + (i + 1));
                 dispatcher.addSensorConfiguration(sensorConfiguration);
             }
-            for(SensorFragment sensorFragment : StartUpActivity.this.sensorFragments){
+
+            // Hookup sensor activity buttons with service
+            for (SensorFragment sensorFragment : StartUpActivity.this.sensorFragments) {
                 sensorFragment.setSensorService(StartUpActivity.this.sensorService);
             }
         }
@@ -181,39 +182,36 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
         display.getSize(size);
         width = size.x;
         height = size.y;
-        switch(display.getRotation()){
+        switch (display.getRotation()) {
             case Surface.ROTATION_90:
                 if (width > height) {
                     return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
-                }
-                else {
+                } else {
                     return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
                 }
             case Surface.ROTATION_180:
                 if (height > width) {
                     return ActivityInfo.SCREEN_ORIENTATION_REVERSE_PORTRAIT;
-                }
-                else {
+                } else {
                     return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
                 }
             case Surface.ROTATION_270:
                 if (width > height) {
                     return ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE;
-                }
-                else {
+                } else {
                     return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                 }
             default:
                 if (height > width) {
                     return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
-                }
-                else {
+                } else {
                     return ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE;
                 }
         }
     }
+
     @Override
-    public void onDestroy(){
+    public void onDestroy() {
         super.onDestroy();
         unbindService(sensorServiceConnection);
     }
@@ -227,7 +225,6 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
                 this.sensorService.getDispatcher().dispatch(measurement);
             }
         }
-
         return false;
     }
 

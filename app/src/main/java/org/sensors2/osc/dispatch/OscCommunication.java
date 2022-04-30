@@ -1,6 +1,5 @@
 package org.sensors2.osc.dispatch;
 
-import android.os.HandlerThread;
 import android.os.Looper;
 
 /**

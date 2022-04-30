@@ -1,25 +1,14 @@
 package org.sensors2.osc.fragments;
 
-import android.content.ComponentName;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
-
-import android.os.IBinder;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
-import org.sensors2.osc.dispatch.OscDispatcher;
-import org.sensors2.osc.dispatch.SensorConfiguration;
-import org.sensors2.osc.dispatch.SensorService;
 
-import static android.content.Context.BIND_AUTO_CREATE;
+import androidx.fragment.app.Fragment;
 
 public class MultiTouchFragment extends Fragment {
 

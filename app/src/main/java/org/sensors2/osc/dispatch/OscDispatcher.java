@@ -4,10 +4,9 @@ import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
 
-import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.dispatch.DataDispatcher;
+import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.osc.sensors.Parameters;
 
 import java.util.ArrayList;
@@ -17,15 +16,14 @@ import java.util.List;
  * Created by thomas on 07.11.14.
  */
 public class OscDispatcher implements DataDispatcher {
-    private List<SensorConfiguration> sensorConfigurations = new ArrayList<SensorConfiguration>();
-    private OscCommunication communication;
+    private final List<SensorConfiguration> sensorConfigurations = new ArrayList<>();
+    private final OscCommunication communication;
     private float[] gravity;
     private float[] geomagnetic;
-    private SensorManager sensorManager;
 
     public OscDispatcher() {
         this.communication = new OscCommunication("OSC dispatcher thread");
-        this.communication.setPriority(Thread.NORM_PRIORITY-1);
+        this.communication.setPriority(Thread.NORM_PRIORITY - 1);
         this.communication.start();
     }
 
@@ -56,19 +54,19 @@ public class OscDispatcher implements DataDispatcher {
                     this.geomagnetic = sensorData.getValues();
                 }
                 if (this.gravity != null && this.geomagnetic != null) {
-                    float rotationMatrix[] = new float[9];
-                    float inclinationMatrix[] = new float[9];
+                    float[] rotationMatrix = new float[9];
+                    float[] inclinationMatrix = new float[9];
 
-                    boolean success = this.sensorManager.getRotationMatrix(rotationMatrix, inclinationMatrix, this.gravity, this.geomagnetic);
+                    boolean success = SensorManager.getRotationMatrix(rotationMatrix, inclinationMatrix, this.gravity, this.geomagnetic);
                     if (success) {
                         if (sensorConfiguration.getSensorType() == Parameters.FAKE_ORIENTATION) {
-                            float orientation[] = new float[3];
-                            this.sensorManager.getOrientation(rotationMatrix, orientation);
+                            float[] orientation = new float[3];
+                            SensorManager.getOrientation(rotationMatrix, orientation);
                             this.trySend(sensorConfiguration, orientation);
                         }
                         if (sensorConfiguration.getSensorType() == Parameters.INCLINATION) {
-                            float inclination[] = new float[1];
-                            inclination[0] = this.sensorManager.getInclination(inclinationMatrix);
+                            float[] inclination = new float[1];
+                            inclination[0] = SensorManager.getInclination(inclinationMatrix);
                             this.trySend(sensorConfiguration, inclination);
                         }
                     }
@@ -101,10 +99,6 @@ public class OscDispatcher implements DataDispatcher {
         message.setData(data);
         OscHandler handler = communication.getOscHandler();
         handler.sendMessage(message);
-    }
-
-    public void setSensorManager(SensorManager sensorManager) {
-        this.sensorManager = sensorManager;
     }
 
     public List<SensorConfiguration> getSensorConfigurations() {

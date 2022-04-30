@@ -18,38 +18,6 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
     private final String oscPrefix;
     private final String name;
 
-    public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
-        List<Parameters> parameters = new ArrayList<>();
-        // add device sensors
-        List<Integer> addedSensors = new ArrayList<>();
-        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
-            int sensorType = sensor.getType();
-            if (addedSensors.contains(sensorType)) {
-                continue;
-            }
-            addedSensors.add(sensorType);
-            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
-        }
-        // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
-        // We need 1 (accelerometer) and 2 (magnetic field) to use it.
-        if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
-            parameters.add(createFakeOrientationSensor(applicationContext));
-        }
-        if (addedSensors.contains(1) && addedSensors.contains(2)) {
-            parameters.add(createInclinationSensor(applicationContext));
-        }
-        return parameters;
-    }
-
-    private static Parameters createFakeOrientationSensor(Context applicationContext) {
-        return new Parameters("orientation", getString(R.string.sensor_orientation, applicationContext), FAKE_ORIENTATION);
-    }
-
-    private static Parameters createInclinationSensor(Context applicationContext) {
-        return new Parameters("inclination", getString(R.string.sensor_inclination, applicationContext), INCLINATION);
-    }
-
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
         this.name = name;
@@ -201,6 +169,38 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         super(nfcAdapter);
         this.name = getString(R.string.sensor_nfc, applicationContext);
         this.oscPrefix = "nfc";
+    }
+
+    public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
+        List<Parameters> parameters = new ArrayList<>();
+        // add device sensors
+        List<Integer> addedSensors = new ArrayList<>();
+        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
+            int sensorType = sensor.getType();
+            if (addedSensors.contains(sensorType)) {
+                continue;
+            }
+            addedSensors.add(sensorType);
+            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
+        }
+        // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
+        // We need 1 (accelerometer) and 2 (magnetic field) to use it.
+        if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(createFakeOrientationSensor(applicationContext));
+        }
+        if (addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(createInclinationSensor(applicationContext));
+        }
+        return parameters;
+    }
+
+    private static Parameters createFakeOrientationSensor(Context applicationContext) {
+        return new Parameters("orientation", getString(R.string.sensor_orientation, applicationContext), FAKE_ORIENTATION);
+    }
+
+    private static Parameters createInclinationSensor(Context applicationContext) {
+        return new Parameters("inclination", getString(R.string.sensor_inclination, applicationContext), INCLINATION);
     }
 
     private static String getString(int stringId, Context context) {

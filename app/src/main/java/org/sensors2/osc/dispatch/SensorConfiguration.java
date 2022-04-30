@@ -1,17 +1,15 @@
 package org.sensors2.osc.dispatch;
 
-import android.util.Log;
-
 import org.sensors2.osc.sensors.Parameters;
 
 /**
  * Created by thomas on 11.11.14.
  */
 public class SensorConfiguration {
+    private final float[] currentValues = new float[Parameters.MAX_DIMENSIONS];
     private boolean send;
     private int sensorType;
     private String oscParam;
-    private float[] currentValues = new float[Parameters.MAX_DIMENSIONS];
     private boolean sendDuplicates;
 
     public SensorConfiguration() {
@@ -34,12 +32,12 @@ public class SensorConfiguration {
         return differenceDetected;
     }
 
-    public void setSend(boolean send) {
-        this.send = send;
-    }
-
     public boolean getSend() {
         return this.send;
+    }
+
+    public void setSend(boolean send) {
+        this.send = send;
     }
 
     public void setSendDuplicates(boolean sendDuplicates) {
@@ -50,15 +48,15 @@ public class SensorConfiguration {
         return this.sensorType;
     }
 
+    public void setSensorType(int sensorType) {
+        this.sensorType = sensorType;
+    }
+
     public String getOscParam() {
         return this.oscParam;
     }
 
     public void setOscParam(String oscParam) {
         this.oscParam = oscParam;
-    }
-
-    public void setSensorType(int sensorType) {
-        this.sensorType = sensorType;
     }
 }

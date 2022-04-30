@@ -37,21 +37,21 @@ import androidx.core.app.NotificationCompat;
 public class SensorService extends Service implements SensorActivity, SensorEventListener, NfcActivity {
     private static final String NOTIFICATION_CHANNEL_ID = "Sensors2OSC";
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
-    public final int NOTIFICATION_ID= 1;
+    public final int NOTIFICATION_ID = 1;
+    private final OscBinder binder = new OscBinder();
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
     private SensorCommunication sensorCommunication;
     private NfcAdapter nfcAdapter;
     private boolean isSendingData = false;
-    private final OscBinder binder = new OscBinder();
     private org.sensors2.osc.sensors.Settings settings;
 
-    public SensorService(){
+    public SensorService() {
         super();
     }
 
-    public void startSendingData(){
-        if (!this.isSendingData){
+    public void startSendingData() {
+        if (!this.isSendingData) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 nm.createNotificationChannel(new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_DEFAULT));
@@ -65,22 +65,22 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
     }
 
-    public boolean getIsSending(){
+    public boolean getIsSending() {
         return this.isSendingData;
     }
 
-    public void setSensorActivation(int sensorType, boolean activation){
-        for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()){
-            if (sensorConfig.getSensorType() == sensorType){
+    public void setSensorActivation(int sensorType, boolean activation) {
+        for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
+            if (sensorConfig.getSensorType() == sensorType) {
                 sensorConfig.setSend(activation);
                 break;
             }
         }
     }
 
-    public boolean getSensorActivation(int sensorType){
-        for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()){
-            if (sensorConfig.getSensorType() == sensorType){
+    public boolean getSensorActivation(int sensorType) {
+        for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
+            if (sensorConfig.getSensorType() == sensorType) {
                 return sensorConfig.getSend();
             }
         }
@@ -91,8 +91,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (this.dispatcher == null) {
             this.dispatcher = new OscDispatcher();
             this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-            this.dispatcher.setSensorManager(this.sensorManager);
-            for (org.sensors2.osc.sensors.Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, getApplicationContext())){
+            for (org.sensors2.osc.sensors.Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, getApplicationContext())) {
                 SensorConfiguration sensorConfig = new SensorConfiguration();
                 sensorConfig.setSensorType(parameters.getSensorType());
                 sensorConfig.setOscParam(parameters.getOscPrefix());
@@ -173,15 +172,10 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         return this.settings;
     }
 
-    @Override
-    public NfcAdapter getNfcAdapter() {
-        return this.nfcAdapter;
-    }
-
     public void setSettings(org.sensors2.osc.sensors.Settings settings) {
         boolean sensorListenerNeedsUpdate = this.isSendingData && this.settings.getSensorRate() != settings.getSensorRate();
         this.settings = settings;
-        if (sensorListenerNeedsUpdate){
+        if (sensorListenerNeedsUpdate) {
             this.sensorManager.unregisterListener(this);
             for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
                 sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
@@ -189,15 +183,20 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
     }
 
-    public class OscBinder extends Binder {
-        public SensorService getService() {
-            return SensorService.this;
-        }
+    @Override
+    public NfcAdapter getNfcAdapter() {
+        return this.nfcAdapter;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
         setUpSending();
         return binder;
+    }
+
+    public class OscBinder extends Binder {
+        public SensorService getService() {
+            return SensorService.this;
+        }
     }
 }
