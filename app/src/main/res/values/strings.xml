@@ -73,4 +73,6 @@ THE SOFTWARE.]]></string>
     <string name="guide_dimensions">Number of values</string>
     <string name="sensor_inclination">Inclination</string>
     <string name="return_to_app">Return to Sensors2OSC</string>
+    <string name="enable_nfc">Enable Nfc</string>
+    <string name="register_nfc">Register as NFC receiver</string>
 </resources>

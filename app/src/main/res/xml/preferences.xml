@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <PreferenceCategory android:title="@string/communication">
+    <PreferenceCategory android:title="@string/communication" android:key="comm_category">
         <org.sensors2.common.preferences.ExtendedEditTextPreference
             android:defaultValue="localhost"
             android:key="pref_comm_host"
@@ -13,13 +13,18 @@
             android:numeric="integer"
             android:persistent="true"
             android:title="@string/port"/>
-    </PreferenceCategory>
-   <!-- <PreferenceCategory android:title="@string/sensors">
-        <org.sensors2.common.preferences.ExtendedEditTextPreference
-            android:defaultValue="0"
-            android:key="pref_general_sensitivity"
-            android:numeric="decimal"
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_enable_nfc"
             android:persistent="true"
-            android:title="@string/sensitity"/>
-    </PreferenceCategory>-->
+            android:title="@string/register_nfc" />
+    </PreferenceCategory>
+    <!-- <PreferenceCategory android:title="@string/sensors">
+         <org.sensors2.common.preferences.ExtendedEditTextPreference
+             android:defaultValue="0"
+             android:key="pref_general_sensitivity"
+             android:numeric="decimal"
+             android:persistent="true"
+             android:title="@string/sensitity"/>
+     </PreferenceCategory>-->
 </PreferenceScreen>

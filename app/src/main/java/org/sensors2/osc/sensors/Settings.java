@@ -9,11 +9,21 @@ public class Settings extends org.sensors2.common.sensors.Settings {
 
     private final String host;
     private final int port;
+    private final boolean enableNfc;
 
     public Settings(SharedPreferences preferences) {
         super(preferences);
         this.host = this.setHost(preferences);
         this.port = this.setPort(preferences);
+        this.enableNfc = this.setEnableNfc(preferences);
+    }
+
+    private boolean setEnableNfc(SharedPreferences preferences) {
+        return preferences.getBoolean("pref_enable_nfc", false);
+    }
+
+    public boolean getEnableNfc(){
+        return this.enableNfc;
     }
 
     public int getPort() {

@@ -1,7 +1,10 @@
 package org.sensors2.osc.activities;
 
+import android.nfc.NfcAdapter;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.view.MenuItem;
 
 import androidx.core.app.NavUtils;
@@ -15,6 +18,12 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(org.sensors2.osc.R.xml.preferences);
         addPreferencesFromResource(org.sensors2.common.R.xml.common_preferences);
+        NfcAdapter nfcAdapter = NfcAdapter.getDefaultAdapter(this);
+        if (nfcAdapter == null || !nfcAdapter.isEnabled()) {
+            Preference nfcPreference = (Preference) findPreference("pref_enable_nfc");
+            PreferenceCategory category = (PreferenceCategory) findPreference("comm_category");
+            category.removePreference(nfcPreference);
+        }
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
