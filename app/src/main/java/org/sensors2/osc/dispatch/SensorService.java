@@ -56,11 +56,11 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 nm.createNotificationChannel(new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_DEFAULT));
             }
-            stopForeground(true);
-            startForeground(NOTIFICATION_ID, makeNotification());
             for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
                 sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
             }
+            stopForeground(true);
+            startForeground(NOTIFICATION_ID, makeNotification());
             this.isSendingData = true;
         }
     }
