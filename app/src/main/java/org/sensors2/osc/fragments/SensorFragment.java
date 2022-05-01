@@ -48,7 +48,11 @@ public class SensorFragment extends Fragment {
         activity.registerFragment(this);
 
         this.activeButton = (CompoundButton) v.findViewById(R.id.active);
-        this.activeButton.setOnCheckedChangeListener((compoundButton, checked) -> SensorFragment.this.sensorService.setSensorActivation(SensorFragment.this.sensorConfiguration.getSensorType(), checked));
+        this.activeButton.setOnCheckedChangeListener((compoundButton, checked) -> {
+            if (SensorFragment.this.sensorService != null) {
+                SensorFragment.this.sensorService.setSensorActivation(SensorFragment.this.sensorConfiguration.getSensorType(), checked);
+            }
+        });
         return v;
     }
 
