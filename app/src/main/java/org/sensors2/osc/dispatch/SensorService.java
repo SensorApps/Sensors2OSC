@@ -56,8 +56,12 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 nm.createNotificationChannel(new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_DEFAULT));
             }
-            for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-                sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
+            int sensorRate = this.settings.getSensorRate();
+            for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
+                if (sensorConfig.getSend()) {
+                    Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
+                    this.sensorManager.registerListener(this, sensor, sensorRate);
+                }
             }
             stopForeground(true);
             startForeground(NOTIFICATION_ID, makeNotification());
@@ -75,6 +79,10 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 sensorConfig.setSend(activation);
                 break;
             }
+        }
+        if (activation) {
+            Sensor sensor = this.sensorManager.getDefaultSensor(sensorType);
+            this.sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
         }
     }
 
