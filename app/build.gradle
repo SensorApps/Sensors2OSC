@@ -30,6 +30,6 @@ dependencies {
     implementation 'com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4'
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.github.SensorApps:Common:9494ac1590'
+    implementation 'com.github.SensorApps:Common:fae5e5a56d'
     implementation 'androidx.fragment:fragment:1.4.1'
 }
