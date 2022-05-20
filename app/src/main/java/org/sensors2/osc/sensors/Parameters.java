@@ -18,38 +18,6 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
     private final String oscPrefix;
     private final String name;
 
-    public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
-        List<Parameters> parameters = new ArrayList<>();
-        // add device sensors
-        List<Integer> addedSensors = new ArrayList<>();
-        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
-            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
-            int sensorType = sensor.getType();
-            if (addedSensors.contains(sensorType)) {
-                continue;
-            }
-            addedSensors.add(sensorType);
-            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
-        }
-        // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
-        // We need 1 (accelerometer) and 2 (magnetic field) to use it.
-        if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
-            parameters.add(createFakeOrientationSensor(applicationContext));
-        }
-        if (addedSensors.contains(1) && addedSensors.contains(2)) {
-            parameters.add(createInclinationSensor(applicationContext));
-        }
-        return parameters;
-    }
-
-    private static Parameters createFakeOrientationSensor(Context applicationContext) {
-        return new Parameters("orientation", getString(R.string.sensor_orientation, applicationContext), FAKE_ORIENTATION);
-    }
-
-    private static Parameters createInclinationSensor(Context applicationContext) {
-        return new Parameters("inclination", getString(R.string.sensor_inclination, applicationContext), INCLINATION);
-    }
-
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
         this.name = name;
@@ -189,6 +157,77 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
                 this.name = getString(R.string.sensor_wrist_tilt_gesture, applicationContext);
                 this.oscPrefix = "wristtiltgesture";
                 break;
+            // TYPE_DEVICE_ORIENTATION
+            case 27:
+                this.name = getString(R.string.sensor_type_device_orientation, applicationContext);
+                this.oscPrefix = "deviceorientation";
+                break;
+            // TYPE_POSE_6DOF
+            case 28:
+                this.name = getString(R.string.sensor_type_pose_6dof, applicationContext);
+                this.oscPrefix = "pose6dof";
+                break;
+            // TYPE_STATIONARY_DETECT
+            case 29:
+                this.name = getString(R.string.sensor_type_stationary_detect, applicationContext);
+                this.oscPrefix = "stationarydetect";
+                break;
+            // TYPE_MOTION_DETECT
+            case 30:
+                this.name = getString(R.string.sensor_type_motion_detect, applicationContext);
+                this.oscPrefix = "motiondetect";
+                break;
+            // TYPE_HEART_BEAT
+            case 31:
+                this.name = getString(R.string.sensor_type_heart_beat, applicationContext);
+                this.oscPrefix = "heartbeat";
+                break;
+            // TYPE_LOW_LATENCY_OFFBODY_DETECT
+            case 34:
+                this.name = getString(R.string.sensor_type_low_latency_offbody_detect, applicationContext);
+                this.oscPrefix = "lowlatencyoffbodydetect";
+                break;
+            // TYPE_ACCELEROMETER_UNCALIBRATED
+            case 35:
+                this.name = getString(R.string.sensor_type_accelorometer_uncalibrated, applicationContext);
+                this.oscPrefix = "accelelormeteruncalibrated";
+                break;
+            // TYPE_HINGE_ANGLE
+            case 36:
+                this.name = getString(R.string.sensor_type_hinge_angle, applicationContext);
+                this.oscPrefix = "hingeangle";
+                break;
+            // TYPE_HEAD_TRACKER
+            case 37:
+                this.name = getString(R.string.sensor_type_head_tracker, applicationContext);
+                this.oscPrefix = "headtracker";
+                break;
+            // TYPE_ACCELEROMETER_LIMITED_AXES
+            case 38:
+                this.name = getString(R.string.sensor_type_accelerometer_limited_axes, applicationContext);
+                this.oscPrefix = "accelerometerlimitedaxes";
+                break;
+            // TYPE_GYROSCOPE_LIMITED_AXES
+            case 39:
+                this.name = getString(R.string.sensor_type_gyroscope_limited_axes, applicationContext);
+                this.oscPrefix = "gyroscopelimitedaxes";
+                break;
+            // TYPE_ACCELEROMETER_LIMITED_AXES_UNCALIBRATED
+            case 40:
+                this.name = getString(R.string.sensor_type_accelerometer_limited_axes_uncalibrated, applicationContext);
+                this.oscPrefix = "accelerometerlimitedaxesuncalibrated";
+                break;
+            // TYPE_GYROSCOPE_LIMITED_AXES_UNCALIBRATED
+            case 41:
+                this.name = getString(R.string.sensor_type_gyroscope_limited_axes_uncalibrated, applicationContext);
+                this.oscPrefix = "gyroscopelimitedaxesuncalibrated";
+                break;
+            // TYPE_HEADING
+            case 42:
+                this.name = getString(R.string.sensor_type_heading, applicationContext);
+                this.oscPrefix = "heading";
+                break;
+
             default:
                 this.name = sensor.getName();
                 this.oscPrefix = Integer.toString(sensor.getType());
@@ -201,6 +240,38 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         super(nfcAdapter);
         this.name = getString(R.string.sensor_nfc, applicationContext);
         this.oscPrefix = "nfc";
+    }
+
+    public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
+        List<Parameters> parameters = new ArrayList<>();
+        // add device sensors
+        List<Integer> addedSensors = new ArrayList<>();
+        for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
+            // Sensors may be listed twice: wake up and non wake up, see https://github.com/SensorApps/Sensors2OSC/issues/17
+            int sensorType = sensor.getType();
+            if (addedSensors.contains(sensorType)) {
+                continue;
+            }
+            addedSensors.add(sensorType);
+            parameters.add(new org.sensors2.osc.sensors.Parameters(sensor, applicationContext));
+        }
+        // 3: TYPE_ORIENTATION This constant was deprecated in API level 8. use SensorManager.getOrientation() instead.
+        // We need 1 (accelerometer) and 2 (magnetic field) to use it.
+        if (!addedSensors.contains(3) && addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(createFakeOrientationSensor(applicationContext));
+        }
+        if (addedSensors.contains(1) && addedSensors.contains(2)) {
+            parameters.add(createInclinationSensor(applicationContext));
+        }
+        return parameters;
+    }
+
+    private static Parameters createFakeOrientationSensor(Context applicationContext) {
+        return new Parameters("orientation", getString(R.string.sensor_orientation, applicationContext), FAKE_ORIENTATION);
+    }
+
+    private static Parameters createInclinationSensor(Context applicationContext) {
+        return new Parameters("inclination", getString(R.string.sensor_inclination, applicationContext), INCLINATION);
     }
 
     private static String getString(int stringId, Context context) {

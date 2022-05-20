@@ -7,28 +7,28 @@ import android.content.SharedPreferences;
  */
 public class Settings extends org.sensors2.common.sensors.Settings {
 
-	private final String host;
-	private final int port;
+    private final String host;
+    private final int port;
 
-	public Settings(SharedPreferences preferences) {
-		super(preferences);
-		this.host = this.setHost(preferences);
-		this.port = this.setPort(preferences);
-	}
+    public Settings(SharedPreferences preferences) {
+        super(preferences);
+        this.host = this.setHost(preferences);
+        this.port = this.setPort(preferences);
+    }
 
-	public int getPort() {
-		return port;
-	}
+    public int getPort() {
+        return port;
+    }
 
-	private int setPort(SharedPreferences preferences) {
-		return Integer.valueOf(preferences.getString("pref_comm_port", "9000"));
-	}
+    private int setPort(SharedPreferences preferences) {
+        return Integer.parseInt(preferences.getString("pref_comm_port", "9000"));
+    }
 
-	public String getHost() {
-		return host;
-	}
+    public String getHost() {
+        return host;
+    }
 
-	private String setHost(SharedPreferences preferences) {
-		return preferences.getString("pref_comm_host", "localhost");
-	}
+    private String setHost(SharedPreferences preferences) {
+        return preferences.getString("pref_comm_host", "localhost");
+    }
 }

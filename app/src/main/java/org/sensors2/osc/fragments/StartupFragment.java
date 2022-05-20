@@ -1,9 +1,8 @@
 package org.sensors2.osc.fragments;
 
+import android.content.Context;
+import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +13,21 @@ import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
 
-public class StartupFragment extends Fragment {
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-    private CompoundButton activeButton;
+public class StartupFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_start_up, container, false);
 
-        activeButton = (CompoundButton) v.findViewById(R.id.active);
+        CompoundButton activeButton = (CompoundButton) v.findViewById(R.id.active);
         StartUpActivity activity = (StartUpActivity) getActivity();
         activeButton.setOnCheckedChangeListener(activity);
-        for (Parameters parameters : activity.getSensors()) {
+        SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
+        for (Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, activity.getApplicationContext())) {
             createSensorFragments((org.sensors2.osc.sensors.Parameters) parameters);
         }
 
@@ -37,21 +39,16 @@ public class StartupFragment extends Fragment {
         SensorFragment groupFragment = (SensorFragment) manager.findFragmentByTag(parameters.getName());
 
         if (groupFragment == null) {
-            groupFragment = createFragment(parameters, manager);
+            groupFragment = createFragment(parameters);
 
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(R.id.sensor_group, groupFragment, parameters.getName());
             transaction.commit();
         }
-        addSensorToDispatcher(groupFragment);
     }
 
-    private void addSensorToDispatcher(SensorFragment groupFragment) {
-        StartUpActivity activity = (StartUpActivity) this.getActivity();
-        activity.addSensorFragment(groupFragment);
-    }
 
-    public SensorFragment createFragment(org.sensors2.osc.sensors.Parameters parameters, FragmentManager manager) {
+    public SensorFragment createFragment(org.sensors2.osc.sensors.Parameters parameters) {
         SensorFragment groupFragment = new SensorFragment();
         Bundle args = new Bundle();
         args.putInt(Bundling.DIMENSIONS, parameters.getDimensions());
@@ -59,7 +56,6 @@ public class StartupFragment extends Fragment {
         args.putString(Bundling.OSC_PREFIX, parameters.getOscPrefix());
         args.putString(Bundling.NAME, parameters.getName());
         groupFragment.setArguments(args);
-
         return groupFragment;
     }
 

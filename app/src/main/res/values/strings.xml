@@ -72,4 +72,20 @@ THE SOFTWARE.]]></string>
     <string name="text_guide_floatlist">Sensor values are sent as a list of float values. Depending on the sensor, this can range from 1 to 16 values.</string>
     <string name="guide_dimensions">Number of values</string>
     <string name="sensor_inclination">Inclination</string>
+    <string name="return_to_app">Return to Sensors2OSC</string>
+    <string name="sensor_type_hinge_angle" >Hinge Angle</string>
+    <string name="sensor_type_accelorometer_uncalibrated" >Accelerometer (uncalibrated)</string>
+    <string name="sensor_type_low_latency_offbody_detect" >Detect Onbody / Offbody</string>
+    <string name="sensor_type_dynamic_sensor_meta" >Dynamic Sensor (meta event)</string>
+    <string name="sensor_type_heart_beat" >Heart Beat</string>
+    <string name="sensor_type_stationary_detect" >Stationary Detection</string>
+    <string name="sensor_type_pose_6dof" >Pose (6 Degrees of Freedom)</string>
+    <string name="sensor_type_motion_detect" >Motion Detection</string>
+    <string name="sensor_type_device_orientation" >Device Orientation</string>
+    <string name="sensor_type_heading">Heading Relative to North</string>
+    <string name="sensor_type_gyroscope_limited_axes_uncalibrated">Gyroscope (limited axes, uncalibrated)</string>
+    <string name="sensor_type_gyroscope_limited_axes">Gyroscope (limited axes)</string>
+    <string name="sensor_type_accelerometer_limited_axes_uncalibrated">Accelerometer (limited axes, uncalibrated)</string>
+    <string name="sensor_type_accelerometer_limited_axes">Accelerometer (limited axes)</string>
+    <string name="sensor_type_head_tracker">Head Tracker</string>
 </resources>

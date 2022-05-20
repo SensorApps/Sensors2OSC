@@ -2,7 +2,6 @@ package org.sensors2.osc.dispatch;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 
 import com.illposed.osc.OSCMessage;
@@ -16,10 +15,6 @@ import java.util.List;
  */
 public class OscHandler extends Handler {
 
-    public OscHandler(Looper myLooper) {
-        super(myLooper);
-    }
-
     @Override
     public void handleMessage(Message message) {
         Bundle data = message.getData();
@@ -31,7 +26,7 @@ public class OscHandler extends Handler {
         if (configuration == null || configuration.getOscPort() == null) {
             return;
         }
-        List<Object> changes = new ArrayList<Object>();
+        List<Object> changes = new ArrayList<>();
         if (values != null) {
             for (float value : values) {
                 changes.add(value);
@@ -44,6 +39,8 @@ public class OscHandler extends Handler {
         try {
             configuration.getOscPort().send(oscMessage);
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
