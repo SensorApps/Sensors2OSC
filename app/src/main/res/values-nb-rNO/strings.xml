@@ -1,2 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="sensors">Sensorer</string>
+    <string name="sensitity">Følsomhet</string>
+    <string name="about_buglinks">Innrapporter feil til &lt;a href=https://github.com/SensorApps/Sensors2OSC/issues&gt;GitHub&lt;/a&gt;, eller send en e-post til &lt;a href=mailto:osc-bugs@sensors2.org&gt;osc-bugs@sensors2.org&lt;/a&gt;.</string>
+    <string name="about_license">Lisens</string>
+    <string name="about_components">Anvendte komponenter</string>
+    <string name="send_data">Send data</string>
+    <string name="action_guide">Hjelp</string>
+    <string name="text_guide_headline">Hjelp</string>
+    <string name="text_guide_nfc_headline">Nærfeltskommunikasjon (NFC)</string>
+    <string name="guide_max_range">Maks. rekkevidde</string>
+    <string name="guide_resolution">Oppløsning</string>
+    <string name="guide_osc_address">OSC-adresse</string>
+    <string name="sensor_nfc">Nærfeltskommunikasjon (NFC)</string>
+    <string name="sensor_accelerometer">Akselerometer</string>
+    <string name="sensor_magnetic_field">Magnetfelt</string>
+    <string name="sensor_gyroscope">Gyroskop</string>
+    <string name="sensor_light">Lys</string>
+    <string name="sensor_temperature">Temperatur</string>
+    <string name="sensor_proximity">Nærhet</string>
+    <string name="sensor_gravity">Tyngdekraft</string>
+    <string name="sensor_linear_acceleration">Lineær akselerasjon</string>
+    <string name="sensor_rotation_vector">Rotasjonsvektor</string>
+    <string name="sensor_relative_humidity">Relativ luftfuktighet</string>
+    <string name="sensor_ambient_temperature">Omgivelsestemperatur</string>
+    <string name="sensor_magnetic_field_uncalibrated">Magnetfelt (ukalibrert)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroskop (ukalibrert)</string>
+    <string name="sensor_step_counter">Stegteller</string>
+    <string name="sensor_step_detector">Skrittdetektor</string>
+    <string name="sensor_heartrate">Puls</string>
+    <string name="sensor_unknown">Ukjent sensor</string>
+    <string name="guide_dimensions">Antall verdier</string>
+    <string name="communication">Kommunikasjon</string>
+    <string name="action_about">Om</string>
+    <string name="action_settings">Innstillinger</string>
+    <string name="port">Port</string>
+    <string name="title_activity_about">Om</string>
+    <string name="text_available_sensors">Tilgjengelige sensorer</string>
+    <string name="host">Vert</string>
+    <string name="sensor_pressure">Trykk</string>
+</resources>
