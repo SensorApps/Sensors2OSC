@@ -66,14 +66,14 @@
                 android:padding="0dp"/>
 
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/nfcHeadline"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/text_guide_nfc_headline"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:visibility="visible"/>
-
+-->
             <TextView
                 android:id="@+id/nfcText"
                 android:layout_width="fill_parent"
