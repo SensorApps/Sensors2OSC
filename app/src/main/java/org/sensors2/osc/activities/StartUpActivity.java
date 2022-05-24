@@ -107,6 +107,7 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
         OscConfiguration oscConfiguration = OscConfiguration.getInstance();
         oscConfiguration.setHost(settings.getHost());
         oscConfiguration.setPort(settings.getPort());
+        oscConfiguration.setSendAsBundle(settings.getSetAsBundle());
         return settings;
     }
 

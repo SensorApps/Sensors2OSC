@@ -71,4 +71,5 @@
     <string name="sensor_type_accelerometer_limited_axes_uncalibrated">Beschleunigung (begrenzte Anzahl an Achsen, unkalibriert)</string>
     <string name="sensor_type_accelerometer_limited_axes">Beschleunigung (begrenzte Anzahl an Achsen)</string>
     <string name="sensor_type_head_tracker">Kopf-Position</string>
+    <string name="send_as_bundle">OSC-Daten als Bundle versenden</string>
 </resources>

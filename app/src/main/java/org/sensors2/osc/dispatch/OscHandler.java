@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
+import com.illposed.osc.OSCBundle;
 import com.illposed.osc.OSCMessage;
+import com.illposed.osc.OSCPacket;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.List;
  * Created by thomas on 31.03.15.
  */
 public class OscHandler extends Handler {
+
+    private boolean sendAsBundle;
 
     @Override
     public void handleMessage(Message message) {
@@ -26,6 +30,7 @@ public class OscHandler extends Handler {
         if (configuration == null || configuration.getOscPort() == null) {
             return;
         }
+        this.sendAsBundle = configuration.getSendAsBundle();
         List<Object> changes = new ArrayList<>();
         if (values != null) {
             for (float value : values) {
@@ -36,8 +41,16 @@ public class OscHandler extends Handler {
             changes.add(stringValue);
         }
         OSCMessage oscMessage = new OSCMessage("/" + oscParameter, changes);
+        OSCPacket packet;
+        if (this.sendAsBundle) {
+            OSCBundle oscBundle = new OSCBundle();
+            oscBundle.addPacket(oscMessage);
+            packet = oscBundle;
+        } else {
+            packet = oscMessage;
+        }
         try {
-            configuration.getOscPort().send(oscMessage);
+            configuration.getOscPort().send(packet);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (Exception e) {

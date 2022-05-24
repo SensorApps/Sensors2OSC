@@ -13,6 +13,11 @@
             android:numeric="integer"
             android:persistent="true"
             android:title="@string/port"/>
+        <org.sensors2.osc.preferences.ExtendedSwitchPreference
+            android:defaultValue="false"
+            android:key="pref_comm_bundle"
+            android:persistent="true"
+            android:title="@string/send_as_bundle" />
     </PreferenceCategory>
    <!-- <PreferenceCategory android:title="@string/sensors">
         <org.sensors2.common.preferences.ExtendedEditTextPreference

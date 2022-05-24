@@ -13,6 +13,7 @@ public class OscConfiguration {
     private OSCPortOut oscPort;
     private String host;
     private int port;
+    private boolean sendAsBundle;
 
     private OscConfiguration() {
         this.oscPort = null;
@@ -47,5 +48,13 @@ public class OscConfiguration {
             }
         }
         return this.oscPort;
+    }
+
+    public void setSendAsBundle(boolean sendAsBundle) {
+        this.sendAsBundle = sendAsBundle;
+    }
+
+    public boolean getSendAsBundle() {
+        return this.sendAsBundle;
     }
 }
