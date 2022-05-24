@@ -1,6 +1,5 @@
 package org.sensors2.osc.preferences;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -8,9 +7,9 @@ import android.preference.EditTextPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewParent;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,14 +58,12 @@ public class AutoCompletePreference extends EditTextPreference {
         this.autocompleteText.setThreshold(0);
         if (this.dataSource != null){
             this.bindAutocompleteValues(context, this.dataSource);
-            return;
         }
     }
 
     private void bindAutocompleteValues(Context context, Set<String> dataSource) {
-        List<String> autocompleteValues = new ArrayList<>();
-        autocompleteValues.addAll(dataSource);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, autocompleteValues);
+        List<String> autocompleteValues = new ArrayList<>(dataSource);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, autocompleteValues);
         this.autocompleteText.setAdapter(adapter);
     }
 
@@ -78,7 +75,7 @@ public class AutoCompletePreference extends EditTextPreference {
 
     private Set<String> loadDataSource(String dataSourceName) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-        return preferences.getStringSet(dataSourceName, new HashSet<String>());
+        return preferences.getStringSet(dataSourceName, new HashSet<>());
     }
 
     @Override
@@ -93,32 +90,42 @@ public class AutoCompletePreference extends EditTextPreference {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putStringSet(this.dataSourceName, this.dataSource);
-        editor.commit();
+        editor.apply();
         this.bindAutocompleteValues(context, this.dataSource);
     }
 
-    @SuppressLint("MissingSuperCall")
     @Override
     protected void onBindDialogView(View view) {
-        AutoCompleteTextView editText = this.autocompleteText;
-        editText.setText(getText());
+        super.onBindDialogView(view);
 
-        ViewParent oldParent = editText.getParent();
-        if (oldParent != view) {
-            if (oldParent != null) {
-                ((ViewGroup) oldParent).removeView(editText);
-            }
-            onAddEditTextToDialogView(view, editText);
-        }
+        final EditText editText = (EditText)view.findViewById(android.R.id.edit);
+        ViewGroup.LayoutParams params = editText.getLayoutParams();
+        ViewGroup viewGroup = (ViewGroup)editText.getParent();
+        String currentValue = editText.getText().toString();
+        viewGroup.removeView(editText);
+
+        AutoCompleteTextView autocompleteText = this.autocompleteText;
+        autocompleteText.setLayoutParams(params);
+        autocompleteText.setId(android.R.id.edit);
+        autocompleteText.setText(currentValue);
+        viewGroup.addView(autocompleteText);
     }
 
     @Override
     protected void onDialogClosed(boolean positiveResult) {
-        if (positiveResult) {
+        super.onDialogClosed(positiveResult);
+
+        if (positiveResult && this.autocompleteText != null) {
             String value = this.autocompleteText.getText().toString();
             if (callChangeListener(value)) {
                 setText(value);
             }
         }
+    }
+
+    @Override
+    public EditText getEditText()
+    {
+        return this.autocompleteText;
     }
 }
