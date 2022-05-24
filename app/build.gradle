@@ -24,6 +24,7 @@ android {
         abortOnError false
         checkReleaseBuilds true
     }
+    namespace 'org.sensors2.osc'
 }
 
 dependencies {
@@ -32,4 +33,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.github.SensorApps:Common:fae5e5a56d'
     implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'androidx.preference:preference:1.1.1'
 }
