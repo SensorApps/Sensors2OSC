@@ -1,9 +1,5 @@
 package org.sensors2.osc.dispatch;
 
-/**
- * Created by thomas on 10.11.14.
- */
-
 import com.illposed.osc.OSCPortOut;
 
 import java.net.InetAddress;

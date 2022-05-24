@@ -1,5 +1,6 @@
 package org.sensors2.osc.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.dispatch.SensorConfiguration;
 import org.sensors2.osc.dispatch.SensorService;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -34,17 +36,20 @@ public class SensorFragment extends Fragment {
         this.activeButton.setChecked(this.sensorService.getSensorActivation(this.sensorConfiguration.getSensorType()));
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = this.getArguments();
+        assert args != null;
         this.sensorConfiguration.setSensorType(args.getInt(Bundling.SENSOR_TYPE));
         String name = args.getString(Bundling.NAME);
 
-        View v = inflater.inflate(R.layout.sensor, null);
+        @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.sensor, null);
         TextView groupName = (TextView) v.findViewById(R.id.group_name);
         groupName.setText(name);
         ((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString(Bundling.OSC_PREFIX));
         StartUpActivity activity = (StartUpActivity) getActivity();
+        assert activity != null;
         activity.registerFragment(this);
 
         this.activeButton = (CompoundButton) v.findViewById(R.id.active);
@@ -57,7 +62,7 @@ public class SensorFragment extends Fragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
 }

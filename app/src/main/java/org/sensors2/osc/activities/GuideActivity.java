@@ -1,5 +1,6 @@
 package org.sensors2.osc.activities;
 
+import android.annotation.SuppressLint;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
  */
 public class GuideActivity extends FragmentActivity {
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,11 +65,10 @@ public class GuideActivity extends FragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

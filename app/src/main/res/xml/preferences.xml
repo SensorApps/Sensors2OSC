@@ -12,7 +12,7 @@
         <org.sensors2.osc.preferences.AutoCompletePreference
             android:defaultValue="9000"
             android:key="pref_comm_port"
-            android:numeric="integer"
+            android:inputType="number"
             android:persistent="true"
             android:title="@string/port"
             custom:dataSource="pref_comm_history_port" />

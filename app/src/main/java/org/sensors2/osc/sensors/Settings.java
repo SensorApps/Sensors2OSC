@@ -2,6 +2,8 @@ package org.sensors2.osc.sensors;
 
 import android.content.SharedPreferences;
 
+import java.util.Objects;
+
 /**
  * Created by thomas on 05.11.14.
  */
@@ -31,7 +33,7 @@ public class Settings extends org.sensors2.common.sensors.Settings {
     }
 
     private int setPort(SharedPreferences preferences) {
-        return Integer.parseInt(preferences.getString("pref_comm_port", "9000"));
+        return Integer.parseInt(Objects.requireNonNull(preferences.getString("pref_comm_port", "9000")));
     }
 
     public String getHost() {

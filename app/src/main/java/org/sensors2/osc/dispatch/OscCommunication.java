@@ -15,7 +15,7 @@ public class OscCommunication extends Thread {
     @Override
     public void run() {
         Looper.prepare();
-        handler = new OscHandler();
+        handler = new OscHandler(Looper.getMainLooper());
         Looper.loop();
     }
 

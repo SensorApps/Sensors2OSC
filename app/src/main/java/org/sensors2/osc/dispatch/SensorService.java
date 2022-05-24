@@ -1,5 +1,6 @@
 package org.sensors2.osc.dispatch;
 
+import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -112,7 +113,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private Notification makeNotification() {
         Intent notificationIntent = new Intent(this, StartUpActivity.class);
 
-        PendingIntent pendingIntent =
+        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         return new NotificationCompat.Builder(SensorService.this, NOTIFICATION_CHANNEL_ID)

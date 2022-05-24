@@ -15,12 +15,12 @@ public class SensorConfiguration {
     public SensorConfiguration() {
     }
 
-    public boolean sendingNeeded(float[] values) {
+    public boolean sendingNotNeeded(float[] values) {
         if (!this.send) {
-            return false;
+            return true;
         }
         if (sendDuplicates) {
-            return true;
+            return false;
         }
         boolean differenceDetected = false;
         for (int i = 0; i < values.length && i < Parameters.MAX_DIMENSIONS; i++) {
@@ -29,7 +29,7 @@ public class SensorConfiguration {
             }
             this.currentValues[i] = values[i];
         }
-        return differenceDetected;
+        return !differenceDetected;
     }
 
     public boolean getSend() {

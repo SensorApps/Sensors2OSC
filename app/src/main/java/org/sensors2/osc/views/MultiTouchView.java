@@ -1,5 +1,6 @@
 package org.sensors2.osc.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -12,11 +13,11 @@ import org.sensors2.osc.fragments.MultiTouchFragment;
 
 public class MultiTouchView extends View {
 
-    private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private int[] touching = new int[MultiTouchFragment.MAX_POINTER_COUNT];
-    private float[] x = new float[MultiTouchFragment.MAX_POINTER_COUNT];
-    private float[] y = new float[MultiTouchFragment.MAX_POINTER_COUNT];
+    private final int[] touching = new int[MultiTouchFragment.MAX_POINTER_COUNT];
+    private final float[] x = new float[MultiTouchFragment.MAX_POINTER_COUNT];
+    private final float[] y = new float[MultiTouchFragment.MAX_POINTER_COUNT];
 
     public MultiTouchView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -53,6 +54,7 @@ public class MultiTouchView extends View {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         int action = (event.getAction() & MotionEvent.ACTION_MASK);

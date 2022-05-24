@@ -118,6 +118,7 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -202,6 +203,7 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
                 } else {
                     return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
                 }
+            case Surface.ROTATION_0:
             default:
                 if (height > width) {
                     return ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
@@ -217,6 +219,7 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
         unbindService(sensorServiceConnection);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (this.sensorService.getIsSending()) {

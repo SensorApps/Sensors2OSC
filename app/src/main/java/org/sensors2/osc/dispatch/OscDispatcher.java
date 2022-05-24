@@ -76,7 +76,7 @@ public class OscDispatcher implements DataDispatcher {
     }
 
     private void trySend(SensorConfiguration sensorConfiguration, float[] values) {
-        if (!sensorConfiguration.sendingNeeded(values)) {
+        if (sensorConfiguration.sendingNotNeeded(values)) {
             return;
         }
         Message message = new Message();
@@ -89,7 +89,7 @@ public class OscDispatcher implements DataDispatcher {
     }
 
     private void trySend(SensorConfiguration sensorConfiguration, String value) {
-        if (!sensorConfiguration.sendingNeeded(new float[0])) {
+        if (sensorConfiguration.sendingNotNeeded(new float[0])) {
             return;
         }
         Message message = new Message();

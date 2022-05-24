@@ -1,5 +1,6 @@
 package org.sensors2.osc.fragments;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,15 @@ import androidx.fragment.app.Fragment;
  * Created by thomas on 09.11.14.
  */
 public class HelpSensorFragment extends Fragment {
+    @SuppressLint("SetTextI18n")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle args = this.getArguments();
 
+        assert args != null;
         String name = args.getString(Bundling.NAME);
         String sensorName = args.getString(Bundling.SENSOR_NAME);
-        View v = inflater.inflate(R.layout.help_sensor, null);
+        @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.help_sensor, null);
         TextView groupName = (TextView) v.findViewById(R.id.group_name);
         groupName.setText(name + " (" + sensorName + ")");
         AddText((TextView) v.findViewById(R.id.osc_prefix), args.getString(Bundling.OSC_PREFIX));
@@ -31,14 +34,17 @@ public class HelpSensorFragment extends Fragment {
         return v;
     }
 
+    @SuppressLint("SetTextI18n")
     private void AddText(TextView view, float val) {
         view.setText(view.getText() + ": " + val);
     }
 
+    @SuppressLint("SetTextI18n")
     private void AddText(TextView view, int val) {
         view.setText(view.getText() + ": " + val);
     }
 
+    @SuppressLint("SetTextI18n")
     private void AddText(TextView view, String val) {
         view.setText(view.getText() + ": " + val);
     }

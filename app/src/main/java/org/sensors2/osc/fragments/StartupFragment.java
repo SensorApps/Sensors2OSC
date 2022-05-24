@@ -8,10 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 
-import org.sensors2.common.sensors.Parameters;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
+import org.sensors2.osc.sensors.Parameters;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -26,9 +26,10 @@ public class StartupFragment extends Fragment {
         CompoundButton activeButton = (CompoundButton) v.findViewById(R.id.active);
         StartUpActivity activity = (StartUpActivity) getActivity();
         activeButton.setOnCheckedChangeListener(activity);
+        assert activity != null;
         SensorManager sensorManager = (SensorManager) activity.getSystemService(Context.SENSOR_SERVICE);
         for (Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, activity.getApplicationContext())) {
-            createSensorFragments((org.sensors2.osc.sensors.Parameters) parameters);
+            createSensorFragments(parameters);
         }
 
         return v;
