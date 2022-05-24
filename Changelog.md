@@ -1,3 +1,17 @@
+# 0.4.0 (2022-06-12)
+- **breaking**: NFC tag values are removed.
+- **breaking**: Minimum required Android version is now 4.0.1.
+- Data is sent in background, screen can be turned off.
+- App rotation is disabled when sending data.
+- Autocomplete from history in settings.
+- Enable sending OSC as bundles in settings.
+- Added translations:
+	* French
+	* Dutch
+	* Norwegian Bokmal
+- Bugfixes:
+	* Altering settings does not reset sending state.
+
 # 0.3.0 (2018-03-11)
 - Change of format: Instead of different messages for each dimension
   only one message with a list of float values is sent.
