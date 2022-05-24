@@ -1,0 +1,124 @@
+package org.sensors2.osc.preferences;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Build;
+import android.preference.EditTextPreference;
+import android.util.AttributeSet;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewParent;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import androidx.annotation.RequiresApi;
+import androidx.preference.PreferenceManager;
+
+public class AutoCompletePreference extends EditTextPreference {
+    private final Set<String> dataSource;
+    private final String dataSourceName;
+
+    private AutoCompleteTextView autocompleteText = null;
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public AutoCompletePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        this.dataSourceName = getDataSourceName(attrs);
+        this.dataSource = this.loadDataSource(this.dataSourceName);
+        this.setupAutocomplete(context, attrs);
+    }
+    public AutoCompletePreference(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        this.dataSourceName = getDataSourceName(attrs);
+        this.dataSource = this.loadDataSource(this.dataSourceName);
+        this.setupAutocomplete(context, attrs);
+    }
+
+    public AutoCompletePreference(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        this.dataSourceName = getDataSourceName(attrs);
+        this.dataSource = this.loadDataSource(this.dataSourceName);
+        this.setupAutocomplete(context, attrs);
+    }
+
+    public AutoCompletePreference(Context context) {
+        super(context);
+        this.dataSourceName = null;
+        this.dataSource = null;
+        this.setupAutocomplete(context, null);
+    }
+
+    private void setupAutocomplete(Context context, AttributeSet attrs){
+        this.autocompleteText = new AutoCompleteTextView(context, attrs);
+        this.autocompleteText.setThreshold(0);
+        if (this.dataSource != null){
+            this.bindAutocompleteValues(context, this.dataSource);
+            return;
+        }
+    }
+
+    private void bindAutocompleteValues(Context context, Set<String> dataSource) {
+        List<String> autocompleteValues = new ArrayList<>();
+        autocompleteValues.addAll(dataSource);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line, autocompleteValues);
+        this.autocompleteText.setAdapter(adapter);
+    }
+
+    private String getDataSourceName(AttributeSet attrs) {
+        String namespace = "http://schemas.android.com/apk/res-auto";
+        String attribute = "dataSource";
+        return attrs.getAttributeValue(namespace, attribute);
+    }
+
+    private Set<String> loadDataSource(String dataSourceName) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        return preferences.getStringSet(dataSourceName, new HashSet<String>());
+    }
+
+    @Override
+    public void setText(String text) {
+        super.setText(text);
+        this.setSummary(text);
+        if (this.dataSourceName == null || this.dataSource == null || this.dataSource.contains(text)){
+            return;
+        }
+        this.dataSource.add(text);
+        Context context = this.getContext();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putStringSet(this.dataSourceName, this.dataSource);
+        editor.commit();
+        this.bindAutocompleteValues(context, this.dataSource);
+    }
+
+    @SuppressLint("MissingSuperCall")
+    @Override
+    protected void onBindDialogView(View view) {
+        AutoCompleteTextView editText = this.autocompleteText;
+        editText.setText(getText());
+
+        ViewParent oldParent = editText.getParent();
+        if (oldParent != view) {
+            if (oldParent != null) {
+                ((ViewGroup) oldParent).removeView(editText);
+            }
+            onAddEditTextToDialogView(view, editText);
+        }
+    }
+
+    @Override
+    protected void onDialogClosed(boolean positiveResult) {
+        if (positiveResult) {
+            String value = this.autocompleteText.getText().toString();
+            if (callChangeListener(value)) {
+                setText(value);
+            }
+        }
+    }
+}

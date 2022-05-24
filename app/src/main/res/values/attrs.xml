@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="org.sensors2.osc.preferences.AutoCompletePreference">
+        <attr name="dataSource" format="string"/>
+    </declare-styleable>
+</resources>
