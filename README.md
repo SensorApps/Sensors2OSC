@@ -21,7 +21,14 @@ If you want to contribute to this project, send a pull request.
 
 ## Translation
 
+Translation is currently coordinated via weblate.
+
+<a href="https://hosted.weblate.org/engage/sensors2osc/">
+<img src="https://hosted.weblate.org/widgets/sensors2osc/-/app/287x66-grey.png" alt="Translation state" />
+</a>
+
 If you want to add a new language or update translations, please see the [Common](https://github.com/SensorApps/Common) library for the sensor apps. It contains additional strings.
+
 
 ## Example usage
 There are two examples included for receiving data from Sensors2OSC, that reside in `examples`, Puredata and Python3. Both listen to port 9000.
