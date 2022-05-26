@@ -1,2 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="sensors">Capteurs</string>
+    <string name="title_activity_about">À propos</string>
+    <string name="action_about">À propos</string>
+    <string name="about_mit_license_2">L\'avis de copyright ci-dessus et cet avis d\'autorisation doivent être inclus dans toutes les copies ou parties substantielles du logiciel.</string>
+    <string name="action_guide">Aide</string>
+    <string name="text_guide_nfc_headline">Communication en champ proche (CCP)</string>
+    <string name="guide_max_range">Portée maximale</string>
+    <string name="guide_resolution">Résolution</string>
+    <string name="sensor_gyroscope">Gyroscope</string>
+    <string name="sensor_proximity">Proximité</string>
+    <string name="sensor_gravity">Gravité</string>
+    <string name="sensor_geomagnetic_rotation_vector">Vecteur de rotation géomagnétique</string>
+    <string name="host">Hôte</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="port">Port</string>
+    <string name="sensitity">Sensibilité</string>
+    <string name="about_buglinks">Veuillez signaler les erreurs sur &lt;a href=https://github.com/SensorApps/Sensors2OSC/issues&gt;GitHub&lt;/a&gt; ou envoyer un courriel à &lt;a href=mailto:osc-bugs@sensors2.org&gt;osc-bugs@sensors2.org&lt;/a&gt;. Nous y jetterons un œil.</string>
+    <string name="communication">Communication</string>
+    <string name="about_license">Licence</string>
+    <string name="sensor_rotation_vector">Vecteur de rotation</string>
+    <string name="about_mit_license_1">L\'autorisation est accordée par la présente, gratuitement, à toute personne obtenant une copie de ce logiciel et des fichiers de documentation associés (le logiciel), de traiter le logiciel sans restriction, y compris, mais sans s\'y limiter, les droits d\'utilisation, de copie, de modification, de fusion, de publication, de distribution, de sous-licence et/ou de vente de copies du logiciel, et d\'autoriser les personnes à qui le logiciel est fourni à le faire, sous réserve des conditions suivantes :</string>
+    <string name="about_components">Composants utilisés</string>
+    <string name="send_data">Envoyer des données</string>
+    <string name="about_mit_license_3">LE LOGICIEL EST FOURNI TEL QUEL, SANS GARANTIE D\'AUCUNE SORTE, EXPRESSE OU IMPLICITE, Y COMPRIS, MAIS SANS S\'Y LIMITER, LES GARANTIES DE QUALITÉ MARCHANDE, D\'ADÉQUATION À UN USAGE PARTICULIER ET DE NON-VIOLATION. EN AUCUN CAS, LES AUTEURS OU LES DÉTENTEURS DE DROITS D\'AUTEUR NE POURRONT ÊTRE TENUS RESPONSABLES DE TOUTE RÉCLAMATION, DE TOUT DOMMAGE OU DE TOUTE AUTRE RESPONSABILITÉ, QUE CE SOIT DANS LE CADRE D\'UNE ACTION CONTRACTUELLE, DÉLICTUELLE OU AUTRE, DÉCOULANT DE OU LIÉE AU LOGICIEL OU À SON UTILISATION OU À D\'AUTRES TRANSACTIONS.</string>
+    <string name="about_license_javaosc">La licence &lt;a href=http://www.illposed.com/software/javaosc.html&gt;JavaOSC&lt;/a&gt; peut être lue sur &lt;a href=https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&gt;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a&gt;.</string>
+    <string name="text_guide_headline">Aide</string>
+    <string name="text_guide">En fonction de votre téléphone, vous disposez de plusieurs capteurs et valeurs.</string>
+    <string name="text_guide_multitouch_headline">Multitouche</string>
+    <string name="text_guide_nfc">Si votre téléphone peut lire les jetons CCP, alors la valeur de ces jetons sera envoyée à l\'adresse OSC /nfc.</string>
+    <string name="sensor_nfc">Communication en champ proche</string>
+    <string name="text_available_sensors">Capteurs disponibles</string>
+    <string name="guide_osc_address">Adresse OSC</string>
+    <string name="text_guide_multitouch">Si vous activez le multitouch, chaque point de contact enverra ses coordonnées via OSC. L\'adresse est au format /touch&lt;index&gt;, où index est une base 1. Les coordonnées sont envoyées sous la forme d\'une liste de 2 valeurs flottantes, X et Y, comprises entre 0 et 1.</string>
+    <string name="sensor_accelerometer">Accéléromètre</string>
+    <string name="sensor_magnetic_field">Champ magnétique</string>
+    <string name="sensor_orientation">Orientation</string>
+    <string name="sensor_light">Lumière</string>
+    <string name="sensor_pressure">Pression</string>
+    <string name="sensor_temperature">Température</string>
+    <string name="sensor_linear_acceleration">Accélération linéaire</string>
+    <string name="sensor_relative_humidity">Humidité relative</string>
+    <string name="sensor_ambient_temperature">Température ambiante</string>
+    <string name="sensor_magnetic_field_uncalibrated">Champ magnétique (non calibré)</string>
+    <string name="sensor_game_rotation_vector">Vecteur de rotation du jeu (non calibré)</string>
+    <string name="sensor_gyroscope_uncalibrated">Gyroscope (non calibré)</string>
+    <string name="sensor_significant_motion">Mouvement significatif</string>
+    <string name="sensor_step_counter">Compteur de pas</string>
+    <string name="sensor_heartrate">Fréquence cardiaque</string>
+    <string name="sensor_tilt_detector">Détecteur d\'inclinaison</string>
+    <string name="sensor_step_detector">Détecteur de pas</string>
+</resources>
