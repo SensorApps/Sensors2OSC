@@ -6,10 +6,10 @@
     <string name="sensitity">Gevoeligheid</string>
     <string name="title_activity_about">Over de app</string>
     <string name="action_about">Over de app</string>
-    <string name="about_buglinks">Meld bugs a.u.b. bij &lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> of per e-mail aan &lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a>. We zullen er naar kijken.</string>
+    <string name="about_buglinks">Meld bugs a.u.b. bij &lt;a href="https://github.com/SensorApps/Sensors2OSC/issues"&gt;GitHub&lt;/a&gt; of per e-mail aan &lt;a href="mailto:osc-bugs@sensors2.org""&gt;osc-bugs@sensors2.org&lt;/a&gt;. We zullen er naar kijken.</string>
     <string name="about_license">Licentie</string>
     <string name="about_components">Gebruikte componenten</string>
-    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>. De licentie kan gevonden worden op &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="about_license_javaosc">&lt;a href="http://www.illposed.com/software/javaosc.html"&gt;JavaOSC&lt;/a&gt;. De licentie kan gevonden worden op &lt;a href="https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE"&gt;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a&gt;.</string>
     <string name="send_data">Verstuur data</string>
     <string name="action_guide">Help</string>
     <string name="text_available_sensors">Beschikbare sensoren</string>
@@ -18,7 +18,7 @@
     <string name="guide_max_range">Max. bereik</string>
     <string name="guide_resolution">Resolutie</string>
     <string name="guide_osc_address">OSC-adres</string>
-    <string name="sensor_accelerometer">Versnelling</string>
+    <string name="sensor_accelerometer">Versnellingsmeter</string>
     <string name="sensor_magnetic_field">Magnetisch veld</string>
     <string name="sensor_orientation">Oriëntatie</string>
     <string name="sensor_gyroscope">Gyroscoop</string>
@@ -45,7 +45,7 @@
     <string name="sensor_glance_gesture">Blikgebaar</string>
     <string name="sensor_nfc">Near-field communication (NFC)</string>
     <string name="sensor_pick_up_gesture">Opneemgebaar</string>
-    <string name="sensor_tilt_detector">Tiltdetectie</string>
+    <string name="sensor_tilt_detector">Tiltdetector</string>
     <string name="sensor_wake_gesture">Wekgebaar</string>
     <string name="sensor_wrist_tilt_gesture">Pols-tiltgebaar</string>
     <string name="text_guide_multitouch_headline">Multitouch</string>
@@ -55,5 +55,20 @@
     <string name="text_guide_floatlist">Sensorwaarden worden als een lijst van floating points verstuurd. Afhankelijk van de sensor kan kunnen dit 1 tot en met 16 waarden zijn.</string>
     <string name="guide_dimensions">Aantal waarden</string>
     <string name="sensor_inclination">Helling</string>
-
+    <string name="return_to_app">Ga terug naar Sensors2OSC</string>
+    <string name="sensor_type_hinge_angle">Scharnierhoek</string>
+    <string name="sensor_type_low_latency_offbody_detect">Detectie op het lichaam / weg van het lichaam</string>
+    <string name="sensor_type_dynamic_sensor_meta">Dynamische sensor (metaevenement)</string>
+    <string name="sensor_type_accelorometer_uncalibrated">Versnellingsmeter (ongekalibreerd)</string>
+    <string name="sensor_type_heart_beat">Hartslag</string>
+    <string name="sensor_type_stationary_detect">Stationaire detectie</string>
+    <string name="sensor_type_motion_detect">Bewegingsdetectie</string>
+    <string name="sensor_type_device_orientation">Apparaatoriëntatie</string>
+    <string name="sensor_type_heading">Relatieve koers naar het noorden</string>
+    <string name="sensor_type_gyroscope_limited_axes_uncalibrated">Gyroscoop (beperkte assen ongekalibreerd)</string>
+    <string name="sensor_type_gyroscope_limited_axes">Gyroscoop (beperkte assen)</string>
+    <string name="sensor_type_accelerometer_limited_axes_uncalibrated">Versnellingsmeter (beperkte assen, ongekalibreerd)</string>
+    <string name="sensor_type_accelerometer_limited_axes">Versnellingsmeter (beperkte assen)</string>
+    <string name="sensor_type_head_tracker">Hoofdtracking</string>
+    <string name="send_as_bundle">Verstuur OSC-waarden als bundel</string>
 </resources>
