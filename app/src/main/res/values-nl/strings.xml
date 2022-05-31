@@ -71,4 +71,8 @@
     <string name="sensor_type_accelerometer_limited_axes">Versnellingsmeter (beperkte assen)</string>
     <string name="sensor_type_head_tracker">Hoofdtracking</string>
     <string name="send_as_bundle">Verstuur OSC-waarden als bundel</string>
+    <string name="about_mit_license_2">De bovenstaande auteursrechtkennisgeving en deze toestemmingskennisgeving zullen worden opgenomen in alle kopieën of substantiële delen van de Software.</string>
+    <string name="sensor_type_pose_6dof">Houding (6 vrijheidsgraden)</string>
+    <string name="about_mit_license_1">Hierbij wordt kosteloos toestemming verleend aan elke persoon die een kopie van deze software en bijbehorende documentatiebestanden (de Software) verkrijgt, om zonder beperking in de Software te handelen, inclusief maar niet beperkt tot de rechten om te gebruiken, kopiëren, wijzigen, samenvoegen, publiceren, distribueren, in sublicentie geven en/of verkopen van kopieën van de Software, en om personen aan wie de Software wordt geleverd toe te staan dit te doen, onder de volgende voorwaarden:</string>
+    <string name="about_mit_license_3">DE SOFTWARE WORDT GELEVERD IN DE HUIDIGE STAAT, ZONDER ENIGE GARANTIE, EXPLICIET OF IMPLICIET, INCLUSIEF MAAR NIET BEPERKT TOT DE GARANTIES VAN VERKOOPBAARHEID, GESCHIKTHEID VOOR EEN BEPAALD DOEL EN NIET-INBREUK. IN GEEN GEVAL ZULLEN DE AUTEURS OF AUTEURSRECHTHOUDERS AANSPRAKELIJK ZIJN VOOR ENIGE CLAIM, SCHADE OF ANDERE AANSPRAKELIJKHEID, HETZIJ IN EEN OVEREENKOMST, ONRECHTMATIGHEID OF ANDERSZINS, VOORTVLOEIEND UIT, UIT OF IN VERBAND MET DE SOFTWARE OF HET GEBRUIK IN OF DE ANDERE HANDELINGEN SOFTWARE.</string>
 </resources>
