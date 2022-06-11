@@ -108,6 +108,9 @@ public class AutoCompletePreference extends EditTextPreference {
         autocompleteText.setLayoutParams(params);
         autocompleteText.setId(android.R.id.edit);
         autocompleteText.setText(currentValue);
+        if (autocompleteText.getParent() != null){
+            ((ViewGroup)autocompleteText.getParent()).removeView(autocompleteText);
+        }
         viewGroup.addView(autocompleteText);
     }
 
