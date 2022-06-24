@@ -1,3 +1,9 @@
+# 0.4.1 (2022-06-25)
+- Option to block screen for blacking
+- Bugfixes:
+	* Android 12: Sending data does not crash anymore.
+	* Android 12: Editing host and port does not crash anymore.
+
 # 0.4.0 (2022-06-12)
 - **breaking**: NFC tag values are removed.
 - **breaking**: Minimum required Android version is now 4.0.1.
