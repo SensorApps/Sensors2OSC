@@ -102,7 +102,7 @@ public class AutoCompletePreference extends EditTextPreference {
         ViewGroup.LayoutParams params = editText.getLayoutParams();
         ViewGroup viewGroup = (ViewGroup)editText.getParent();
         String currentValue = editText.getText().toString();
-        viewGroup.removeView(editText);
+        editText.setVisibility(View.GONE);
 
         AutoCompleteTextView autocompleteText = this.autocompleteText;
         autocompleteText.setLayoutParams(params);
