@@ -89,4 +89,5 @@ THE SOFTWARE.]]></string>
     <string name="sensor_type_accelerometer_limited_axes">Accelerometer (limited axes)</string>
     <string name="sensor_type_head_tracker">Head Tracker</string>
     <string name="send_as_bundle">Send OSC values as bundle</string>
+    <string name="keep_screen_alive">Keep screen alive when sending data</string>
 </resources>

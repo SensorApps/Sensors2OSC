@@ -6,6 +6,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
@@ -16,6 +17,7 @@ import android.nfc.NfcAdapter;
 import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.PowerManager;
 
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.nfc.NfcActivity;
@@ -46,6 +48,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private NfcAdapter nfcAdapter;
     private boolean isSendingData = false;
     private org.sensors2.osc.sensors.Settings settings;
+    private PowerManager.WakeLock wakeLock;
 
     public SensorService() {
         super();
@@ -65,6 +68,15 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 }
             }
             stopForeground(true);
+            if (this.settings.getKeepScreenAlive()){
+                if (this.wakeLock == null){
+                    PowerManager powerManager = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
+                    this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "org.sensors2.osc:wakelock");
+                }
+                if (!this.wakeLock.isHeld()){
+                    this.wakeLock.acquire();
+                }
+            }
             startForeground(NOTIFICATION_ID, makeNotification());
             this.isSendingData = true;
         }
@@ -128,6 +140,9 @@ public class SensorService extends Service implements SensorActivity, SensorEven
 
 
     public void stopSendingData() {
+        if (this.wakeLock != null && this.wakeLock.isHeld()) {
+            this.wakeLock.release();
+        }
         if (isSendingData) {
             stopForeground(true);
             sensorManager.unregisterListener(this);

@@ -21,6 +21,11 @@
             android:key="pref_comm_bundle"
             android:persistent="true"
             android:title="@string/send_as_bundle" />
+        <org.sensors2.osc.preferences.ExtendedSwitchPreference
+            android:defaultValue="false"
+            android:key="pref_comm_screen_alive"
+            android:persistent="true"
+            android:title="@string/keep_screen_alive" />
     </PreferenceCategory>
    <!-- <PreferenceCategory android:title="@string/sensors">
         <org.sensors2.common.preferences.ExtendedEditTextPreference

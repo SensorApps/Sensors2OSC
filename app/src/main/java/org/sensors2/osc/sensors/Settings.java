@@ -12,12 +12,14 @@ public class Settings extends org.sensors2.common.sensors.Settings {
     private final String host;
     private final int port;
     private final boolean sendAsBundle;
+    private final boolean keepScreenAlive;
 
     public Settings(SharedPreferences preferences) {
         super(preferences);
         this.host = this.setHost(preferences);
         this.port = this.setPort(preferences);
         this.sendAsBundle = this.setSendAsBundle(preferences);
+        this.keepScreenAlive = this.setKeepScreenAlive(preferences);
     }
 
     public boolean getSetAsBundle() {
@@ -26,6 +28,14 @@ public class Settings extends org.sensors2.common.sensors.Settings {
 
     private boolean setSendAsBundle(SharedPreferences preferences) {
         return preferences.getBoolean("pref_comm_bundle", false);
+    }
+
+    public boolean getKeepScreenAlive() {
+        return keepScreenAlive;
+    }
+
+    private boolean setKeepScreenAlive(SharedPreferences preferences) {
+        return preferences.getBoolean("pref_comm_screen_alive", false);
     }
 
     public int getPort() {

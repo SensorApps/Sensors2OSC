@@ -10,6 +10,7 @@ public class OscConfiguration {
     private String host;
     private int port;
     private boolean sendAsBundle;
+    private boolean keepScreenAlive;
 
     private OscConfiguration() {
         this.oscPort = null;
@@ -53,4 +54,10 @@ public class OscConfiguration {
     public boolean getSendAsBundle() {
         return this.sendAsBundle;
     }
+
+    public void setKeepScreenAlive(boolean keepScreenAlive) { this.keepScreenAlive = keepScreenAlive; }
+    public boolean getKeepScreenAlive() {
+        return this.keepScreenAlive;
+    }
+
 }
