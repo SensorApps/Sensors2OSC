@@ -54,6 +54,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         super();
     }
 
+    @SuppressLint("WakelockTimeout")
     public void startSendingData() {
         if (!this.isSendingData) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -125,8 +126,8 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private Notification makeNotification() {
         Intent notificationIntent = new Intent(this, StartUpActivity.class);
 
-        @SuppressLint("UnspecifiedImmutableFlag") PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, notificationIntent, 0);
+        PendingIntent pendingIntent =
+                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
 
         return new NotificationCompat.Builder(SensorService.this, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(getText(R.string.app_name))
