@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 
+import java.util.Objects;
+
 import androidx.core.app.NavUtils;
 
 /**
@@ -16,7 +18,7 @@ public class SettingsActivity extends PreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(org.sensors2.osc.R.xml.preferences);
         addPreferencesFromResource(org.sensors2.common.R.xml.common_preferences);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+		Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 	}
 
     @Override

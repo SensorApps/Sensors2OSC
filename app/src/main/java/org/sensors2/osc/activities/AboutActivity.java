@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import org.sensors2.osc.R;
 
+import java.util.Objects;
+
 import androidx.core.app.NavUtils;
 
 
@@ -25,18 +27,18 @@ public class AboutActivity extends Activity {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        TextView nameAndVersion = (TextView) findViewById(R.id.name_and_version);
+        TextView nameAndVersion = findViewById(R.id.name_and_version);
         nameAndVersion.setText(versionString);
-        TextView copyright = (TextView) findViewById(R.id.copyright_links);
+        TextView copyright = findViewById(R.id.copyright_links);
         copyright.setMovementMethod(LinkMovementMethod.getInstance());
         copyright.setText(Html.fromHtml(getResources().getString(R.string.about_copyright)));
-        TextView javaOsc = (TextView) findViewById(R.id.javaosc_links);
+        TextView javaOsc = findViewById(R.id.javaosc_links);
         javaOsc.setMovementMethod(LinkMovementMethod.getInstance());
         javaOsc.setText(Html.fromHtml(getResources().getString(R.string.about_license_javaosc)));
-        TextView bugLinks = (TextView) findViewById(R.id.buglinks);
+        TextView bugLinks = findViewById(R.id.buglinks);
         bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
         bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
-		getActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 	}
 
     @Override

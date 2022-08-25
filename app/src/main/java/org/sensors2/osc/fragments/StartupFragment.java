@@ -13,6 +13,8 @@ import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.sensors.Parameters;
 
+import java.util.Objects;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +25,7 @@ public class StartupFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_start_up, container, false);
 
-        CompoundButton activeButton = (CompoundButton) v.findViewById(R.id.active);
+        CompoundButton activeButton = v.findViewById(R.id.active);
         StartUpActivity activity = (StartUpActivity) getActivity();
         activeButton.setOnCheckedChangeListener(activity);
         assert activity != null;
@@ -36,7 +38,7 @@ public class StartupFragment extends Fragment {
     }
 
     public void createSensorFragments(org.sensors2.osc.sensors.Parameters parameters) {
-        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentManager manager = requireActivity().getSupportFragmentManager();
         SensorFragment groupFragment = (SensorFragment) manager.findFragmentByTag(parameters.getName());
 
         if (groupFragment == null) {

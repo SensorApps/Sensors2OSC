@@ -12,6 +12,7 @@ import org.sensors2.osc.fragments.HelpSensorFragment;
 import org.sensors2.osc.sensors.Parameters;
 
 import java.util.List;
+import java.util.Objects;
 
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.FragmentActivity;
@@ -29,14 +30,14 @@ public class GuideActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
-        TextView availableSensorsHeadline = (TextView) findViewById(R.id.availSensorsHeadline);
+        TextView availableSensorsHeadline = findViewById(R.id.availSensorsHeadline);
         SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         List<Parameters> sensors = Parameters.GetSensors(sensorManager, this.getApplicationContext());
         availableSensorsHeadline.setText(sensors.size() + " " + availableSensorsHeadline.getText());
         for (Parameters parameters : sensors) {
             this.CreateSensorFragments(parameters);
         }
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
     }
 
     public void CreateSensorFragments(Parameters parameters) {

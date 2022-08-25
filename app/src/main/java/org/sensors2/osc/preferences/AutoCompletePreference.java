@@ -98,7 +98,7 @@ public class AutoCompletePreference extends EditTextPreference {
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
 
-        final EditText editText = (EditText)view.findViewById(android.R.id.edit);
+        final EditText editText = view.findViewById(android.R.id.edit);
         ViewGroup.LayoutParams params = editText.getLayoutParams();
         ViewGroup viewGroup = (ViewGroup)editText.getParent();
         String currentValue = editText.getText().toString();

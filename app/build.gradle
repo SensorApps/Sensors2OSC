@@ -24,6 +24,9 @@ android {
         abortOnError false
         checkReleaseBuilds true
     }
+    configurations.all {
+        resolutionStrategy.force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    }
     namespace 'org.sensors2.osc'
 }
 
@@ -31,7 +34,7 @@ dependencies {
     implementation 'com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4'
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.github.SensorApps:Common:f33f8fa4d5'
-    implementation 'androidx.fragment:fragment:1.4.1'
+    implementation 'com.github.SensorApps:Common:d46abdc0be'
+    implementation 'androidx.fragment:fragment:1.5.2'
     implementation 'androidx.preference:preference:1.2.0'
 }

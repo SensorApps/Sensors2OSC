@@ -25,12 +25,12 @@ public class HelpSensorFragment extends Fragment {
         String name = args.getString(Bundling.NAME);
         String sensorName = args.getString(Bundling.SENSOR_NAME);
         @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.help_sensor, null);
-        TextView groupName = (TextView) v.findViewById(R.id.group_name);
+        TextView groupName = v.findViewById(R.id.group_name);
         groupName.setText(name + " (" + sensorName + ")");
-        AddText((TextView) v.findViewById(R.id.osc_prefix), args.getString(Bundling.OSC_PREFIX));
-        AddText((TextView) v.findViewById(R.id.dimensions), args.getInt(Bundling.DIMENSIONS));
-        AddText((TextView) v.findViewById(R.id.range), args.getFloat(Bundling.SENSOR_RANGE));
-        AddText((TextView) v.findViewById(R.id.resolution), args.getFloat(Bundling.RESOLUTION));
+        AddText(v.findViewById(R.id.osc_prefix), args.getString(Bundling.OSC_PREFIX));
+        AddText(v.findViewById(R.id.dimensions), args.getInt(Bundling.DIMENSIONS));
+        AddText(v.findViewById(R.id.range), args.getFloat(Bundling.SENSOR_RANGE));
+        AddText(v.findViewById(R.id.resolution), args.getFloat(Bundling.RESOLUTION));
         return v;
     }
 

@@ -29,7 +29,7 @@ public class ExtendedSwitchPreference extends SwitchPreference {
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
-        TextView textView = (TextView) view.findViewById(android.R.id.title);
+        TextView textView = view.findViewById(android.R.id.title);
         if (textView != null) {
             textView.setSingleLine(false);
         }

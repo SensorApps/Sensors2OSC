@@ -45,14 +45,14 @@ public class SensorFragment extends Fragment {
         String name = args.getString(Bundling.NAME);
 
         @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.sensor, null);
-        TextView groupName = (TextView) v.findViewById(R.id.group_name);
+        TextView groupName = v.findViewById(R.id.group_name);
         groupName.setText(name);
         ((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString(Bundling.OSC_PREFIX));
         StartUpActivity activity = (StartUpActivity) getActivity();
         assert activity != null;
         activity.registerFragment(this);
 
-        this.activeButton = (CompoundButton) v.findViewById(R.id.active);
+        this.activeButton = v.findViewById(R.id.active);
         this.activeButton.setOnCheckedChangeListener((compoundButton, checked) -> {
             if (SensorFragment.this.sensorService != null) {
                 SensorFragment.this.sensorService.setSensorActivation(SensorFragment.this.sensorConfiguration.getSensorType(), checked);
