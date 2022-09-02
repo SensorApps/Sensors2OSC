@@ -1,0 +1,2 @@
+- Added laucher icons for all sizes.
+- Added information to Readme.

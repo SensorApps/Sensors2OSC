@@ -1,0 +1,4 @@
+- Option to block screen for blacking
+- Bugfixes:
+	* Android 12: Sending data does not crash anymore.
+	* Android 12: Editing host and port does not crash anymore.
