@@ -1,3 +1,7 @@
+# 0.5.0 (2022-09-08)
+- Switch to Material design and day/night theme
+- Bugfix: sensor names can take up more space.
+
 # 0.4.1 (2022-06-25)
 - Option to block screen for blacking
 - Bugfixes:

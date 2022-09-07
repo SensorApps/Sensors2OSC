@@ -1,0 +1,2 @@
+- Switch to Material design and day/night theme
+- Bugfix: sensor names can take up more space.
