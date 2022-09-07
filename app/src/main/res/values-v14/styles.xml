@@ -1,5 +1,5 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.Material3.DayNight" />
+    <style name="AppTheme" parent="Sensors2Theme" />
 
 </resources>
