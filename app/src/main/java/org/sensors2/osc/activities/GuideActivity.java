@@ -14,6 +14,7 @@ import org.sensors2.osc.sensors.Parameters;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -22,7 +23,7 @@ import androidx.fragment.app.FragmentTransaction;
 /**
  * Created by thomas on 12.02.15.
  */
-public class GuideActivity extends FragmentActivity {
+public class GuideActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -37,7 +38,8 @@ public class GuideActivity extends FragmentActivity {
         for (Parameters parameters : sensors) {
             this.CreateSensorFragments(parameters);
         }
-        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     public void CreateSensorFragments(Parameters parameters) {

@@ -3,13 +3,14 @@ package org.sensors2.osc.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import android.preference.EditTextPreference;
+import androidx.preference.EditTextPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,7 +19,9 @@ import java.util.Set;
 
 import androidx.annotation.RequiresApi;
 import androidx.preference.PreferenceManager;
+import androidx.preference.PreferenceViewHolder;
 
+// TODO: reimplement autocomplete functionality
 public class AutoCompletePreference extends EditTextPreference {
     private final Set<String> dataSource;
     private final String dataSourceName;
@@ -78,6 +81,7 @@ public class AutoCompletePreference extends EditTextPreference {
         return preferences.getStringSet(dataSourceName, new HashSet<>());
     }
 
+/*
     @Override
     public void setText(String text) {
         super.setText(text);
@@ -92,26 +96,6 @@ public class AutoCompletePreference extends EditTextPreference {
         editor.putStringSet(this.dataSourceName, this.dataSource);
         editor.apply();
         this.bindAutocompleteValues(context, this.dataSource);
-    }
-
-    @Override
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
-
-        final EditText editText = view.findViewById(android.R.id.edit);
-        ViewGroup.LayoutParams params = editText.getLayoutParams();
-        ViewGroup viewGroup = (ViewGroup)editText.getParent();
-        String currentValue = editText.getText().toString();
-        editText.setVisibility(View.GONE);
-
-        AutoCompleteTextView autocompleteText = this.autocompleteText;
-        autocompleteText.setLayoutParams(params);
-        autocompleteText.setId(android.R.id.edit);
-        autocompleteText.setText(currentValue);
-        if (autocompleteText.getParent() != null){
-            ((ViewGroup)autocompleteText.getParent()).removeView(autocompleteText);
-        }
-        viewGroup.addView(autocompleteText);
     }
 
     @Override
@@ -131,4 +115,5 @@ public class AutoCompletePreference extends EditTextPreference {
     {
         return this.autocompleteText;
     }
+    */
 }

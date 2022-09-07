@@ -16,12 +16,12 @@
             android:persistent="true"
             android:title="@string/port"
             custom:dataSource="pref_comm_history_port" />
-        <org.sensors2.osc.preferences.ExtendedSwitchPreference
+        <androidx.preference.SwitchPreference
             android:defaultValue="false"
             android:key="pref_comm_bundle"
             android:persistent="true"
             android:title="@string/send_as_bundle" />
-        <org.sensors2.osc.preferences.ExtendedSwitchPreference
+        <androidx.preference.SwitchPreference
             android:defaultValue="false"
             android:key="pref_comm_screen_alive"
             android:persistent="true"

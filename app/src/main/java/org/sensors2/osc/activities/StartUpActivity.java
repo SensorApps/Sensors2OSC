@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -33,13 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static org.sensors2.osc.fragments.MultiTouchFragment.MAX_POINTER_COUNT;
 
-public class StartUpActivity extends FragmentActivity implements CompoundButton.OnCheckedChangeListener, View.OnTouchListener {
+public class StartUpActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener, View.OnTouchListener {
 
     private final List<SensorFragment> sensorFragments = new ArrayList<>();
     private Settings settings;
@@ -94,6 +96,11 @@ public class StartUpActivity extends FragmentActivity implements CompoundButton.
         }
         startService(new Intent(this, SensorService.class));
         bindService(new Intent(this, SensorService.class), this.sensorServiceConnection, BIND_AUTO_CREATE);
+
+        Toolbar toolbar = findViewById(R.id.action_bar);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setNavigationIcon(R.drawable.sensors2osc);
+        }
     }
 
     @Override

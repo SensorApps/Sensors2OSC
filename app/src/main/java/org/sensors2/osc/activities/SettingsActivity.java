@@ -4,21 +4,29 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 
+import org.sensors2.osc.R;
+import org.sensors2.osc.fragments.SettingsFragment;
+
 import java.util.Objects;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 /**
  * Created by thomas on 03.11.14.
  */
-@SuppressWarnings("deprecation")
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(org.sensors2.osc.R.xml.preferences);
-        addPreferencesFromResource(org.sensors2.common.R.xml.common_preferences);
-		Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
+        super.onCreate(savedInstanceState);setContentView(R.layout.activity_settings);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.settings_view, new SettingsFragment());
+        transaction.commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 	}
 
     @Override

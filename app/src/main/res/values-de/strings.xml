@@ -73,4 +73,5 @@
     <string name="sensor_type_head_tracker">Kopf-Position</string>
     <string name="send_as_bundle">OSC-Daten als Bundle versenden</string>
     <string name="keep_screen_alive">Bildschirm beim Senden nicht ausschalten</string>
+    <string name="multi_touch">Multi Touch</string>
 </resources>

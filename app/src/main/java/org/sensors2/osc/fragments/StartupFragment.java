@@ -13,8 +13,6 @@ import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.sensors.Parameters;
 
-import java.util.Objects;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -50,7 +48,6 @@ public class StartupFragment extends Fragment {
         }
     }
 
-
     public SensorFragment createFragment(org.sensors2.osc.sensors.Parameters parameters) {
         SensorFragment groupFragment = new SensorFragment();
         Bundle args = new Bundle();
@@ -61,5 +58,4 @@ public class StartupFragment extends Fragment {
         groupFragment.setArguments(args);
         return groupFragment;
     }
-
 }

@@ -1,6 +1,5 @@
 package org.sensors2.osc.activities;
 
-import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Html;
@@ -12,10 +11,11 @@ import org.sensors2.osc.R;
 
 import java.util.Objects;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
 
 
-public class AboutActivity extends Activity {
+public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +38,8 @@ public class AboutActivity extends Activity {
         TextView bugLinks = findViewById(R.id.buglinks);
         bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
         bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
-        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 	}
 
     @Override
