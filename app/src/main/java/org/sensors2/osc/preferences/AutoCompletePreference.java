@@ -3,31 +3,69 @@ package org.sensors2.osc.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
-import androidx.preference.EditTextPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.preference.EditTextPreference;
+import androidx.preference.Preference;
 import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceViewHolder;
 
-// TODO: reimplement autocomplete functionality
 public class AutoCompletePreference extends EditTextPreference {
     private final Set<String> dataSource;
     private final String dataSourceName;
 
     private AutoCompleteTextView autocompleteText = null;
 
+    private class OnBindEditTextListener implements EditTextPreference.OnBindEditTextListener {
+        private final AutoCompletePreference preference;
+
+        public OnBindEditTextListener(AutoCompletePreference preference){
+            this.preference = preference;
+        }
+
+        @Override
+        public void onBindEditText(@NonNull EditText editText) {
+            ViewGroup.LayoutParams params = editText.getLayoutParams();
+            ViewGroup viewGroup = (ViewGroup)editText.getParent();
+            String currentValue = editText.getText().toString();
+            editText.setVisibility(View.GONE);
+
+            AutoCompleteTextView autocompleteText = this.preference.autocompleteText;
+            autocompleteText.setLayoutParams(params);
+            autocompleteText.setId(android.R.id.edit);
+            autocompleteText.setText(currentValue);
+            if (autocompleteText.getParent() != null){
+                ((ViewGroup)autocompleteText.getParent()).removeView(autocompleteText);
+            }
+            viewGroup.addView(autocompleteText);
+        }
+    }
+
+    private class OnPreferenceChangeListener implements Preference.OnPreferenceChangeListener {
+        private final AutoCompletePreference preference;
+
+        public OnPreferenceChangeListener(AutoCompletePreference preference){
+            this.preference = preference;
+        }
+
+        @Override
+        public boolean onPreferenceChange(@NonNull Preference preference, Object newValue) {
+            AutoCompletePreference autoCompletePreference = (AutoCompletePreference) preference;
+            autoCompletePreference.setText(this.preference.autocompleteText.getText().toString());
+            return false;
+        }
+    }
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public AutoCompletePreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
@@ -35,6 +73,7 @@ public class AutoCompletePreference extends EditTextPreference {
         this.dataSource = this.loadDataSource(this.dataSourceName);
         this.setupAutocomplete(context, attrs);
     }
+
     public AutoCompletePreference(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.dataSourceName = getDataSourceName(attrs);
@@ -68,6 +107,8 @@ public class AutoCompletePreference extends EditTextPreference {
         List<String> autocompleteValues = new ArrayList<>(dataSource);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, autocompleteValues);
         this.autocompleteText.setAdapter(adapter);
+        this.setOnBindEditTextListener(new OnBindEditTextListener(this));
+        this.setOnPreferenceChangeListener(new OnPreferenceChangeListener(this));
     }
 
     private String getDataSourceName(AttributeSet attrs) {
@@ -81,7 +122,6 @@ public class AutoCompletePreference extends EditTextPreference {
         return preferences.getStringSet(dataSourceName, new HashSet<>());
     }
 
-/*
     @Override
     public void setText(String text) {
         super.setText(text);
@@ -97,7 +137,7 @@ public class AutoCompletePreference extends EditTextPreference {
         editor.apply();
         this.bindAutocompleteValues(context, this.dataSource);
     }
-
+/*
     @Override
     protected void onDialogClosed(boolean positiveResult) {
         super.onDialogClosed(positiveResult);
