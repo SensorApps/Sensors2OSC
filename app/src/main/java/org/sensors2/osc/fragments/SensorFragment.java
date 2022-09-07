@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
@@ -45,9 +46,20 @@ public class SensorFragment extends Fragment {
         String name = args.getString(Bundling.NAME);
 
         @SuppressLint("InflateParams") View v = inflater.inflate(R.layout.sensor, null);
+
         TextView groupName = v.findViewById(R.id.group_name);
         groupName.setText(name);
-        ((TextView) v.findViewById(R.id.osc_prefix)).setText("/" + args.getString(Bundling.OSC_PREFIX));
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) groupName.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.LEFT_OF,R.id.active);
+        groupName.setLayoutParams((layoutParams));
+
+        TextView oscParam = v.findViewById(R.id.osc_prefix);
+        oscParam.setText("/" + args.getString(Bundling.OSC_PREFIX));
+        layoutParams = (RelativeLayout.LayoutParams) oscParam.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.LEFT_OF,R.id.active);
+        layoutParams.addRule(RelativeLayout.BELOW,R.id.group_name);
+        oscParam.setLayoutParams((layoutParams));
+
         StartUpActivity activity = (StartUpActivity) getActivity();
         assert activity != null;
         activity.registerFragment(this);
@@ -58,6 +70,7 @@ public class SensorFragment extends Fragment {
                 SensorFragment.this.sensorService.setSensorActivation(SensorFragment.this.sensorConfiguration.getSensorType(), checked);
             }
         });
+
         return v;
     }
 
