@@ -1,8 +1,9 @@
-# 0.5.1 (2022-09-13)
+# 0.5.1 (2022-09-14)
 - Use dark mode for older devices.
 - Bugfixes:
 	* Use theme colors for multitouch view.
 	* Prevent crash on switching between day and night while background.
+	* Android 12: Prevent crash on setting to highest sensor rate
 
 # 0.5.0 (2022-09-08)
 - Switch to Material design and day/night theme
