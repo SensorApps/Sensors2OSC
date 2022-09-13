@@ -1,0 +1,5 @@
+Sensordaten aus dem Telefon auslesen und an einen Empfänger über Open
+Sound Control (OSC) senden.
+
+Ein Standard-Anwendungsfall ist das Steuern einer Musik-Anwendung vom
+Telefon oder Tablet aus.
