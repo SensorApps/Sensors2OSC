@@ -1,0 +1,5 @@
+- Use dark mode for older devices.
+
+- Bugfixes:
+* Use theme colors for multitouch view.
+* Prevent crash on switching between day and night while background 

@@ -1,6 +1,7 @@
 package org.sensors2.osc.activities;
 
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -12,6 +13,7 @@ import org.sensors2.osc.R;
 import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.NavUtils;
 
 
@@ -19,6 +21,9 @@ public class AboutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         String versionString = getResources().getString(R.string.app_name);
@@ -38,7 +43,7 @@ public class AboutActivity extends AppCompatActivity {
         TextView bugLinks = findViewById(R.id.buglinks);
         bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
         bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 	}
 

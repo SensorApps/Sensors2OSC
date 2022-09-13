@@ -3,12 +3,13 @@ package org.sensors2.osc.views;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
+import org.sensors2.osc.R;
 import org.sensors2.osc.fragments.MultiTouchFragment;
 
 public class MultiTouchView extends View {
@@ -18,26 +19,34 @@ public class MultiTouchView extends View {
     private final int[] touching = new int[MultiTouchFragment.MAX_POINTER_COUNT];
     private final float[] x = new float[MultiTouchFragment.MAX_POINTER_COUNT];
     private final float[] y = new float[MultiTouchFragment.MAX_POINTER_COUNT];
+    private int drawingColor;
+    private final Context context;
 
     public MultiTouchView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.context = context;
         init();
     }
 
     public MultiTouchView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         init();
     }
 
     public MultiTouchView(Context context) {
         super(context);
+        this.context = context;
         init();
     }
 
     void init() {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeWidth(2);
-        paint.setColor(Color.BLACK);
+        TypedValue typedValue = new TypedValue();
+        this.context.getTheme().resolveAttribute(R.attr.colorOnSurface, typedValue, true);
+        this.drawingColor = typedValue.data;
+        paint.setColor(this.drawingColor);
     }
 
     // TODO improve the drawing performance and make it scale to screen size
@@ -47,7 +56,7 @@ public class MultiTouchView extends View {
         for (int i = 0; i < touching.length; i++) {
             if (touching[i] != 0) {
                 for (int j = 0; j < i + 1; j++) {
-                    paint.setColor(Color.BLACK);
+                    paint.setColor(this.drawingColor);
                     canvas.drawCircle(x[i], y[i], 75 - (j * 6), paint);
                 }
             }

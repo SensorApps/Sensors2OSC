@@ -27,7 +27,7 @@ public class AutoCompletePreference extends EditTextPreference {
 
     private AutoCompleteTextView autocompleteText = null;
 
-    private class OnBindEditTextListener implements EditTextPreference.OnBindEditTextListener {
+    private static class OnBindEditTextListener implements EditTextPreference.OnBindEditTextListener {
         private final AutoCompletePreference preference;
 
         public OnBindEditTextListener(AutoCompletePreference preference){
@@ -52,7 +52,7 @@ public class AutoCompletePreference extends EditTextPreference {
         }
     }
 
-    private class OnPreferenceChangeListener implements Preference.OnPreferenceChangeListener {
+    private static class OnPreferenceChangeListener implements Preference.OnPreferenceChangeListener {
         private final AutoCompletePreference preference;
 
         public OnPreferenceChangeListener(AutoCompletePreference preference){

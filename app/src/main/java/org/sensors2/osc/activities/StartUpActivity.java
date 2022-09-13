@@ -35,6 +35,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -81,6 +82,9 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
     @Override
     @SuppressLint("NewApi")
     protected void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -160,16 +164,12 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
     }
 
     @Override
-    @SuppressLint("NewApi")
-    protected void onPause() {
-        super.onPause();
-    }
-
-    @Override
     public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
         if (isChecked) {
             this.setRequestedOrientation(this.getCurrentOrientation());
-            sensorService.startSendingData();
+            if (sensorService != null){
+                sensorService.startSendingData();
+            }
         } else {
             sensorService.stopSendingData();
             this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
