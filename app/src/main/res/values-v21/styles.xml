@@ -1,0 +1,5 @@
+<resources>
+    <style name="AppTheme" parent="Sensors2Theme">
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+    </style>
+</resources>
