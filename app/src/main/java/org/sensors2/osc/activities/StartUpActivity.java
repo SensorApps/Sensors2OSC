@@ -67,6 +67,13 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                 dispatcher.addSensorConfiguration(sensorConfiguration);
             }
 
+            // Setup location
+            SensorConfiguration location = new SensorConfiguration();
+            location.setSend(true);
+            location.setSensorType(0);
+            location.setOscParam("location");
+            dispatcher.addSensorConfiguration(location);
+
             // Hookup sensor activity buttons with service
             for (SensorFragment sensorFragment : StartUpActivity.this.sensorFragments) {
                 sensorFragment.setSensorService(StartUpActivity.this.sensorService);

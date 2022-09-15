@@ -1,5 +1,6 @@
 package org.sensors2.osc.dispatch;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -8,11 +9,15 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.nfc.NfcAdapter;
 import android.os.Binder;
 import android.os.Build;
@@ -20,6 +25,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 
 import org.sensors2.common.dispatch.DataDispatcher;
+import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.nfc.NfcActivity;
 import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
@@ -31,6 +37,8 @@ import org.sensors2.osc.activities.StartUpActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 
 /**
@@ -42,8 +50,10 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
+    private final BackgroundLocationListener locationListener;
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
+    private LocationManager locationManager;
     private SensorCommunication sensorCommunication;
     private NfcAdapter nfcAdapter;
     private boolean isSendingData = false;
@@ -52,6 +62,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
 
     public SensorService() {
         super();
+        this.locationListener = new BackgroundLocationListener();
     }
 
     @SuppressLint("WakelockTimeout")
@@ -80,6 +91,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             }
             startForeground(NOTIFICATION_ID, makeNotification());
             this.isSendingData = true;
+            startLocation();
         }
     }
 
@@ -113,6 +125,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (this.dispatcher == null) {
             this.dispatcher = new OscDispatcher();
             this.sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+            this.locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             for (org.sensors2.osc.sensors.Parameters parameters : org.sensors2.osc.sensors.Parameters.GetSensors(sensorManager, getApplicationContext())) {
                 SensorConfiguration sensorConfig = new SensorConfiguration();
                 sensorConfig.setSensorType(parameters.getSensorType());
@@ -126,8 +139,11 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private Notification makeNotification() {
         Intent notificationIntent = new Intent(this, StartUpActivity.class);
 
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_IMMUTABLE);
+        int intentFlag = 0;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            intentFlag = PendingIntent.FLAG_IMMUTABLE;
+        }
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, intentFlag);
 
         return new NotificationCompat.Builder(SensorService.this, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(getText(R.string.app_name))
@@ -139,13 +155,13 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 .build();
     }
 
-
     public void stopSendingData() {
         if (this.wakeLock != null && this.wakeLock.isHeld()) {
             this.wakeLock.release();
         }
         if (isSendingData) {
             stopForeground(true);
+            this.locationManager.removeUpdates(this.locationListener);
             sensorManager.unregisterListener(this);
             isSendingData = false;
         }
@@ -222,6 +238,35 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     public class OscBinder extends Binder {
         public SensorService getService() {
             return SensorService.this;
+        }
+    }
+    private void startLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Location location;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+                location = this.locationManager.getLastKnownLocation(LocationManager.FUSED_PROVIDER);
+            } else {
+                Location networkLocation = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Location gpsLocation = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (networkLocation == null){
+                    location = gpsLocation;
+                } else if (gpsLocation == null){
+                    location = networkLocation;
+                } else {
+                    location = networkLocation.getTime() > gpsLocation.getTime() ? networkLocation : gpsLocation;
+                }
+            }
+            if (location != null){
+                this.dispatcher.dispatch(new Measurement(location));
+            }
+            this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this.locationListener);
+        }
+    }
+
+    private class BackgroundLocationListener implements LocationListener{
+        @Override
+        public void onLocationChanged(@NonNull Location location) {
+            SensorService.this.dispatcher.dispatch(new Measurement(location));
         }
     }
 }
