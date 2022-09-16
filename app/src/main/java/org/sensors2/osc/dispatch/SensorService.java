@@ -40,6 +40,7 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 /**
  * Created by thomas on 12.03.18.
@@ -241,26 +242,27 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
     }
     private void startLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Location location;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
-                location = this.locationManager.getLastKnownLocation(LocationManager.FUSED_PROVIDER);
-            } else {
-                Location networkLocation = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                Location gpsLocation = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                if (networkLocation == null){
-                    location = gpsLocation;
-                } else if (gpsLocation == null){
-                    location = networkLocation;
-                } else {
-                    location = networkLocation.getTime() > gpsLocation.getTime() ? networkLocation : gpsLocation;
-                }
-            }
-            if (location != null){
-                this.dispatcher.dispatch(new Measurement(location));
-            }
-            this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this.locationListener);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        Location location;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            location = this.locationManager.getLastKnownLocation(LocationManager.FUSED_PROVIDER);
+        } else {
+            Location networkLocation = this.locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            Location gpsLocation = this.locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (networkLocation == null){
+                location = gpsLocation;
+            } else if (gpsLocation == null){
+                location = networkLocation;
+            } else {
+                location = networkLocation.getTime() > gpsLocation.getTime() ? networkLocation : gpsLocation;
+            }
+        }
+        if (location != null){
+            this.dispatcher.dispatch(new Measurement(location));
+        }
+        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this.locationListener);
     }
 
     private class BackgroundLocationListener implements LocationListener{
