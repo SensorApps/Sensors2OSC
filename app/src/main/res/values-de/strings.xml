@@ -48,10 +48,12 @@
     <string name="sensor_tilt_detector">Neigungssensor</string>
     <string name="sensor_wake_gesture">Aufweckgeste</string>
     <string name="sensor_wrist_tilt_gesture">Handgelenk-Neigungsgeste</string>
-    <string name="text_guide_multitouch_headline">Multitouch</string>
+    <string name="text_guide_multitouch_headline">Multi-Touch</string>
     <string name="text_guide_nfc_headline">Nahfeldkommunikation (NFC)</string>
     <string name="text_guide_nfc">Wenn das Telefon NFC-Tokens lesen kann, sendet es den Wert von gelesenen Tokens an die OSC-Adresse /nfc.</string>
-    <string name="text_guide_multitouch">Wenn Multitouch eingeschaltet ist, sendet das Telefon zu jedem Berührungspunkt die Koordinaten. Die OSC-Adresse hat dabei das Format /touch&lt;index&gt;, wobei die Zählung des Index bei 1 beginnt. Die Koordinaten werden als Liste von 2 Fließkommazahlen gesendet, die jeweils einen Wertumfang von 0 - 1 haben.</string>
+    <string name="text_guide_multitouch">Wenn die Multi-Touch-Fläche geöffnet ist, sendet das Telefon zu jedem Berührungspunkt die Koordinaten.\nDie OSC–Adresse hat dabei das Format /touch&lt;index&gt;, wobei die Zählung des Index bei 1 beginnt. Die Koordinaten werden als Liste von 2 Fließkommazahlen gesendet, die jeweils einen Wertumfang von 0 – 1 haben.\nWenn der Finger angehoben wird, wird -1 für X und Y gesendet.</string>
+    <string name="text_guide_geo_headline">Ortsbestimmung</string>
+    <string name="text_guide_geo">Wenn die Ortsbestimmung für Sensors2OSC aktiviert ist, sendet die App Daten an die OSC-Adresse /location, wenn eine Position von den Sensoren bestimmt wird.\nEs wird eine Liste von 5 Fließkommawerten gesendet: Breitengrad, Längengrad, Höhe, Peilung und Genauigkeit.\nHöhe und Genauigkeit werden dabei in Meter gemessen, die anderen Werte in Grad.\nNicht alle Geräte können alle Werte messen, diese werden dann als konstant 0 übertragen.</string>
     <string name="text_guide_floatlist">Die Messwerte von Sensoren werde als Liste von Fließkommazahlen gesendet. Abhängig vom Sensor kann die Liste 1 bis 16 Werte umfassen.</string>
     <string name="guide_dimensions">Anzahl der Werte</string>
     <string name="sensor_inclination">Inklination</string>
@@ -73,5 +75,5 @@
     <string name="sensor_type_head_tracker">Kopf-Position</string>
     <string name="send_as_bundle">OSC-Daten als Bundle versenden</string>
     <string name="keep_screen_alive">Bildschirm beim Senden nicht ausschalten</string>
-    <string name="multi_touch">Multi Touch</string>
+    <string name="multi_touch">Multi-Touch</string>
 </resources>
