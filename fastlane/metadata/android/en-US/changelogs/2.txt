@@ -1,2 +1,2 @@
-- Added laucher icons for all sizes.
+- Added launcher icons for all sizes.
 - Added information to Readme.
