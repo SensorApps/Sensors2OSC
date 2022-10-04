@@ -73,6 +73,7 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
 
             // Setup location
             SensorConfiguration location = new SensorConfiguration();
+            location.setSendDuplicates(true);
             location.setSend(true);
             location.setSensorType(0);
             location.setOscParam("location");

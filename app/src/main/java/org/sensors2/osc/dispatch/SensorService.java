@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -241,6 +240,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             return SensorService.this;
         }
     }
+
     private void startLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -262,7 +262,19 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (location != null){
             this.dispatcher.dispatch(new Measurement(location));
         }
-        this.locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this.locationListener);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            this.bindLocationUpdates(LocationManager.FUSED_PROVIDER);
+        } else {
+            this.bindLocationUpdates(LocationManager.GPS_PROVIDER);
+            this.bindLocationUpdates(LocationManager.NETWORK_PROVIDER);
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void bindLocationUpdates(String locationProvider) {
+        if (this.locationManager.isProviderEnabled(locationProvider)) {
+            this.locationManager.requestLocationUpdates(locationProvider, 5000, 1, this.locationListener);
+        }
     }
 
     private class BackgroundLocationListener implements LocationListener{
