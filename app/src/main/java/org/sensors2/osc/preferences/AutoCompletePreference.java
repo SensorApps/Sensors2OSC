@@ -137,23 +137,4 @@ public class AutoCompletePreference extends EditTextPreference {
         editor.apply();
         this.bindAutocompleteValues(context, this.dataSource);
     }
-/*
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
-
-        if (positiveResult && this.autocompleteText != null) {
-            String value = this.autocompleteText.getText().toString();
-            if (callChangeListener(value)) {
-                setText(value);
-            }
-        }
-    }
-
-    @Override
-    public EditText getEditText()
-    {
-        return this.autocompleteText;
-    }
-    */
 }

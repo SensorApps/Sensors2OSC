@@ -61,7 +61,7 @@ public class OscDispatcher implements DataDispatcher {
                     if (success) {
                         if (sensorConfiguration.getSensorType() == Parameters.FAKE_ORIENTATION) {
                             float[] orientation = new float[3];
-                            SensorManager.getOrientation(rotationMatrix, orientation);
+                            orientation = SensorManager.getOrientation(rotationMatrix, orientation);
                             this.trySend(sensorConfiguration, orientation);
                         }
                         if (sensorConfiguration.getSensorType() == Parameters.INCLINATION) {

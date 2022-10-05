@@ -132,7 +132,6 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
         oscConfiguration.setHost(settings.getHost());
         oscConfiguration.setPort(settings.getPort());
         oscConfiguration.setSendAsBundle(settings.getSetAsBundle());
-        oscConfiguration.setKeepScreenAlive(settings.getKeepScreenAlive());
         return settings;
     }
 
@@ -194,7 +193,7 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
             }
             if (!listPermissionsNeeded.isEmpty()) {
                 ActivityCompat.requestPermissions(this, listPermissionsNeeded.toArray
-                        (new String[listPermissionsNeeded.size()]), 1);
+                        (new String[0]), 1);
             }
             if (sensorService != null){
                 sensorService.startSendingData();
