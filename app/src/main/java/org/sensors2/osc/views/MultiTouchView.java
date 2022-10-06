@@ -21,6 +21,7 @@ public class MultiTouchView extends View {
     private final float[] y = new float[MultiTouchFragment.MAX_POINTER_COUNT];
     private int drawingColor;
     private final Context context;
+    private int touchSize;
 
     public MultiTouchView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -49,15 +50,18 @@ public class MultiTouchView extends View {
         paint.setColor(this.drawingColor);
     }
 
-    // TODO improve the drawing performance and make it scale to screen size
+    // TODO: improve drawing performance
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
+        if (this.touchSize == 0) {
+            this.touchSize = Math.min(Math.min(canvas.getWidth(), canvas.getHeight()) / 10, 75);
+        }
         for (int i = 0; i < touching.length; i++) {
             if (touching[i] != 0) {
                 for (int j = 0; j < i + 1; j++) {
                     paint.setColor(this.drawingColor);
-                    canvas.drawCircle(x[i], y[i], 75 - (j * 6), paint);
+                    canvas.drawCircle(x[i], y[i], this.touchSize - (j * 6), paint);
                 }
             }
         }
