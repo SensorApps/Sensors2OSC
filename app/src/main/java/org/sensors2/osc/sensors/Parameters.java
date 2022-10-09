@@ -17,6 +17,9 @@ import java.util.List;
 public class Parameters extends org.sensors2.common.sensors.Parameters {
     private final String oscPrefix;
     private final String name;
+    private static final String NFC_PREFIX = "nfc";
+    private static final String GEOLOCATION_PREFIX = "location";
+    public final static int GEOLOCATION_ID = Integer.MIN_VALUE;
 
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
@@ -239,11 +242,13 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
     public Parameters(NfcAdapter nfcAdapter, Context applicationContext) {
         super(nfcAdapter);
         this.name = getString(R.string.sensor_nfc, applicationContext);
-        this.oscPrefix = "nfc";
+        this.oscPrefix = NFC_PREFIX;
     }
 
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
+        // add geolocation
+        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext), GEOLOCATION_ID));
         // add device sensors
         List<Integer> addedSensors = new ArrayList<>();
         for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {

@@ -27,10 +27,10 @@ import android.os.PowerManager;
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.nfc.NfcActivity;
-import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.common.sensors.Settings;
+import org.sensors2.osc.sensors.Parameters;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 
@@ -48,6 +48,7 @@ import androidx.core.content.ContextCompat;
 public class SensorService extends Service implements SensorActivity, SensorEventListener, NfcActivity {
     private static final String NOTIFICATION_CHANNEL_ID = "Sensors2OSC";
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
+    private static final String WAKELOCK_TAG = "org.sensors2.osc:wakelock";
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
     private final BackgroundLocationListener locationListener;
@@ -83,7 +84,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             if (this.settings.getKeepScreenAlive()){
                 if (this.wakeLock == null){
                     PowerManager powerManager = (PowerManager)getApplicationContext().getSystemService(Context.POWER_SERVICE);
-                    this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "org.sensors2.osc:wakelock");
+                    this.wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, WAKELOCK_TAG);
                 }
                 if (!this.wakeLock.isHeld()){
                     this.wakeLock.acquire();
@@ -91,7 +92,6 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             }
             startForeground(NOTIFICATION_ID, makeNotification());
             this.isSendingData = true;
-            startLocation();
         }
     }
 
@@ -106,7 +106,14 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 break;
             }
         }
-        if (activation) {
+        if (sensorType == Parameters.GEOLOCATION_ID) {
+            if (activation){
+                this.startLocation();
+            }
+            else {
+                this.locationManager.removeUpdates(this.locationListener);
+            }
+        } else if (activation) {
             Sensor sensor = this.sensorManager.getDefaultSensor(sensorType);
             this.sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
         }
@@ -185,8 +192,8 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     }
 
     @Override
-    public List<Parameters> GetSensors(SensorManager sensorManager) {
-        List<Parameters> parameters = new ArrayList<>();
+    public List<org.sensors2.common.sensors.Parameters> GetSensors(SensorManager sensorManager) {
+        List<org.sensors2.common.sensors.Parameters> parameters = new ArrayList<>();
 
         // add Nfc sensor
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);

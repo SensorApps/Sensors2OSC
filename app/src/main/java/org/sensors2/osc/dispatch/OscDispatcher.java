@@ -16,13 +16,14 @@ import java.util.List;
  * Created by thomas on 07.11.14.
  */
 public class OscDispatcher implements DataDispatcher {
+    private static final String DISPATCHER_THREAD_NAME = "OSC dispatcher thread";
     private final List<SensorConfiguration> sensorConfigurations = new ArrayList<>();
     private final OscCommunication communication;
     private float[] gravity;
     private float[] geomagnetic;
 
     public OscDispatcher() {
-        this.communication = new OscCommunication("OSC dispatcher thread");
+        this.communication = new OscCommunication(DISPATCHER_THREAD_NAME);
         this.communication.setPriority(Thread.NORM_PRIORITY - 1);
         this.communication.start();
     }
