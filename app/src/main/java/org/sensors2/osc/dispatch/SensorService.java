@@ -106,7 +106,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 break;
             }
         }
-        if (sensorType == Parameters.GEOLOCATION_ID) {
+        if (sensorType == org.sensors2.common.sensors.Parameters.GEOLOCATION) {
             if (activation){
                 this.startLocation();
             }

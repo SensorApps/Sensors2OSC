@@ -9,6 +9,7 @@ import android.nfc.NfcAdapter;
 import org.sensors2.osc.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,7 +20,6 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
     private final String name;
     private static final String NFC_PREFIX = "nfc";
     private static final String GEOLOCATION_PREFIX = "location";
-    public final static int GEOLOCATION_ID = Integer.MIN_VALUE;
 
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
@@ -193,7 +193,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
             // TYPE_ACCELEROMETER_UNCALIBRATED
             case 35:
                 this.name = getString(R.string.sensor_type_accelorometer_uncalibrated, applicationContext);
-                this.oscPrefix = "accelelormeteruncalibrated";
+                this.oscPrefix = "accelorometeruncalibrated";
                 break;
             // TYPE_HINGE_ANGLE
             case 36:
@@ -248,7 +248,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
         // add geolocation
-        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext), GEOLOCATION_ID));
+        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext), org.sensors2.common.sensors.Parameters.GEOLOCATION));
         // add device sensors
         List<Integer> addedSensors = new ArrayList<>();
         for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
@@ -268,7 +268,32 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
         if (addedSensors.contains(1) && addedSensors.contains(2)) {
             parameters.add(createInclinationSensor(applicationContext));
         }
-        return parameters;
+        return orderParameters(parameters);
+    }
+
+    /// First return calibrated sensors, then uncalibrated sensors, then unknown sensors
+    private static List<Parameters> orderParameters(List<Parameters> parameters) {
+
+        List<Parameters> ordered = new ArrayList<>();
+        List<Parameters> uncalibrated = new ArrayList<>();
+        List<Parameters> unknown = new ArrayList<>();
+
+        // See https://developer.android.com/reference/android/hardware/Sensor
+        List<Integer> uncalibratedSensorIds = Arrays.asList(40, 35, 15, 41, 16, 14);
+        for (Parameters param : parameters){
+            // unknown sensor OSC prefixes use sensor IDs as address, so they start with a number.
+            char c =  param.getOscPrefix().charAt(0);
+            if (c >= '0' && c <= '9') {
+               unknown.add(param);
+            } else if (uncalibratedSensorIds.contains(param.getSensorType())){
+                uncalibrated.add(param);
+            } else {
+                ordered.add(param);
+            }
+        }
+        ordered.addAll(uncalibrated);
+        ordered.addAll(unknown);
+        return ordered;
     }
 
     private static Parameters createFakeOrientationSensor(Context applicationContext) {

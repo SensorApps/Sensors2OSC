@@ -35,7 +35,7 @@ dependencies {
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.fragment:fragment:1.5.3'
-    implementation 'com.github.SensorApps:Common:466e47404d'
+    implementation 'com.github.SensorApps:Common:b12fb67033'
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'com.google.android.material:material:1.6.1'
 }
