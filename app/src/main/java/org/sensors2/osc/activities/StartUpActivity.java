@@ -214,7 +214,6 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
     }
 
     public int getCurrentOrientation() {
-
         final Display display = this.getWindowManager().getDefaultDisplay();
         final int width, height;
         Point size = new Point();

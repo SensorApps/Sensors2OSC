@@ -193,7 +193,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
             // TYPE_ACCELEROMETER_UNCALIBRATED
             case 35:
                 this.name = getString(R.string.sensor_type_accelorometer_uncalibrated, applicationContext);
-                this.oscPrefix = "accelorometeruncalibrated";
+                this.oscPrefix = "accelerometeruncalibrated";
                 break;
             // TYPE_HINGE_ANGLE
             case 36:
@@ -273,7 +273,6 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 
     /// First return calibrated sensors, then uncalibrated sensors, then unknown sensors
     private static List<Parameters> orderParameters(List<Parameters> parameters) {
-
         List<Parameters> ordered = new ArrayList<>();
         List<Parameters> uncalibrated = new ArrayList<>();
         List<Parameters> unknown = new ArrayList<>();

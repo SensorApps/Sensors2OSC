@@ -1,33 +1,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingBottom="@dimen/activity_vertical_margin"
-              android:paddingLeft="@dimen/activity_horizontal_margin"
-              android:paddingRight="@dimen/activity_horizontal_margin"
-              android:paddingTop="@dimen/activity_vertical_margin"
-              tools:context=".activities.StartUpActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".activities.StartUpActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/active"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_halfmargin">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="@string/send_data"/>
-
-        <ToggleButton
-            android:id="@+id/active"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
-
-    </LinearLayout>
+        android:paddingBottom="@dimen/activity_horizontal_margin"
+        android:text="@string/send_data"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,11 +24,15 @@
         android:paddingBottom="@dimen/activity_vertical_halfmargin">
 
         <Button
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:id="@+id/multi_touch_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="@string/multi_touch"
+            app:strokeWidth="1dp"
+            app:cornerRadius="4dp"
+            app:strokeColor="?attr/colorPrimary"
             android:onClick="onStartMultiTouch"/>
 
     </LinearLayout>
@@ -51,10 +43,15 @@
 
         <LinearLayout
             android:id="@+id/sensor_group"
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
             android:orientation="vertical"
-            android:padding="0dp" />
+            android:padding="0dp"/>
     </ScrollView>
 
 </LinearLayout>

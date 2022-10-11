@@ -51,6 +51,7 @@ public class MultiTouchView extends View {
     }
 
     // TODO: improve drawing performance
+    @SuppressLint("CanvasSize")
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);

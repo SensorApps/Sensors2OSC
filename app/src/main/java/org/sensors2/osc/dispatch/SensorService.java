@@ -30,7 +30,6 @@ import org.sensors2.common.nfc.NfcActivity;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.common.sensors.Settings;
-import org.sensors2.osc.sensors.Parameters;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 
