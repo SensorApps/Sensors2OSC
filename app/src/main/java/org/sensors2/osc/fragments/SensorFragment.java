@@ -1,6 +1,9 @@
 package org.sensors2.osc.fragments;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,13 +12,19 @@ import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import org.sensors2.common.sensors.Parameters;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 import org.sensors2.osc.dispatch.Bundling;
 import org.sensors2.osc.dispatch.SensorConfiguration;
 import org.sensors2.osc.dispatch.SensorService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -67,11 +76,34 @@ public class SensorFragment extends Fragment {
         this.activeButton = v.findViewById(R.id.active);
         this.activeButton.setOnCheckedChangeListener((compoundButton, checked) -> {
             if (SensorFragment.this.sensorService != null) {
+                //TODO: Wait for setting permissions before calling sensorService
+                if (checked && this.sensorConfiguration.getSensorType() == Parameters.GEOLOCATION) {
+                    askForLocationPermission(activity);
+                }
                 SensorFragment.this.sensorService.setSensorActivation(SensorFragment.this.sensorConfiguration.getSensorType(), checked);
             }
         });
 
         return v;
+    }
+
+    private void askForLocationPermission(Activity activity) {
+        int loc = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        int loc2 = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        if (loc != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (loc2 != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray
+                    (new String[0]), 1);
+        }
     }
 
     @Override

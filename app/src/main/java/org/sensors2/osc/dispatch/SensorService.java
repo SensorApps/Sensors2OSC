@@ -107,6 +107,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
         if (sensorType == org.sensors2.common.sensors.Parameters.GEOLOCATION) {
             if (activation){
+                //TODO: Wait for activation of sending before starting location
                 this.startLocation();
             }
             else {
