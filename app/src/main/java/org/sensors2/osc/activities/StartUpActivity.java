@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import org.sensors2.common.dispatch.Measurement;
+import org.sensors2.common.sensors.Parameters;
 import org.sensors2.osc.R;
 import org.sensors2.osc.dispatch.OscConfiguration;
 import org.sensors2.osc.dispatch.OscDispatcher;
@@ -184,6 +186,25 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
         active = isChecked;
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == SensorService.GEOLOC_PERMISSION_REQUEST) {
+            boolean locationIsGranted = grantResults.length == 2 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED);
+            boolean fineLocationRequested = grantResults.length == 1;
+            if (locationIsGranted || fineLocationRequested) {
+                sensorService.rebindLocation();
+            } else {
+                // Geolocation permission is not granted
+                for (SensorFragment fragment : this.sensorFragments){
+                    if (fragment.getSensorType() == Parameters.GEOLOCATION){
+                        fragment.deactivate();
+                        break;
+                    }
+                }
+            }
+        }
+    }
     public void onStartMultiTouch(View view) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();

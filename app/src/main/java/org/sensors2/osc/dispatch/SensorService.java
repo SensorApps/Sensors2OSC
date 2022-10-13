@@ -2,6 +2,7 @@ package org.sensors2.osc.dispatch;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -37,6 +38,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -48,6 +50,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private static final String NOTIFICATION_CHANNEL_ID = "Sensors2OSC";
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
     private static final String WAKELOCK_TAG = "org.sensors2.osc:wakelock";
+    public static final int GEOLOC_PERMISSION_REQUEST = 1337;
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
     private final BackgroundLocationListener locationListener;
@@ -75,8 +78,15 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
-                    Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
-                    this.sensorManager.registerListener(this, sensor, sensorRate);
+                    switch (sensorConfig.getSensorType()) {
+                        case org.sensors2.common.sensors.Parameters.GEOLOCATION:
+                            this.bindLocation();
+                            break;
+                        default:
+                            Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
+                            this.sensorManager.registerListener(this, sensor, sensorRate);
+                            break;
+                    }
                 }
             }
             stopForeground(true);
@@ -98,7 +108,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         return this.isSendingData;
     }
 
-    public void setSensorActivation(int sensorType, boolean activation) {
+    public void setSensorActivation(int sensorType, boolean activation, Activity activity) {
         for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
             if (sensorConfig.getSensorType() == sensorType) {
                 sensorConfig.setSend(activation);
@@ -107,8 +117,10 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
         if (sensorType == org.sensors2.common.sensors.Parameters.GEOLOCATION) {
             if (activation){
-                //TODO: Wait for activation of sending before starting location
-                this.startLocation();
+                this.checkForLocationPermission(activity);
+                if (this.isSendingData) {
+                    this.bindLocation();
+                }
             }
             else {
                 this.locationManager.removeUpdates(this.locationListener);
@@ -248,7 +260,13 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
     }
 
-    private void startLocation() {
+    public void rebindLocation() {
+        if (this.isSendingData) {
+            this.bindLocation();
+        }
+    }
+
+    private void bindLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -274,6 +292,25 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         } else {
             this.bindLocationUpdates(LocationManager.GPS_PROVIDER);
             this.bindLocationUpdates(LocationManager.NETWORK_PROVIDER);
+        }
+    }
+
+    private void checkForLocationPermission(Activity activity) {
+        int loc = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_COARSE_LOCATION);
+        int loc2 = ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> listPermissionsNeeded = new ArrayList<>();
+
+        if (loc != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        if (loc2 != PackageManager.PERMISSION_GRANTED) {
+            listPermissionsNeeded.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+        if (!listPermissionsNeeded.isEmpty()) {
+            ActivityCompat.requestPermissions(activity, listPermissionsNeeded.toArray
+                    (new String[0]), GEOLOC_PERMISSION_REQUEST);
         }
     }
 
