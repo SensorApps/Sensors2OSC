@@ -1,0 +1,3 @@
+- Add geolocation to sensor list
+- Reordering of sensors in GUI
+- Update to translations

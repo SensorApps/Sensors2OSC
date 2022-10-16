@@ -1,3 +1,8 @@
+# 0.6.0 (2022-10-16)
+- Add geolocation to sensor list
+- Reordering of sensors in GUI
+- Update to translations
+
 # 0.5.2 (2022-10-04)
 - Small changes to colors
 - Update preview images
