@@ -28,6 +28,7 @@ import android.os.PowerManager;
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.dispatch.Measurement;
 import org.sensors2.common.nfc.NfcActivity;
+import org.sensors2.common.sensors.Parameters;
 import org.sensors2.common.sensors.SensorActivity;
 import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.common.sensors.Settings;
@@ -78,14 +79,11 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
-                    switch (sensorConfig.getSensorType()) {
-                        case org.sensors2.common.sensors.Parameters.GEOLOCATION:
-                            this.bindLocation();
-                            break;
-                        default:
-                            Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
-                            this.sensorManager.registerListener(this, sensor, sensorRate);
-                            break;
+                    if (sensorConfig.getSensorType() == Parameters.GEOLOCATION) {
+                        this.bindLocation();
+                    } else {
+                        Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
+                        this.sensorManager.registerListener(this, sensor, sensorRate);
                     }
                 }
             }
@@ -170,6 +168,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 .setSmallIcon(R.drawable.sensors2osc_notification)
                 .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.sensors2osc))
                 .setContentIntent(pendingIntent)
+                .setOngoing(true)
                 .setTicker(getText(R.string.app_name))
                 .build();
     }
