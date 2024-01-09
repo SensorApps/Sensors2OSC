@@ -51,7 +51,9 @@
     <string name="text_guide_multitouch_headline">Multitouch</string>
     <string name="text_guide_nfc_headline">Near-field communication (NFC)</string>
     <string name="text_guide_nfc">Als het apparaat NFC-tokens kan lezen, worden deze waarden van de deze tokens verstuurd aan het OSC-adres /nfc.</string>
-    <string name="text_guide_multitouch">Als multitouch is ingeschakeld, verstuurt het apparaat de coördinaten van elk aanrakingspunt via OSC. Het OSC-adres dat daarbij hoort heeft het formaat /touch&lt;index&gt;, waar de index bij 1 begint. De coördinaten worden verstuurd als een lijst van twee floating points die een waarde van 0 tot 1 kunnen hebben.</string>
+    <string name="text_guide_multitouch">Als je het multitouchgebied ingeschakelt, worden de coördinaten van elk aanrakingspunt via OSC verstuurd.
+\nHet bijbehorende OSC-adres heeft het formaat /touch&lt;index&gt;, waar de index bij 1 begint. De coördinaten worden verstuurd als een lijst van twee floating points die een waarde van 0 tot 1 kunnen hebben.
+\nLoslaten van het scherm zal een -1 voor beide waarden versturen om dat te detecteren.</string>
     <string name="text_guide_floatlist">Sensorwaarden worden als een lijst van floating points verstuurd. Afhankelijk van de sensor kan kunnen dit 1 tot en met 16 waarden zijn.</string>
     <string name="guide_dimensions">Aantal waarden</string>
     <string name="sensor_inclination">Helling</string>
@@ -75,4 +77,11 @@
     <string name="sensor_type_pose_6dof">Houding (6 vrijheidsgraden)</string>
     <string name="about_mit_license_1">Hierbij wordt kosteloos toestemming verleend aan elke persoon die een kopie van deze software en bijbehorende documentatiebestanden (de Software) verkrijgt, om zonder beperking in de Software te handelen, inclusief maar niet beperkt tot de rechten om te gebruiken, kopiëren, wijzigen, samenvoegen, publiceren, distribueren, in sublicentie geven en/of verkopen van kopieën van de Software, en om personen aan wie de Software wordt geleverd toe te staan dit te doen, onder de volgende voorwaarden:</string>
     <string name="about_mit_license_3">DE SOFTWARE WORDT GELEVERD IN DE HUIDIGE STAAT, ZONDER ENIGE GARANTIE, EXPLICIET OF IMPLICIET, INCLUSIEF MAAR NIET BEPERKT TOT DE GARANTIES VAN VERKOOPBAARHEID, GESCHIKTHEID VOOR EEN BEPAALD DOEL EN NIET-INBREUK. IN GEEN GEVAL ZULLEN DE AUTEURS OF AUTEURSRECHTHOUDERS AANSPRAKELIJK ZIJN VOOR ENIGE CLAIM, SCHADE OF ANDERE AANSPRAKELIJKHEID, HETZIJ IN EEN OVEREENKOMST, ONRECHTMATIGHEID OF ANDERSZINS, VOORTVLOEIEND UIT, UIT OF IN VERBAND MET DE SOFTWARE OF HET GEBRUIK IN OF DE ANDERE HANDELINGEN SOFTWARE.</string>
+    <string name="multi_touch">Multitouch</string>
+    <string name="text_guide_geo">Als je geopositionering voor Sensors2OSC inschakelt, verzendt de app gegevens naar het /location OSC-adres, telkens wanneer een nieuwe locatie door de sensoren wordt geregistreerd.
+\nEr wordt een lijst met 5 waarden verzonden: breedtegraad, lengtegraad, hoogte, peiling en nauwkeurigheid.
+\nHoogte en nauwkeurigheid zijn in meters, de overige waarden in graden.
+\nNiet elk apparaat zal alle waarden invullen, sommige kunnen constant 0 zijn.</string>
+    <string name="text_guide_geo_headline">Geopositionering</string>
+    <string name="keep_screen_alive">Laat het scherm aan tijdens verzenden van gegevens</string>
 </resources>
