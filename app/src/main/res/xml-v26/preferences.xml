@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="@string/communication" android:iconSpaceReserved="false">
+        <org.sensors2.osc.preferences.AutoCompletePreference
+            android:defaultValue="localhost"
+            android:key="pref_comm_host"
+            android:persistent="true"
+            android:title="@string/host"
+            android:iconSpaceReserved="false"
+            custom:dataSource="pref_comm_history_host" />
+        <org.sensors2.osc.preferences.AutoCompletePreference
+            android:defaultValue="9000"
+            android:key="pref_comm_port"
+            android:inputType="number"
+            android:persistent="true"
+            android:title="@string/port"
+            android:iconSpaceReserved="false"
+            custom:dataSource="pref_comm_history_port" />
+        <androidx.preference.SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_comm_bundle"
+            android:persistent="true"
+            android:iconSpaceReserved="false"
+            android:title="@string/send_as_bundle" />
+        <androidx.preference.SwitchPreference
+            android:defaultValue="false"
+            android:key="pref_comm_screen_alive"
+            android:persistent="true"
+            android:iconSpaceReserved="false"
+            android:title="@string/keep_screen_alive" />
+    </PreferenceCategory>
+</PreferenceScreen>
