@@ -72,10 +72,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     @SuppressLint("WakelockTimeout")
     public void startSendingData() {
         if (!this.isSendingData) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                NotificationManager nm = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                nm.createNotificationChannel(new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_DEFAULT));
-            }
+            initNotificationChannel();
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
@@ -99,6 +96,16 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             }
             startForeground(NOTIFICATION_ID, makeNotification());
             this.isSendingData = true;
+        }
+    }
+
+    private void initNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL, NotificationManager.IMPORTANCE_LOW);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(channel);
+            }
         }
     }
 
@@ -151,6 +158,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             }
             this.sensorCommunication = new SensorCommunication(this);
         }
+        initNotificationChannel();
     }
 
     private Notification makeNotification() {
@@ -160,7 +168,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             intentFlag = PendingIntent.FLAG_IMMUTABLE;
         }
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, intentFlag);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, (int)System.currentTimeMillis(), notificationIntent, intentFlag);
 
         return new NotificationCompat.Builder(SensorService.this, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(getText(R.string.app_name))
