@@ -1,3 +1,8 @@
+# 0.7.0 (2022-10-16)
+- Implementation for smart watches
+- Added grid to multitouch
+- Upgrade build for Android 14
+
 # 0.6.0 (2022-10-16)
 - Add geolocation to sensor list
 - Reordering of sensors in GUI

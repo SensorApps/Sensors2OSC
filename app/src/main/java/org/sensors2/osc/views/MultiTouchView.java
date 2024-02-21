@@ -54,9 +54,20 @@ public class MultiTouchView extends View {
     @SuppressLint("CanvasSize")
     @Override
     protected void onDraw(Canvas canvas) {
+        int cWidth = canvas.getWidth();
+        int cHeight = canvas.getHeight();
         super.onDraw(canvas);
         if (this.touchSize == 0) {
-            this.touchSize = Math.min(Math.min(canvas.getWidth(), canvas.getHeight()) / 10, 75);
+            this.touchSize = Math.min(Math.min(cWidth, cHeight) / 10, 75);
+        }
+        int xPoints = (int) Math.max(Math.round((double)cWidth / 360d) * 2, 2);
+        int yPoints = (int) Math.max(Math.round((double)cHeight / 360d) * 2, 2);
+
+        for (int x = 1; x < xPoints; x++) {
+            for (int y = 1; y < yPoints; y++) {
+                paint.setColor(this.drawingColor);
+                canvas.drawPoint((float)(x * cWidth)/(float)xPoints, (float)(y*cHeight)/(float)yPoints, paint);
+            }
         }
         for (int i = 0; i < touching.length; i++) {
             if (touching[i] != 0) {
