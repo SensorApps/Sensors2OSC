@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 33
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "org.sensors2.osc"
-        targetSdkVersion 33
+        targetSdkVersion 34
         minSdkVersion 14
         versionCode 10
         versionName "0.6.1-beta"
@@ -34,8 +34,8 @@ dependencies {
     implementation 'com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4'
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.fragment:fragment:1.5.3'
+    implementation 'androidx.fragment:fragment:1.6.2'
     implementation 'com.github.SensorApps:Common:2b1bfa5c1d'
-    implementation 'androidx.preference:preference:1.2.0'
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation 'androidx.preference:preference:1.2.1'
+    implementation 'com.google.android.material:material:1.11.0'
 }
