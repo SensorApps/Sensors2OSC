@@ -7,8 +7,8 @@ android {
         applicationId "org.sensors2.osc"
         targetSdkVersion 34
         minSdkVersion 14
-        versionCode 10
-        versionName "0.6.1-beta"
+        versionCode 11
+        versionName "0.7.0"
     }
     buildTypes {
         release {

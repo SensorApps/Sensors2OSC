@@ -1,5 +1,6 @@
-# 0.7.0 (2022-10-16)
+# 0.7.0 (2024-02-35)
 - Implementation for smart watches
+- Notifications for Android > 13
 - Added grid to multitouch
 - Upgrade build for Android 14
 
