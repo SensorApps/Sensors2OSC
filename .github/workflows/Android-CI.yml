@@ -1,0 +1,23 @@
+name: CI Android
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: "adopt"
+          java-version: 17
+      - uses: gradle/actions/wrapper-validation@v4
+      - name: Build with Gradle
+        run: ./gradlew build
