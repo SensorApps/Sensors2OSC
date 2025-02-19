@@ -8,6 +8,10 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,8 +26,12 @@ import android.location.LocationManager;
 import android.nfc.NfcAdapter;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.PowerManager;
+import android.util.Log;
 
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.dispatch.Measurement;
@@ -35,8 +43,12 @@ import org.sensors2.common.sensors.Settings;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -52,12 +64,15 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
     private static final String WAKELOCK_TAG = "org.sensors2.osc:wakelock";
     public static final int GEOLOC_PERMISSION_REQUEST = 1337;
+    public static final int BT_PERMISSION_REQUEST = 1312;
+    public static final int BT_SENSOR = Integer.MIN_VALUE + 1;
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
     private final BackgroundLocationListener locationListener;
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
     private LocationManager locationManager;
+    private BluetoothAdapter bluetoothAdapter;
     private SensorCommunication sensorCommunication;
     private NfcAdapter nfcAdapter;
     private boolean isSendingData = false;
@@ -84,6 +99,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                     }
                 }
             }
+            this.bindBluetooth();
             stopForeground(true);
             if (this.settings.getKeepScreenAlive()){
                 if (this.wakeLock == null){
@@ -130,9 +146,37 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             else {
                 this.locationManager.removeUpdates(this.locationListener);
             }
+        } else if (sensorType == this.BT_SENSOR) {
+            if (activation){
+                this.checkForBluetoothPermission(activity);
+                if (this.isSendingData) {
+                    this.bindBluetooth();
+                }
+            }
+            else {
+                this.locationManager.removeUpdates(this.locationListener);
+            }
+
         } else if (activation) {
             Sensor sensor = this.sensorManager.getDefaultSensor(sensorType);
             this.sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
+        }
+    }
+
+    private void checkForBluetoothPermission(Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            BluetoothManager bluetoothManager = activity.getSystemService(BluetoothManager.class);
+            bluetoothAdapter = bluetoothManager.getAdapter();
+
+            if (bluetoothAdapter != null) {
+                if (!bluetoothAdapter.isEnabled()) {
+                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+                } else {
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, BT_PERMISSION_REQUEST);
+                    }
+                }
+            }
         }
     }
 
@@ -259,6 +303,114 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     public IBinder onBind(Intent intent) {
         setUpSending();
         return binder;
+    }
+
+    public void rebindBluetooth() {
+        if (this.isSendingData){
+            this.bindBluetooth();
+        }
+    }
+
+    private void bindBluetooth() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+
+        if (pairedDevices.size() > 0) {
+            // There are paired devices. Get the name and address of each paired device.
+            for (BluetoothDevice device : pairedDevices) {
+                if (device.getBondState() == BluetoothDevice.BOND_BONDED && device.getAddress() == "D9:9C:C1:A6:12:91") {
+                    String deviceName = device.getName();
+                    String deviceHardwareAddress = device.getAddress(); // MAC address
+                    //device.
+                }
+            }
+        }
+    }
+
+    private Handler handler;
+
+    private class ConnectedThread extends Thread {
+        private final BluetoothSocket mmSocket;
+        private final InputStream mmInStream;
+        private final OutputStream mmOutStream;
+        private byte[] mmBuffer; // mmBuffer store for the stream
+
+        public ConnectedThread(BluetoothSocket socket) {
+            mmSocket = socket;
+            InputStream tmpIn = null;
+            OutputStream tmpOut = null;
+
+            // Get the input and output streams; using temp objects because
+            // member streams are final.
+            try {
+                tmpIn = socket.getInputStream();
+            } catch (IOException e) {
+                Log.e("BT", "Error occurred when creating input stream", e);
+            }
+            try {
+                tmpOut = socket.getOutputStream();
+            } catch (IOException e) {
+                Log.e("BT", "Error occurred when creating output stream", e);
+            }
+
+            mmInStream = tmpIn;
+            mmOutStream = tmpOut;
+        }
+
+        public void run() {
+            mmBuffer = new byte[1024];
+            int numBytes; // bytes returned from read()
+
+            // Keep listening to the InputStream until an exception occurs.
+            while (true) {
+                try {
+                    // Read from the InputStream.
+                    numBytes = mmInStream.read(mmBuffer);
+                    // Send the obtained bytes to the UI activity.
+                    Message readMsg = handler.obtainMessage(
+                            0, numBytes, -1,
+                            mmBuffer);
+                    readMsg.sendToTarget();
+                } catch (IOException e) {
+                    Log.d("BT", "Input stream was disconnected", e);
+                    break;
+                }
+            }
+        }
+
+        // Call this from the main activity to send data to the remote device.
+        public void write(byte[] bytes) {
+            try {
+                mmOutStream.write(bytes);
+
+                // Share the sent message with the UI activity.
+                Message writtenMsg = handler.obtainMessage(
+                        1, -1, -1, mmBuffer);
+                writtenMsg.sendToTarget();
+            } catch (IOException e) {
+                Log.e("BT", "Error occurred when sending data", e);
+
+                // Send a failure message back to the activity.
+                Message writeErrorMsg =
+                        handler.obtainMessage(2);
+                Bundle bundle = new Bundle();
+                bundle.putString("toast",
+                        "Couldn't send data to the other device");
+                writeErrorMsg.setData(bundle);
+                handler.sendMessage(writeErrorMsg);
+            }
+        }
+
+        // Call this method from the main activity to shut down the connection.
+        public void cancel() {
+            try {
+                mmSocket.close();
+            } catch (IOException e) {
+                Log.e("BT", "Could not close the connect socket", e);
+            }
+        }
     }
 
     public class OscBinder extends Binder {
