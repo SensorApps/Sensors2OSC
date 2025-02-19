@@ -1,6 +1,10 @@
 package org.sensors2.osc.activities;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -34,11 +38,13 @@ import org.sensors2.osc.sensors.Settings;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -59,6 +65,8 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
             StartUpActivity.this.active = StartUpActivity.this.sensorService.getIsSending();
             ((CompoundButton) findViewById(R.id.active)).setChecked(StartUpActivity.this.active);
             OscDispatcher dispatcher = (OscDispatcher) StartUpActivity.this.sensorService.getDispatcher();
+            StartUpActivity.this.sensorService.rebindBluetooth();
+            StartUpActivity.this.sensorService.setSensorActivation(SensorService.BT_SENSOR, true, StartUpActivity.this);
 
             // Setup multitouch
             for (int i = 0; i < MAX_POINTER_COUNT; i++) {
@@ -112,6 +120,7 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
         bindService(new Intent(this, SensorService.class), this.sensorServiceConnection, BIND_AUTO_CREATE);
 
         Toolbar toolbar = findViewById(R.id.action_bar);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setNavigationIcon(R.drawable.sensors2osc);
         }
@@ -202,6 +211,11 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                         break;
                     }
                 }
+            }
+        } else if (requestCode == SensorService.BT_PERMISSION_REQUEST){
+            boolean btIsGranted = grantResults.length == 2 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED);
+            if (btIsGranted) {
+                sensorService.rebindBluetooth();
             }
         }
     }
