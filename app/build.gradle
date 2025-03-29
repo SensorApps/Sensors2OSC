@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
 
     defaultConfig {
         applicationId "org.sensors2.osc"
-        targetSdkVersion 34
+        targetSdkVersion 35
         minSdkVersion 14
         versionCode 11
         versionName "0.7.0"

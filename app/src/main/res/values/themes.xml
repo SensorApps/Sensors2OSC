@@ -1,6 +1,6 @@
 
 <resources>
-    <style name="Sensors2Theme" parent="Theme.Material3.Light">
+    <style name="Sensors2Theme" parent="Theme.MaterialComponents.DayNight">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
