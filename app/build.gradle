@@ -7,8 +7,8 @@ android {
         applicationId "org.sensors2.osc"
         targetSdkVersion 35
         minSdkVersion 14
-        versionCode 11
-        versionName "0.7.0"
+        versionCode 12
+        versionName "0.7.1"
     }
     buildTypes {
         release {
@@ -35,7 +35,7 @@ dependencies {
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.fragment:fragment:1.6.2'
-    implementation 'com.github.SensorApps:Common:2b1bfa5c1d'
+    implementation 'com.github.SensorApps:Common:0c0ee17bf8'
     implementation 'androidx.preference:preference:1.2.1'
     implementation 'com.google.android.material:material:1.11.0'
 }
