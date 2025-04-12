@@ -9,8 +9,15 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
+import android.bluetooth.BluetoothProfile;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
@@ -48,7 +55,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
+import java.util.UUID;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
@@ -72,16 +81,17 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private OscDispatcher dispatcher;
     private SensorManager sensorManager;
     private LocationManager locationManager;
-    private BluetoothAdapter bluetoothAdapter;
     private SensorCommunication sensorCommunication;
     private NfcAdapter nfcAdapter;
     private boolean isSendingData = false;
     private org.sensors2.osc.sensors.Settings settings;
     private PowerManager.WakeLock wakeLock;
+    private BluetoothConnections bluetoothConnections;
 
     public SensorService() {
         super();
         this.locationListener = new BackgroundLocationListener();
+        this.bluetoothConnections = new BluetoothConnections(this);
     }
 
     @SuppressLint("WakelockTimeout")
@@ -164,20 +174,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     }
 
     private void checkForBluetoothPermission(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            BluetoothManager bluetoothManager = activity.getSystemService(BluetoothManager.class);
-            bluetoothAdapter = bluetoothManager.getAdapter();
-
-            if (bluetoothAdapter != null) {
-                if (!bluetoothAdapter.isEnabled()) {
-                    Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-                } else {
-                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, BT_PERMISSION_REQUEST);
-                    }
-                }
-            }
-        }
+        this.bluetoothConnections.checkForPermissions(activity);
     }
 
     public boolean getSensorActivation(int sensorType) {
@@ -315,19 +312,10 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
-
-        if (pairedDevices.size() > 0) {
-            // There are paired devices. Get the name and address of each paired device.
-            for (BluetoothDevice device : pairedDevices) {
-                if (device.getBondState() == BluetoothDevice.BOND_BONDED && device.getAddress() == "D9:9C:C1:A6:12:91") {
-                    String deviceName = device.getName();
-                    String deviceHardwareAddress = device.getAddress(); // MAC address
-                    //device.
-                }
-            }
-        }
+        this.bluetoothConnections.connect();
     }
+
+
 
     private Handler handler;
 
