@@ -1,0 +1,4 @@
+- Implementation for smart watches
+- Notifications for Android > 13
+- Added grid to multitouch
+- Upgrade build for Android 14

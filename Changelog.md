@@ -1,4 +1,8 @@
-# 0.7.0 (2024-02-35)
+# 0.8.0 (2025-04-13)
+- Breaking change: Make orientation sensor always transmit radians
+- Fix layout for Android > 14
+
+# 0.7.0 (2024-02-25)
 - Implementation for smart watches
 - Notifications for Android > 13
 - Added grid to multitouch

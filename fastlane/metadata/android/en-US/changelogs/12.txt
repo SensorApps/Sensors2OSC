@@ -1,0 +1,2 @@
+- Breaking change: Make orientation sensor always transmit radians
+- Fix layout for Android > 14
