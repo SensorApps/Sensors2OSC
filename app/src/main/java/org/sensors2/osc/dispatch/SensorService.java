@@ -8,16 +8,6 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothClass;
-import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothGatt;
-import android.bluetooth.BluetoothGattCallback;
-import android.bluetooth.BluetoothGattCharacteristic;
-import android.bluetooth.BluetoothGattDescriptor;
-import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
@@ -49,17 +39,16 @@ import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.common.sensors.Settings;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
+import org.sensors2.osc.bluetoothSensors.BluetoothConnectionManager;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -86,18 +75,21 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private boolean isSendingData = false;
     private org.sensors2.osc.sensors.Settings settings;
     private PowerManager.WakeLock wakeLock;
-    private BluetoothConnections bluetoothConnections;
+    private BluetoothConnectionManager bluetoothConnections;
 
     public SensorService() {
         super();
         this.locationListener = new BackgroundLocationListener();
-        this.bluetoothConnections = new BluetoothConnections(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this.bluetoothConnections = new BluetoothConnectionManager(this);
+        }
     }
 
     @SuppressLint("WakelockTimeout")
     public void startSendingData() {
         if (!this.isSendingData) {
             initNotificationChannel();
+            this.bluetoothConnections.setDispatcher(dispatcher);
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
@@ -158,9 +150,11 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             }
         } else if (sensorType == this.BT_SENSOR) {
             if (activation){
-                this.checkForBluetoothPermission(activity);
-                if (this.isSendingData) {
-                    this.bindBluetooth();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    this.checkForBluetoothPermission(activity);
+                    if (this.isSendingData) {
+                        this.bindBluetooth();
+                    }
                 }
             }
             else {
@@ -173,6 +167,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     private void checkForBluetoothPermission(Activity activity) {
         this.bluetoothConnections.checkForPermissions(activity);
     }
@@ -312,7 +307,9 @@ public class SensorService extends Service implements SensorActivity, SensorEven
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        this.bluetoothConnections.connect();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this.bluetoothConnections.connect();
+        }
     }
 
 
