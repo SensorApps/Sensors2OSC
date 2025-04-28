@@ -30,6 +30,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.]]></string>
     <string name="about_components">Used Components</string>
     <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="about_license_opentracks">Parts of the Bluetooth code is copied from &lt;a href=&quot;https://github.com/OpenTracksApp/OpenTracks&quot;>OpenTracks&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&quot;>https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&lt;/a>.</string>
     <string name="send_data">Send data</string>
     <string name="action_guide">Help</string>
     <string name="text_guide_headline">Help</string>
