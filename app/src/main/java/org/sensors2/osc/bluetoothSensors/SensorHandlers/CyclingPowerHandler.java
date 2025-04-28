@@ -12,7 +12,7 @@ import java.util.UUID;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class CyclingPowerHandler implements SensorHandler{
+public class CyclingPowerHandler extends BaseSensorHandler implements SensorHandler {
 
     public static final String OSC_ADDRESS = "cyclingpower";
 

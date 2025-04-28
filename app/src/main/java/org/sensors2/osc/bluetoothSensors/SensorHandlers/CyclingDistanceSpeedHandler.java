@@ -15,7 +15,7 @@ import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class CyclingDistanceSpeedHandler implements  SensorHandler {
+public class CyclingDistanceSpeedHandler extends BaseSensorHandler implements SensorHandler {
     public static final ServiceMeasurementUUID CYCLING_SPEED_CADENCE = new ServiceMeasurementUUID(
             new UUID(0x181600001000L, 0x800000805f9b34fbL),
             new UUID(0x2A5B00001000L, 0x800000805f9b34fbL)

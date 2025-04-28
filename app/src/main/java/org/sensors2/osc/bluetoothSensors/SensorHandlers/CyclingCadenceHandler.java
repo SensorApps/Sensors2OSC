@@ -13,7 +13,7 @@ import java.util.List;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class CyclingCadenceHandler implements SensorHandler{
+public class CyclingCadenceHandler extends BaseSensorHandler implements SensorHandler {
     private static final String TAG = CyclingPowerHandler.class.getSimpleName();
 
     @Override

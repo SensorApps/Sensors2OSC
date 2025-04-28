@@ -63,7 +63,6 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private static final String WAKELOCK_TAG = "org.sensors2.osc:wakelock";
     public static final int GEOLOC_PERMISSION_REQUEST = 1337;
     public static final int BT_PERMISSION_REQUEST = 1312;
-    public static final int BT_SENSOR = Integer.MIN_VALUE + 1;
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
     private final BackgroundLocationListener locationListener;
@@ -89,19 +88,22 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     public void startSendingData() {
         if (!this.isSendingData) {
             initNotificationChannel();
-            this.bluetoothConnections.setDispatcher(dispatcher);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                this.bluetoothConnections.setDispatcher(dispatcher);
+            }
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
                     if (sensorConfig.getSensorType() == Parameters.GEOLOCATION) {
                         this.bindLocation();
+                    } else if (sensorConfig.getSensorType() == org.sensors2.osc.sensors.Parameters.BT_SENSOR){
+                        this.bindBluetooth();
                     } else {
                         Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
                         this.sensorManager.registerListener(this, sensor, sensorRate);
                     }
                 }
             }
-            this.bindBluetooth();
             stopForeground(true);
             if (this.settings.getKeepScreenAlive()){
                 if (this.wakeLock == null){
@@ -148,7 +150,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             else {
                 this.locationManager.removeUpdates(this.locationListener);
             }
-        } else if (sensorType == this.BT_SENSOR) {
+        } else if (sensorType == org.sensors2.osc.sensors.Parameters.BT_SENSOR) {
             if (activation){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                     this.checkForBluetoothPermission(activity);
@@ -158,7 +160,9 @@ public class SensorService extends Service implements SensorActivity, SensorEven
                 }
             }
             else {
-                this.locationManager.removeUpdates(this.locationListener);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    this.bluetoothConnections.disconnect();
+                }
             }
 
         } else if (activation) {

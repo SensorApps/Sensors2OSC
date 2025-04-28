@@ -16,10 +16,12 @@ import java.util.List;
  * Created by thomas on 05.11.14.
  */
 public class Parameters extends org.sensors2.common.sensors.Parameters {
+    public static final int BT_SENSOR = Integer.MIN_VALUE + 1;
     private final String oscPrefix;
     private final String name;
     private static final String NFC_PREFIX = "nfc";
     private static final String GEOLOCATION_PREFIX = "location";
+    private static final String BLUETOOTH_PREFIX = "bt";
 
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
@@ -247,8 +249,10 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
+        // add bluetooth
+        parameters.add(new org.sensors2.osc.sensors.Parameters(BLUETOOTH_PREFIX, "Bluetooth", BT_SENSOR));
         // add geolocation
-        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext), org.sensors2.common.sensors.Parameters.GEOLOCATION));
+        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext),org.sensors2.common.sensors.Parameters.GEOLOCATION));
         // add device sensors
         List<Integer> addedSensors = new ArrayList<>();
         for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {

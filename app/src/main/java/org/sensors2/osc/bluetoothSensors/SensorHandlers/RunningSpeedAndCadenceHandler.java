@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
-public class RunningSpeedAndCadenceHandler implements SensorHandler{
+public class RunningSpeedAndCadenceHandler extends BaseSensorHandler implements SensorHandler {
     private static String OSC_ADDRESS = "runningspeedandcadence";
 
     public static final ServiceMeasurementUUID RUNNING_SPEED_CADENCE = new ServiceMeasurementUUID(

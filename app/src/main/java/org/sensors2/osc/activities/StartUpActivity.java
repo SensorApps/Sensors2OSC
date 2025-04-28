@@ -65,8 +65,6 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
             StartUpActivity.this.active = StartUpActivity.this.sensorService.getIsSending();
             ((CompoundButton) findViewById(R.id.active)).setChecked(StartUpActivity.this.active);
             OscDispatcher dispatcher = (OscDispatcher) StartUpActivity.this.sensorService.getDispatcher();
-            StartUpActivity.this.sensorService.rebindBluetooth();
-            StartUpActivity.this.sensorService.setSensorActivation(SensorService.BT_SENSOR, true, StartUpActivity.this);
 
             // Setup multitouch
             for (int i = 0; i < MAX_POINTER_COUNT; i++) {
@@ -75,6 +73,17 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                 sensorConfiguration.setSensorType(Measurement.pointerIdToSensorType(i));
                 sensorConfiguration.setOscParam("touch" + (i + 1));
                 dispatcher.addSensorConfiguration(sensorConfiguration);
+            }
+
+            // Bluetooth
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
+                StartUpActivity.this.sensorService.rebindBluetooth();
+                SensorConfiguration bluetooth = new SensorConfiguration();
+                bluetooth.setSendDuplicates(true);
+                bluetooth.setSend(true);
+                bluetooth.setSensorType(-1);
+                bluetooth.setOscParam("bt");
+                dispatcher.addSensorConfiguration(bluetooth);
             }
 
             // Setup location
@@ -213,9 +222,17 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                 }
             }
         } else if (requestCode == SensorService.BT_PERMISSION_REQUEST){
-            boolean btIsGranted = grantResults.length == 2 && (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED);
+            boolean btIsGranted = grantResults.length == 1 && (grantResults[0] == PackageManager.PERMISSION_GRANTED);
             if (btIsGranted) {
                 sensorService.rebindBluetooth();
+            } else {
+                // Bluetooth permission is not granted
+                for (SensorFragment fragment : this.sensorFragments){
+                    if (fragment.getSensorType() == org.sensors2.osc.sensors.Parameters.BT_SENSOR){
+                        fragment.deactivate();
+                        break;
+                    }
+                }
             }
         }
     }

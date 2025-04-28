@@ -105,10 +105,11 @@ public class BluetoothConnectionManager {
                     if (gattService != null) {
                         serviceMeasurement = s;
                         registeredHandlers.put(gattService.getUuid(), sensorHandler);
+                        sensorHandler.addGatt(gatt);
                         break;
                     }
                 }
-                if (gattService != null){
+                if (gattService != null) {
                     break;
                 }
             }
@@ -183,38 +184,43 @@ public class BluetoothConnectionManager {
 
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     public void connect() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
+        Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
-            if (pairedDevices.size() > 0) {
-                for (BluetoothDevice device : pairedDevices) {
-                    if (device.getBondState() == BOND_BONDED) {
-                        BluetoothClass bluetoothClass = device.getBluetoothClass();
-                        switch(bluetoothClass.getMajorDeviceClass()) {
-                            case BluetoothClass.Device.Major.HEALTH:
-                            case BluetoothClass.Device.Major.MISC:
-                            case BluetoothClass.Device.Major.PERIPHERAL:
-                            case BluetoothClass.Device.Major.TOY:
-                            case BluetoothClass.Device.Major.UNCATEGORIZED:
-                                device.connectGatt(context, true, gattCallback);
-                                String deviceName = device.getName();
-                                Log.d(deviceName, bluetoothClass.getMajorDeviceClass() + "; " + bluetoothClass.getDeviceClass());
-                                break;
-                        }
+        if (pairedDevices.size() > 0) {
+            for (BluetoothDevice device : pairedDevices) {
+                if (device.getBondState() == BOND_BONDED) {
+                    BluetoothClass bluetoothClass = device.getBluetoothClass();
+                    switch(bluetoothClass.getMajorDeviceClass()) {
+                        case BluetoothClass.Device.Major.HEALTH:
+                        case BluetoothClass.Device.Major.MISC:
+                        case BluetoothClass.Device.Major.PERIPHERAL:
+                        case BluetoothClass.Device.Major.TOY:
+                        case BluetoothClass.Device.Major.UNCATEGORIZED:
+                            device.connectGatt(context, true, gattCallback);
+                            String deviceName = device.getName();
+                            Log.d(deviceName, bluetoothClass.getMajorDeviceClass() + "; " + bluetoothClass.getDeviceClass());
+                            break;
                     }
                 }
             }
         }
     }
 
+    public void disconnect() {
+        for(SensorHandler handler : sensorHandlers){
+            handler.disconnect();
+        };
+    }
+
     public void checkForPermissions(Activity activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             bluetoothManager = activity.getSystemService(BluetoothManager.class);
             bluetoothAdapter = bluetoothManager.getAdapter();
 
             if (bluetoothAdapter != null) {
                 if (!bluetoothAdapter.isEnabled()) {
                     Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+
                 } else {
                     if (ActivityCompat.checkSelfPermission(context, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
                         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, BT_PERMISSION_REQUEST);
