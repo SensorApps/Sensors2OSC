@@ -1,9 +1,9 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -44,7 +44,6 @@ public class CyclingPowerHandler extends BaseSensorHandler implements SensorHand
 
         int index = 0;
         int flags1 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, index++);
-        int flags2 = characteristic.getIntValue(BluetoothGattCharacteristic.FORMAT_UINT8, index++);
         boolean hasPedalPowerBalance = (flags1 & 0x01) > 0;
         boolean hasAccumulatedTorque = (flags1 & 0x04) > 0;
         boolean hasWheel = (flags1 & 16) > 0;
@@ -86,7 +85,7 @@ public class CyclingPowerHandler extends BaseSensorHandler implements SensorHand
         }
 
         public List<Float> asList() {
-            return Arrays.asList(new Float(power), new Float(crank.getCount()), new Float(crank.getTime()));
+            return Arrays.asList(Float.valueOf(power), Float.valueOf(crank.getCount()), Float.valueOf(crank.getTime()));
         }
 
         public CyclingCadenceHandler.CrankData getCrank() {

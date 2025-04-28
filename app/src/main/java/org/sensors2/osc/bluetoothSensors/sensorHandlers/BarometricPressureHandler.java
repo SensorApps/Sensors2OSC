@@ -1,13 +1,10 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
-import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -33,7 +30,7 @@ public class BarometricPressureHandler extends BaseSensorHandler implements Sens
     public BluetoothOscData getPayload(ServiceMeasurementUUID serviceMeasurementUUID, String sensorName, String address, BluetoothGattCharacteristic characteristic) {
         float value = parseEnvironmentalSensing(characteristic);
         if (value < 0) return null;
-        return new BluetoothOscData(OSC_ADDRESS, Arrays.asList(new Float(value)));
+        return new BluetoothOscData(OSC_ADDRESS, Collections.singletonList(Float.valueOf(value)));
     }
 
 

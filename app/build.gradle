@@ -34,8 +34,10 @@ dependencies {
     implementation 'com.github.hoijui.JavaOSC:javaosc-core:javaosc-0.4'
     implementation 'org.apmem.tools:layouts:1.10@aar'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    // Do not upgrade, minSdk for >=1.7.0 must be at least 19
     implementation 'androidx.fragment:fragment:1.6.2'
     implementation 'com.github.SensorApps:Common:0c0ee17bf8'
     implementation 'androidx.preference:preference:1.2.1'
+    // Do not upgrade, minSdk for >=1.12.0 must be at least 19
     implementation 'com.google.android.material:material:1.11.0'
 }

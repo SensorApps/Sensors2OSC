@@ -1,11 +1,10 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -42,7 +41,7 @@ public class HeartRateHandler extends BaseSensorHandler implements SensorHandler
         if (heartRate == -1){
             return null;
         }
-        return new BluetoothOscData(OSC_ADDRESS, Arrays.asList(heartRate));
+        return new BluetoothOscData(OSC_ADDRESS, Collections.singletonList(heartRate));
     }
 
     private static float parseHeartRate(BluetoothGattCharacteristic characteristic) {

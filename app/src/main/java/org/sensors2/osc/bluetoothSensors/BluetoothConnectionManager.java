@@ -17,26 +17,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.BarometricPressureHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.CyclingCadenceHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.CyclingDistanceSpeedHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.CyclingPowerHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.HeartRateHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.RunningSpeedAndCadenceHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.SensorHandler;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.ServiceMeasurementUUID;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.BarometricPressureHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.CyclingCadenceHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.CyclingDistanceSpeedHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.CyclingPowerHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.HeartRateHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.RunningSpeedAndCadenceHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.SensorHandler;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.ServiceMeasurementUUID;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 import org.sensors2.osc.dispatch.OscDispatcher;
 
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -68,7 +65,7 @@ public class BluetoothConnectionManager {
     public BluetoothConnectionManager(Context context){
         this.context = context;
     }
-    private BluetoothManager bluetoothManager;
+
     private BluetoothAdapter bluetoothAdapter;
     private final BluetoothGattCallback gattCallback = new BluetoothGattCallback() {
         @Override
@@ -179,14 +176,11 @@ public class BluetoothConnectionManager {
         }
     };
 
-    private final Handler btHandler = new Handler(Objects.requireNonNull(Looper.myLooper()));
-
-
     @RequiresPermission(Manifest.permission.BLUETOOTH_CONNECT)
     public void connect() {
         Set<BluetoothDevice> pairedDevices = bluetoothAdapter.getBondedDevices();
 
-        if (pairedDevices.size() > 0) {
+        if (!pairedDevices.isEmpty()) {
             for (BluetoothDevice device : pairedDevices) {
                 if (device.getBondState() == BOND_BONDED) {
                     BluetoothClass bluetoothClass = device.getBluetoothClass();
@@ -209,12 +203,12 @@ public class BluetoothConnectionManager {
     public void disconnect() {
         for(SensorHandler handler : sensorHandlers){
             handler.disconnect();
-        };
+        }
     }
 
     public void checkForPermissions(Activity activity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            bluetoothManager = activity.getSystemService(BluetoothManager.class);
+            BluetoothManager bluetoothManager = activity.getSystemService(BluetoothManager.class);
             bluetoothAdapter = bluetoothManager.getAdapter();
 
             if (bluetoothAdapter != null) {

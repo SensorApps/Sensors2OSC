@@ -1,4 +1,4 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers.models;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers.models;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import java.util.UUID;
 

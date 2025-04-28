@@ -1,11 +1,11 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 import android.util.Log;
 import android.util.Pair;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +55,7 @@ public class CyclingCadenceHandler extends BaseSensorHandler implements SensorHa
             this.time = time;
         }
         public List<Float> asList() {
-            return Arrays.asList(new Float(count), new Float(time));
+            return Arrays.asList(Float.valueOf(count), Float.valueOf(time));
         }
 
         public float getCount() {

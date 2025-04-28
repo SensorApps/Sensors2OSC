@@ -1,9 +1,9 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
 import java.util.Collections;
 import java.util.List;

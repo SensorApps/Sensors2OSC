@@ -7,7 +7,7 @@ import android.os.Message;
 
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.dispatch.Measurement;
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 import org.sensors2.osc.sensors.Parameters;
 
 import java.util.ArrayList;

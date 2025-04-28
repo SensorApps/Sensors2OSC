@@ -1,10 +1,10 @@
-package org.sensors2.osc.bluetoothSensors.SensorHandlers;
+package org.sensors2.osc.bluetoothSensors.sensorHandlers;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Build;
 import android.util.Pair;
 
-import org.sensors2.osc.bluetoothSensors.SensorHandlers.models.BluetoothOscData;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -31,7 +31,7 @@ public class CyclingDistanceSpeedHandler extends BaseSensorHandler implements Se
     @Override
     public BluetoothOscData getPayload(ServiceMeasurementUUID serviceMeasurementUUID, String sensorName, String address, BluetoothGattCharacteristic characteristic) {
         Pair<WheelData, CyclingCadenceHandler.CrankData> data = parseCyclingCrankAndWheel(address, sensorName, characteristic);
-        if (data.first != null) {
+        if (data != null && data.first != null) {
             return new BluetoothOscData(OSC_ADDRESS, data.first.asList());
         }
         return null;
@@ -81,16 +81,8 @@ public class CyclingDistanceSpeedHandler extends BaseSensorHandler implements Se
             this.wheelRevolutionsTime = wheelRevolutionsTime;
         }
 
-        public long getWheelRevolutionsCount() {
-            return wheelRevolutionsCount;
-        }
-
-        public int getWheelRevolutionsTime() {
-            return wheelRevolutionsTime;
-        }
-
         public List<Float> asList() {
-            return Arrays.asList(new Float(wheelRevolutionsCount), new Float(wheelRevolutionsTime));
+            return Arrays.asList(Float.valueOf(wheelRevolutionsCount), Float.valueOf(wheelRevolutionsTime));
         }
     }
 }
