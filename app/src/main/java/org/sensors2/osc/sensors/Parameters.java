@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 
 import org.sensors2.osc.R;
 
@@ -249,8 +250,10 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
-        // add bluetooth
-        parameters.add(new org.sensors2.osc.sensors.Parameters(BLUETOOTH_PREFIX, "Bluetooth", BT_SENSOR));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            // add bluetooth
+            parameters.add(new org.sensors2.osc.sensors.Parameters(BLUETOOTH_PREFIX, "Bluetooth", BT_SENSOR));
+        }
         // add geolocation
         parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext),org.sensors2.common.sensors.Parameters.GEOLOCATION));
         // add device sensors
@@ -287,7 +290,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
             // unknown sensor OSC prefixes use sensor IDs as address, so they start with a number.
             char c =  param.getOscPrefix().charAt(0);
             if (c >= '0' && c <= '9') {
-               unknown.add(param);
+                unknown.add(param);
             } else if (uncalibratedSensorIds.contains(param.getSensorType())){
                 uncalibrated.add(param);
             } else {

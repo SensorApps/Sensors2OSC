@@ -13,7 +13,7 @@
     <string name="about_license_opentracks">Teile des Bluetooth-Codes sind übernommen von &lt;a href=&quot;https://github.com/OpenTracksApp/OpenTracks&quot;>OpenTracks&lt;/a>, die Lizenz findet sich unter &lt;a href=&quot;https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&quot;>https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&lt;/a>.</string>
     <string name="send_data">Daten senden</string>
     <string name="action_guide">Hilfe</string>
-    <string name="text_available_sensors">Verfügbare Sensoren</string>
+    <string name="text_available_sensors">Verfügbare Gerätesensoren</string>
     <string name="text_guide">Abhängig von Ihrem Telefon stehen eine Reihe von Sensoren zur Verfügung.</string>
     <string name="text_guide_headline">Hilfe</string>
     <string name="guide_max_range">Wertumfang</string>
@@ -77,4 +77,6 @@
     <string name="send_as_bundle">OSC-Daten als Bundle versenden</string>
     <string name="keep_screen_alive">Bildschirm beim Senden nicht ausschalten</string>
     <string name="multi_touch">Multi-Touch</string>
+    <string name="text_guide_bluetooth">Wenn das Android-Gerät mit Bluetooth-Geräten verbunden ist, die sich als Sensoren ausweisen, können deren Messwerte über OSC überträgen werden. Aktuell wird nur eine begrenzte Anzahl von Gerätecharakteristiken unterstützt, die üblicherweise für Sport- und Gesundheitsmessungen verwendet wird. Das funktioniert nicht für Bluetooth-Geräte, die nicht in der Liste bekannter Geräte auftauchen, weil diese nur mit einer App vom Hersteller funktionieren. Daten werden an eine OSC-Adresse mit dem Präfix /bt und einer von der Characteristik abgeleiteten Zieladresse gesendet, die Adresse könnte sich in Zukunft ändern. DIESES FEATURE IST NICHT GUT GETESTET UND KANN DIE APP ZUM ABSTURZ BRINGEN.</string>
+    <string name="text_guide_bluetooth_headline">Bluetooth-Sensoren (experimentell)</string>
 </resources>

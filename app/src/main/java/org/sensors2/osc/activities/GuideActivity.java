@@ -5,6 +5,7 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import org.sensors2.osc.R;
@@ -32,6 +33,10 @@ public class GuideActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2){
+            findViewById(R.id.bluetoothHeadline).setVisibility(View.GONE);
+            findViewById(R.id.bluetoothText).setVisibility(View.GONE);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_guide);
 
@@ -40,6 +45,10 @@ public class GuideActivity extends AppCompatActivity {
         List<Parameters> sensors = Parameters.GetSensors(sensorManager, this.getApplicationContext());
         availableSensorsHeadline.setText(sensors.size() + " " + availableSensorsHeadline.getText());
         for (Parameters parameters : sensors) {
+            // Do not show bluetooth sensor.
+            if (parameters.getSensorType() == Parameters.BT_SENSOR){
+                continue;
+            }
             this.CreateSensorFragments(parameters);
         }
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
