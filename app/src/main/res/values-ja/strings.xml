@@ -8,7 +8,7 @@
     <string name="sensitity">感度</string>
     <string name="title_activity_about">アプリについて</string>
     <string name="action_about">アプリについて</string>
-    <string name="about_buglinks">&lt;a href=&quot;https://github.com/SensorApps/Sensors2OSC/issues&quot;>GitHub&lt;/a> でバグを報告するか、&lt;a href=&quot;mailto:osc-bugs@sensors2.org&quot;">osc-bugs@sensors2.org&lt;/a> にメールをお送りください。 対応します。</string>
+    <string name="about_buglinks">&lt;a href="https://github.com/SensorApps/Sensors2OSC/issues"&gt;GitHub&lt;/a&gt; でバグを報告するか、&lt;a href="mailto:osc-bugs@sensors2.org""&gt;osc-bugs@sensors2.org&lt;/a&gt; にメールをお送りください。 対応します。</string>
     <string name="about_license">ライセンス</string>
     <string name="about_mit_license_1">本ソフトウェアおよび関連するドキュメントファイル
 （以下「本ソフトウェア」といいます）のコピーを入手した者は、これにより、無料で、
@@ -25,7 +25,7 @@
 あるいはソフトウェアの使用またはその他の扱いによって生じる一切の請求、損害、
 その他の義務について何らの責任も負わないものとします。 ]]></string>
     <string name="about_components">使用コンポーネント</string>
-    <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, ライセンスは &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a> をご覧ください。</string>
+    <string name="about_license_javaosc">&lt;a href="http://www.illposed.com/software/javaosc.html"&gt;JavaOSC&lt;/a&gt;, ライセンスは &lt;a href="https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE"&gt;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a&gt; をご覧ください。</string>
     <string name="send_data">データを送信</string>
     <string name="action_guide">ヘルプ</string>
     <string name="text_guide_headline">ヘルプ</string>
