@@ -2,6 +2,7 @@ package org.sensors2.osc.activities;
 
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
@@ -11,7 +12,6 @@ import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -124,7 +124,7 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
     }
 
     private Settings loadSettings() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences preferences = getSharedPreferences(getPackageName() + "_preferences", Context.MODE_PRIVATE);//PreferenceManager.getDefaultSharedPreferences(this);
         Settings settings = new Settings(preferences);
         OscConfiguration oscConfiguration = OscConfiguration.getInstance();
         oscConfiguration.setHost(settings.getHost());
