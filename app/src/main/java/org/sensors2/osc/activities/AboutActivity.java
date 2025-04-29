@@ -40,6 +40,9 @@ public class AboutActivity extends AppCompatActivity {
         TextView javaOsc = findViewById(R.id.javaosc_links);
         javaOsc.setMovementMethod(LinkMovementMethod.getInstance());
         javaOsc.setText(Html.fromHtml(getResources().getString(R.string.about_license_javaosc)));
+        TextView opentracks = findViewById(R.id.opentracks_links);
+        opentracks.setMovementMethod(LinkMovementMethod.getInstance());
+        opentracks.setText(Html.fromHtml(getResources().getString(R.string.about_license_opentracks)));
         TextView bugLinks = findViewById(R.id.buglinks);
         bugLinks.setMovementMethod(LinkMovementMethod.getInstance());
         bugLinks.setText(Html.fromHtml(getResources().getString(R.string.about_buglinks)));

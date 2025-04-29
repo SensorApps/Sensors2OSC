@@ -72,5 +72,13 @@
             android:linksClickable="true"
             android:paddingTop="@dimen/activity_vertical_margin"
             android:text="@string/about_license_javaosc"/>
+
+        <TextView
+            android:id="@+id/opentracks_links"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:linksClickable="true"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:text="@string/about_license_opentracks"/>
     </LinearLayout>
 </ScrollView>

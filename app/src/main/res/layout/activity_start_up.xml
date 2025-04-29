@@ -33,7 +33,8 @@
             app:strokeWidth="1dp"
             app:cornerRadius="4dp"
             app:strokeColor="?attr/colorPrimary"
-            android:onClick="onStartMultiTouch"/>
+            android:onClick="onStartMultiTouch"
+            tools:ignore="UsingOnClickInXml" />
 
     </LinearLayout>
 

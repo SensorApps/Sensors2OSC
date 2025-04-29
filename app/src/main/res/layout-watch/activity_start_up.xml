@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent">
     <LinearLayout
@@ -33,7 +34,8 @@
                 app:strokeWidth="1dp"
                 app:cornerRadius="4dp"
                 app:strokeColor="?attr/colorPrimary"
-                android:onClick="onStartMultiTouch"/>
+                android:onClick="onStartMultiTouch"
+                tools:ignore="UsingOnClickInXml" />
 
         </LinearLayout>
 

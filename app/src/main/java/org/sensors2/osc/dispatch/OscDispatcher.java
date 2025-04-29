@@ -7,6 +7,7 @@ import android.os.Message;
 
 import org.sensors2.common.dispatch.DataDispatcher;
 import org.sensors2.common.dispatch.Measurement;
+import org.sensors2.osc.bluetoothSensors.sensorHandlers.models.BluetoothOscData;
 import org.sensors2.osc.sensors.Parameters;
 
 import java.util.ArrayList;
@@ -30,6 +31,16 @@ public class OscDispatcher implements DataDispatcher {
 
     public void addSensorConfiguration(SensorConfiguration sensorConfiguration) {
         this.sensorConfigurations.add(sensorConfiguration);
+    }
+
+    public void dispatch(BluetoothOscData bluetoothData){
+        Message message = new Message();
+        Bundle data = new Bundle();
+        data.putFloatArray(Bundling.VALUES, bluetoothData.getData());
+        data.putString(Bundling.OSC_PARAMETER, "bt/" + bluetoothData.getOscAddress());
+        message.setData(data);
+        OscHandler handler = communication.getOscHandler();
+        handler.sendMessage(message);
     }
 
     @Override

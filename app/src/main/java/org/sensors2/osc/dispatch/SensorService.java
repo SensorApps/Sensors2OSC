@@ -34,11 +34,13 @@ import org.sensors2.common.sensors.SensorCommunication;
 import org.sensors2.common.sensors.Settings;
 import org.sensors2.osc.R;
 import org.sensors2.osc.activities.StartUpActivity;
+import org.sensors2.osc.bluetoothSensors.BluetoothConnectionManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
@@ -52,6 +54,7 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private static final String NOTIFICATION_CHANNEL = "org.sensors2.osc";
     private static final String WAKELOCK_TAG = "org.sensors2.osc:wakelock";
     public static final int GEOLOC_PERMISSION_REQUEST = 1337;
+    public static final int BT_PERMISSION_REQUEST = 1312;
     public final int NOTIFICATION_ID = 1;
     private final OscBinder binder = new OscBinder();
     private final BackgroundLocationListener locationListener;
@@ -63,21 +66,30 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     private boolean isSendingData = false;
     private org.sensors2.osc.sensors.Settings settings;
     private PowerManager.WakeLock wakeLock;
+    private BluetoothConnectionManager bluetoothConnections;
 
     public SensorService() {
         super();
         this.locationListener = new BackgroundLocationListener();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this.bluetoothConnections = new BluetoothConnectionManager(this);
+        }
     }
 
     @SuppressLint("WakelockTimeout")
     public void startSendingData() {
         if (!this.isSendingData) {
             initNotificationChannel();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                this.bluetoothConnections.setDispatcher(dispatcher);
+            }
             int sensorRate = this.settings.getSensorRate();
             for (SensorConfiguration sensorConfig : this.dispatcher.getSensorConfigurations()) {
                 if (sensorConfig.getSend()) {
                     if (sensorConfig.getSensorType() == Parameters.GEOLOCATION) {
                         this.bindLocation();
+                    } else if (sensorConfig.getSensorType() == org.sensors2.osc.sensors.Parameters.BT_SENSOR){
+                        this.bindBluetooth();
                     } else {
                         Sensor sensor = this.sensorManager.getDefaultSensor(sensorConfig.getSensorType());
                         this.sensorManager.registerListener(this, sensor, sensorRate);
@@ -130,10 +142,30 @@ public class SensorService extends Service implements SensorActivity, SensorEven
             else {
                 this.locationManager.removeUpdates(this.locationListener);
             }
+        } else if (sensorType == org.sensors2.osc.sensors.Parameters.BT_SENSOR) {
+            if (activation){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    this.checkForBluetoothPermission(activity);
+                    if (this.isSendingData) {
+                        this.bindBluetooth();
+                    }
+                }
+            }
+            else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    this.bluetoothConnections.disconnect();
+                }
+            }
+
         } else if (activation) {
             Sensor sensor = this.sensorManager.getDefaultSensor(sensorType);
             this.sensorManager.registerListener(this, sensor, this.settings.getSensorRate());
         }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
+    private void checkForBluetoothPermission(Activity activity) {
+        this.bluetoothConnections.checkForPermissions(activity);
     }
 
     public boolean getSensorActivation(int sensorType) {
@@ -259,6 +291,21 @@ public class SensorService extends Service implements SensorActivity, SensorEven
     public IBinder onBind(Intent intent) {
         setUpSending();
         return binder;
+    }
+
+    public void rebindBluetooth() {
+        if (this.isSendingData){
+            this.bindBluetooth();
+        }
+    }
+
+    private void bindBluetooth() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            this.bluetoothConnections.connect();
+        }
     }
 
     public class OscBinder extends Binder {

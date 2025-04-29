@@ -69,6 +69,17 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                 dispatcher.addSensorConfiguration(sensorConfiguration);
             }
 
+            // Bluetooth
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
+                StartUpActivity.this.sensorService.rebindBluetooth();
+                SensorConfiguration bluetooth = new SensorConfiguration();
+                bluetooth.setSendDuplicates(true);
+                bluetooth.setSend(true);
+                bluetooth.setSensorType(-1);
+                bluetooth.setOscParam("bt");
+                dispatcher.addSensorConfiguration(bluetooth);
+            }
+
             // Setup location
             SensorConfiguration location = new SensorConfiguration();
             location.setSendDuplicates(true);
@@ -112,6 +123,7 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
         bindService(new Intent(this, SensorService.class), this.sensorServiceConnection, BIND_AUTO_CREATE);
 
         Toolbar toolbar = findViewById(R.id.action_bar);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             toolbar.setNavigationIcon(R.drawable.sensors2osc);
         }
@@ -198,6 +210,19 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
                 // Geolocation permission is not granted
                 for (SensorFragment fragment : this.sensorFragments){
                     if (fragment.getSensorType() == Parameters.GEOLOCATION){
+                        fragment.deactivate();
+                        break;
+                    }
+                }
+            }
+        } else if (requestCode == SensorService.BT_PERMISSION_REQUEST){
+            boolean btIsGranted = grantResults.length == 1 && (grantResults[0] == PackageManager.PERMISSION_GRANTED);
+            if (btIsGranted) {
+                sensorService.rebindBluetooth();
+            } else {
+                // Bluetooth permission is not granted
+                for (SensorFragment fragment : this.sensorFragments){
+                    if (fragment.getSensorType() == org.sensors2.osc.sensors.Parameters.BT_SENSOR){
                         fragment.deactivate();
                         break;
                     }

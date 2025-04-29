@@ -30,11 +30,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.]]></string>
     <string name="about_components">Used Components</string>
     <string name="about_license_javaosc">&lt;a href=&quot;http://www.illposed.com/software/javaosc.html&quot;>JavaOSC&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&quot;>https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE&lt;/a>.</string>
+    <string name="about_license_opentracks">Parts of the Bluetooth code is copied from &lt;a href=&quot;https://github.com/OpenTracksApp/OpenTracks&quot;>OpenTracks&lt;/a>, license can be found at &lt;a href=&quot;https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&quot;>https://raw.githubusercontent.com/OpenTracksApp/OpenTracks/refs/heads/main/LICENSE&lt;/a>.</string>
     <string name="send_data">Send data</string>
     <string name="action_guide">Help</string>
     <string name="text_guide_headline">Help</string>
     <string name="text_guide">Depending on your phone, you have several sensors and values available.</string>
-    <string name="text_available_sensors">Available Sensors</string>
+    <string name="text_available_sensors">Available Device Sensors</string>
     <string name="text_guide_multitouch">When you open the multi-touch area, each touchpoint will send its coordinates via OSC.\nThe address is in the format /touch&lt;index&gt;, where index is a 1-based. The coordinates are sent as a list of 2 float values, X and Y and range from 0 to 1.\nLifting the finger will send -1 on both values to enable you to detect that event.</string>
     <string name="text_guide_multitouch_headline">Multi-touch</string>
     <string name="text_guide_geo">If you enable geopositioning for Sensors2OSC, the app will send data to the /location OSC address, whenever a new location is registered by the sensors.\nThis will send out a list of 5 values: Latitude, longitude, altitude, bearing and accuracy.\nAltitude and accuracy will be in meters, the other values in degrees.\nNot every device will populate all values, some may be constant 0.</string>
@@ -93,4 +94,6 @@ THE SOFTWARE.]]></string>
     <string name="sensor_type_head_tracker">Head Tracker</string>
     <string name="send_as_bundle">Send OSC values as bundle</string>
     <string name="keep_screen_alive">Keep screen alive when sending data</string>
+    <string name="text_guide_bluetooth">If the Android device is connected to bluetooth devices, that announce themselves as sensors, then their values can be transmitted via OSC. Currently only a limited number of device characteristics are supported, mostly sports related. This will not work with devices that do not show up in the list of known devices, as these devices only communicate with the app of the manufacturer. The data is sent to addresses starting with /bt and a portion derived from the Bluetooth characteric, and may change in the future. THIS FEATURE IS NOT TESTED WELL AND MAY CRASH THE APP.</string>
+    <string name="text_guide_bluetooth_headline">Bluetooth Sensors (Experimental)</string>
 </resources>

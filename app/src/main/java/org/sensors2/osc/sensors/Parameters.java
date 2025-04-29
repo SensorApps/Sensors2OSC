@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.nfc.NfcAdapter;
+import android.os.Build;
 
 import org.sensors2.osc.R;
 
@@ -16,10 +17,12 @@ import java.util.List;
  * Created by thomas on 05.11.14.
  */
 public class Parameters extends org.sensors2.common.sensors.Parameters {
+    public static final int BT_SENSOR = Integer.MIN_VALUE + 1;
     private final String oscPrefix;
     private final String name;
     private static final String NFC_PREFIX = "nfc";
     private static final String GEOLOCATION_PREFIX = "location";
+    private static final String BLUETOOTH_PREFIX = "bt";
 
     private Parameters(String oscPrefix, String name, int sensorType) {
         super(sensorType);
@@ -247,8 +250,12 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
 
     public static List<Parameters> GetSensors(SensorManager sensorManager, Context applicationContext) {
         List<Parameters> parameters = new ArrayList<>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            // add bluetooth
+            parameters.add(new org.sensors2.osc.sensors.Parameters(BLUETOOTH_PREFIX, "Bluetooth", BT_SENSOR));
+        }
         // add geolocation
-        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext), org.sensors2.common.sensors.Parameters.GEOLOCATION));
+        parameters.add(new org.sensors2.osc.sensors.Parameters(GEOLOCATION_PREFIX, getString(R.string.text_guide_geo_headline, applicationContext),org.sensors2.common.sensors.Parameters.GEOLOCATION));
         // add device sensors
         List<Integer> addedSensors = new ArrayList<>();
         for (Sensor sensor : sensorManager.getSensorList(Sensor.TYPE_ALL)) {
@@ -283,7 +290,7 @@ public class Parameters extends org.sensors2.common.sensors.Parameters {
             // unknown sensor OSC prefixes use sensor IDs as address, so they start with a number.
             char c =  param.getOscPrefix().charAt(0);
             if (c >= '0' && c <= '9') {
-               unknown.add(param);
+                unknown.add(param);
             } else if (uncalibratedSensorIds.contains(param.getSensorType())){
                 uncalibrated.add(param);
             } else {
