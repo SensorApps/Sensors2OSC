@@ -5,8 +5,10 @@ Antonio Deusany de Carvalho Junior <dj@ime.usp.br>
 Contributors:
 Tal Kirshboim
 naofum (Japanese translation)
+தமிழ்நேரம் (Tamil translation)
+naofum (Japanese translation)
 
-Copyright (c) 2014 - 2017 Thomas Mayer, Antonio Deusany de Carvalho Junior
+Copyright (c) 2014 - 2025 Thomas Mayer, Antonio Deusany de Carvalho Junior
 and others.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -30,3 +32,7 @@ THE SOFTWARE.
 Uses the following component:
 JavaOSC (http://www.illposed.com/software/javaosc.html), licensed under the
 terms found at: https://raw.githubusercontent.com/hoijui/JavaOSC/master/LICENSE
+
+Part of the Bluetooth code is copied from OpenTracks 
+(https://github.com/OpenTracksApp/OpenTracks) and subject to the Apache 2 License
+(https://github.com/OpenTracksApp/OpenTracks/blob/main/LICENSE)
