@@ -71,7 +71,6 @@ public class StartUpActivity extends AppCompatActivity implements CompoundButton
 
             // Bluetooth
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2){
-                StartUpActivity.this.sensorService.rebindBluetooth();
                 SensorConfiguration bluetooth = new SensorConfiguration();
                 bluetooth.setSendDuplicates(true);
                 bluetooth.setSend(true);
