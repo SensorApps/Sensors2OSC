@@ -1,6 +1,6 @@
 # Sensors2OSC
 
-Android app for sending sensor data, multitouch and NFC tags via [Open Sound Control (OSC)](http://opensoundcontrol.org/) over network to a recipient. 
+Android app for sending sensor data and multitouch via [Open Sound Control (OSC)](http://opensoundcontrol.org/) over network to a recipient. 
 
 Typical use case is controlling a music application from your phone or tablet.
 

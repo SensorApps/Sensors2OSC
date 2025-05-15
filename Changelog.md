@@ -1,3 +1,10 @@
+# 0.9.0 (2025-05-15)
+- Experimental: support for some Bluetooth LE sensors
+- Added and updated (partial) translations:
+    * Dutch
+    * Tamil
+    * Japanese
+
 # 0.8.0 (2025-04-13)
 - Breaking change: Make orientation sensor always transmit radians
 - Fix layout for Android > 14

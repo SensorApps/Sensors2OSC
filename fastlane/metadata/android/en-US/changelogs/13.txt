@@ -1,0 +1,5 @@
+- Experimental support for Bluetooth LE sensors.
+- Added and updated (partial) translations: 
+	* Dutch 
+	* Tamil 
+	* Japanese
