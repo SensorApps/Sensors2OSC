@@ -1,3 +1,4 @@
+**Due to Github's determination to be the "world’s leading AI-powered developer platform" this project has been moved over to [Codeberg](https://codeberg.org/Residuum/Sensors2OSC)**
 # Sensors2OSC
 
 Android app for sending sensor data and multitouch via [Open Sound Control (OSC)](http://opensoundcontrol.org/) over network to a recipient. 
